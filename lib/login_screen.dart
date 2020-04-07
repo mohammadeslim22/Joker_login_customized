@@ -76,37 +76,24 @@ class _MyHomePageState extends State<LoginScreenPage>
         (Directionality.of(context) == TextDirection.rtl) ? true : false;
     return Padding(
       padding: EdgeInsets.fromLTRB(15, 30, 15, 0),
-      child: Material(
-        elevation: 0.0001,
-        borderRadius: BorderRadius.circular(25.0),
-        borderOnForeground: true,
-        child: Column(
-          children: <Widget>[
-            Material(
-              borderOnForeground: true,
-              borderRadius: BorderRadius.circular(25.0),
-              child: Column(
-                children: <Widget>[
-                  customtext(
-                    'رقم الجوال ',
-                    myController,
-                    Icons.person_outline,
-                    TextInputType.phone,
-                    isRTL: isRTL,
-                    obscureText: false,
-                  ),
-                  customtext('كلمة المرور', myController2, Icons.lock_outline,
-                      TextInputType.visiblePassword,
-                      y: (_obscureText == false)
-                          ? Icons.visibility
-                          : Icons.visibility_off,
-                      obscureText: _obscureText,
-                      isRTL: isRTL)
-                ],
-              ),
-            ),
-          ],
-        ),
+      child: Column(
+        children: <Widget>[
+          customtext(
+            'رقم الجوال ',
+            myController,
+            Icons.person_outline,
+            TextInputType.phone,
+            isRTL: isRTL,
+            obscureText: false,
+          ),
+          customtext('كلمة المرور', myController2, Icons.lock_outline,
+              TextInputType.visiblePassword,
+              y: (_obscureText == false)
+                  ? Icons.visibility
+                  : Icons.visibility_off,
+              obscureText: _obscureText,
+              isRTL: isRTL)
+        ],
       ),
     );
   }
@@ -127,8 +114,7 @@ class _MyHomePageState extends State<LoginScreenPage>
               width: 100.0,
               height: 100.0,
             )),
-        Center(
-            child: Column(
+        Column(
           children: <Widget>[
             Padding(
               padding: EdgeInsets.fromLTRB(0, 0, 0, 5),
@@ -150,7 +136,7 @@ class _MyHomePageState extends State<LoginScreenPage>
                   fontSize: 20,
                 )),
           ],
-        )),
+        ),
         Padding(
             padding: EdgeInsets.fromLTRB(0, 50, 0, 0),
             child: Column(
@@ -205,15 +191,12 @@ class _MyHomePageState extends State<LoginScreenPage>
             ),
             Padding(
               padding: EdgeInsets.fromLTRB(0, 80, 00, 10),
-              child: Container(
-                alignment: Alignment.center,
-                child: Text(
-                  "لا تمتلك حساب ؟",
-                  style: TextStyle(
-                    fontSize: 15,
-                    fontFamily: "Almarai",
-                    fontWeight: FontWeight.w100,
-                  ),
+              child: Text(
+                "لا تمتلك حساب ؟",
+                style: TextStyle(
+                  fontSize: 15,
+                  fontFamily: "Almarai",
+                  fontWeight: FontWeight.w100,
                 ),
               ),
             ),
