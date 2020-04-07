@@ -85,8 +85,7 @@ class _MyHomePageState extends State<LoginScreenPage>
             Material(
               borderOnForeground: true,
               borderRadius: BorderRadius.circular(25.0),
-              child: Container(
-                  child: Column(
+              child: Column(
                 children: <Widget>[
                   customtext(
                     'رقم الجوال ',
@@ -104,7 +103,7 @@ class _MyHomePageState extends State<LoginScreenPage>
                       obscureText: _obscureText,
                       isRTL: isRTL)
                 ],
-              )),
+              ),
             ),
           ],
         ),
