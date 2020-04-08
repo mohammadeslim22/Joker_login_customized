@@ -6,11 +6,7 @@ import 'counter.dart';
 class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => MyCounter(),
-      child: LoginScreenPage(),
-      builder: (context) => MyCounter(),
-    );
+    return LoginScreenPage();
   }
 }
 
@@ -25,6 +21,7 @@ class _MyHomePageState extends State<LoginScreenPage>
   final myController = TextEditingController();
   final myController2 = TextEditingController();
   bool _obscureText = false;
+
   Widget customtext(String text, TextEditingController cController, IconData i,
       TextInputType kt,
       {IconData y, bool isRTL, bool obscureText}) {
@@ -97,7 +94,12 @@ class _MyHomePageState extends State<LoginScreenPage>
       ),
     );
   }
-
+  TextStyle mystyle = const TextStyle(
+                      fontWeight: FontWeight.w100,
+                      fontFamily: 'Almarai',
+                      color: Colors.black,
+                      fontSize: 15,
+                    );
   @override
   Widget build(BuildContext context) {
     final bolc = Provider.of<MyCounter>(context);
@@ -108,12 +110,13 @@ class _MyHomePageState extends State<LoginScreenPage>
       },
       child: new ListView(children: <Widget>[
         Padding(
-            padding: EdgeInsets.fromLTRB(15, 30, 15, 0),
-            child: new Image(
-              image: new AssetImage('images/logo.png'),
-              width: 100.0,
-              height: 100.0,
-            )),
+          padding: EdgeInsets.fromLTRB(15, 30, 15, 0),
+          child: new Image(
+            image: new AssetImage('images/logo.png'),
+            width: 100.0,
+            height: 100.0,
+          ),
+        ),
         Column(
           children: <Widget>[
             Padding(
@@ -152,12 +155,7 @@ class _MyHomePageState extends State<LoginScreenPage>
                       )),
                 ),
                 Text("الرجاء ادخال رقم الموبايل وكلمة المرور",
-                    style: TextStyle(
-                      fontWeight: FontWeight.w100,
-                      fontFamily: 'Almarai',
-                      color: Colors.black,
-                      fontSize: 15,
-                    )),
+                    style: mystyle),
               ],
             )),
         Column(
@@ -193,11 +191,7 @@ class _MyHomePageState extends State<LoginScreenPage>
               padding: EdgeInsets.fromLTRB(0, 80, 00, 10),
               child: Text(
                 "لا تمتلك حساب ؟",
-                style: TextStyle(
-                  fontSize: 15,
-                  fontFamily: "Almarai",
-                  fontWeight: FontWeight.w100,
-                ),
+                style: mystyle,
               ),
             ),
             Padding(
@@ -217,12 +211,7 @@ class _MyHomePageState extends State<LoginScreenPage>
                   ),
                   Text(
                     "تمتلك متجر وترغب بالانضمام",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 15,
-                      fontFamily: "Almarai",
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: mystyle,
                   ),
                 ],
               ),
