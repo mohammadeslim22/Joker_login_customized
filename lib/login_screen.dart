@@ -94,12 +94,20 @@ class _MyHomePageState extends State<LoginScreenPage>
       ),
     );
   }
+
+  String fontfamily = "Almarai";
   TextStyle mystyle = const TextStyle(
-                      fontWeight: FontWeight.w100,
-                      fontFamily: 'Almarai',
-                      color: Colors.black,
-                      fontSize: 15,
-                    );
+    fontWeight: FontWeight.w100,
+    fontFamily: 'Almarai',
+    color: Colors.black,
+    fontSize: 15,
+  );
+  TextStyle mystyle2 = const TextStyle(
+    fontFamily: "Almarai",
+    fontWeight: FontWeight.bold,
+    color: Colors.black,
+    fontSize: 40,
+  );
   @override
   Widget build(BuildContext context) {
     final bolc = Provider.of<MyCounter>(context);
@@ -123,17 +131,12 @@ class _MyHomePageState extends State<LoginScreenPage>
               padding: EdgeInsets.fromLTRB(0, 0, 0, 5),
               child: Text("خصومات",
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontFamily: 'Almarai',
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                    fontSize: 40,
-                  )),
+                  style: mystyle2),
             ),
             Text("كل ما تحتاجه",
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontFamily: 'Almarai',
+                  fontFamily: fontfamily,
                   fontWeight: FontWeight.w300,
                   color: Colors.orange,
                   fontSize: 20,
@@ -147,15 +150,9 @@ class _MyHomePageState extends State<LoginScreenPage>
                 Padding(
                   padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
                   child: Text("مرحبا  بك",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'Almarai',
-                        color: Colors.black,
-                        fontSize: 35,
-                      )),
+                      style: mystyle2),
                 ),
-                Text("الرجاء ادخال رقم الموبايل وكلمة المرور",
-                    style: mystyle),
+                Text("الرجاء ادخال رقم الموبايل وكلمة المرور", style: mystyle),
               ],
             )),
         Column(
