@@ -197,7 +197,7 @@ class _MyHomePageState extends State<LoginScreenPage>
                       borderRadius: new BorderRadius.circular(18.0),
                       side: BorderSide(color: Colors.orange)),
                   onPressed: () {
-                    bolc.changechild();
+                    bolc.changechild("Login");
                     bolc.togelf();
                   },
                   color: Colors.deepOrangeAccent,
@@ -254,10 +254,10 @@ class _MyHomePageState extends State<LoginScreenPage>
 
 class ButtonToUse extends StatelessWidget {
   ButtonToUse(this.buttonstring, {this.fw, this.fc, this.myfunc});
-  var buttonstring;
-  FontWeight fw;
-  Color fc;
-  Function myfunc;
+  final String buttonstring;
+  final FontWeight fw;
+  final Color fc;
+  final Function myfunc;
   @override
   Widget build(BuildContext context) {
     return RaisedButton(

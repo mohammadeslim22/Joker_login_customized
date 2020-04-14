@@ -3,6 +3,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'package:provider/provider.dart';
 
+import 'appLocalizations.dart';
 import 'counter.dart';
 import 'login_screen.dart';
 
@@ -13,27 +14,38 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-        localizationsDelegates: [
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-        ],
+        debugShowCheckedModeBanner: false,
         supportedLocales: [
           Locale("en", "US"),
           Locale('ar', 'AE'),
+          Locale('tr', 'TR'),
         ],
-      title: 'Flutter Demo',
-      theme: ThemeData(
-
-        primarySwatch: Colors.blue,
-      ),
-          home: ChangeNotifierProvider(
+        localizationsDelegates: [
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
+      //     localeResolutionCallback: (locale, supportedLocales) {
+      //   // Check if the current device locale is supported
+      //   for (var supportedLocale in supportedLocales) {
+      //     if (supportedLocale.languageCode == locale.languageCode &&
+      //         supportedLocale.countryCode == locale.countryCode) {
+      //       return supportedLocale;
+      //     }
+      //   }
+      //   // If the locale of the device is not supported, use the first one
+      //   // from the list (English, in this case).
+      //   return supportedLocales.first;
+      // },
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: ChangeNotifierProvider(
           create: (context) => MyCounter(),
           child: LoginScreen(),
           builder: (context) => MyCounter(),
-        )
-        
-    );
+        ));
   }
 }
 

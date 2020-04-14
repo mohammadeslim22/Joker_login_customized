@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:login_page_customized/functions.dart';
 import 'package:provider/provider.dart';
+import 'appLocalizations.dart';
 import 'counter.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -12,6 +14,7 @@ class LoginScreen extends StatelessWidget {
 
 class LoginScreenPage extends StatefulWidget {
   LoginScreenPage({Key key}) : super(key: key);
+
   @override
   _MyHomePageState createState() => new _MyHomePageState();
 }
@@ -24,7 +27,7 @@ class _MyHomePageState extends State<LoginScreenPage>
 
   Widget customtext(String text, TextEditingController cController, IconData i,
       TextInputType kt,
-      {IconData y, bool isRTL, bool obscureText}) {
+      {IconData y, bool obscureText}) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
       child: TextFormField(
@@ -69,27 +72,28 @@ class _MyHomePageState extends State<LoginScreenPage>
   }
 
   Widget customcard(BuildContext context) {
-    bool isRTL =
-        (Directionality.of(context) == TextDirection.rtl) ? true : false;
     return Padding(
-      padding: EdgeInsets.fromLTRB(15, 30, 15, 0),
+      padding: const EdgeInsets.fromLTRB(15, 30, 15, 0),
       child: Column(
         children: <Widget>[
           customtext(
-            'رقم الجوال ',
+            trans(context, 'mobile_no'),
+            // AppLocalizations.of(context).translate('mobile_no'),
             myController,
             Icons.person_outline,
             TextInputType.phone,
-            isRTL: isRTL,
             obscureText: false,
           ),
-          customtext('كلمة المرور', myController2, Icons.lock_outline,
-              TextInputType.visiblePassword,
-              y: (_obscureText == false)
-                  ? Icons.visibility
-                  : Icons.visibility_off,
-              obscureText: _obscureText,
-              isRTL: isRTL)
+          customtext(
+            AppLocalizations.of(context).translate('password'),
+            myController2,
+            Icons.lock_outline,
+            TextInputType.visiblePassword,
+            y: (_obscureText == false)
+                ? Icons.visibility
+                : Icons.visibility_off,
+            obscureText: _obscureText,
+          )
         ],
       ),
     );
@@ -111,6 +115,7 @@ class _MyHomePageState extends State<LoginScreenPage>
   @override
   Widget build(BuildContext context) {
     final bolc = Provider.of<MyCounter>(context);
+
     return Scaffold(
         body: GestureDetector(
       onTap: () {
@@ -129,11 +134,10 @@ class _MyHomePageState extends State<LoginScreenPage>
           children: <Widget>[
             Padding(
               padding: EdgeInsets.fromLTRB(0, 0, 0, 5),
-              child: Text("خصومات",
-                  textAlign: TextAlign.center,
-                  style: mystyle2),
+              child: Text(AppLocalizations.of(context).translate('Joker'),
+                  textAlign: TextAlign.center, style: mystyle2),
             ),
-            Text("كل ما تحتاجه",
+            Text(AppLocalizations.of(context).translate('all_you_need'),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontFamily: fontfamily,
@@ -149,10 +153,13 @@ class _MyHomePageState extends State<LoginScreenPage>
               children: <Widget>[
                 Padding(
                   padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
-                  child: Text("مرحبا  بك",
+                  child: Text(AppLocalizations.of(context).translate('Hello'),
                       style: mystyle2),
                 ),
-                Text("الرجاء ادخال رقم الموبايل وكلمة المرور", style: mystyle),
+                Text(
+                    AppLocalizations.of(context)
+                        .translate('enter_login_information'),
+                    style: mystyle),
               ],
             )),
         Column(
@@ -166,8 +173,10 @@ class _MyHomePageState extends State<LoginScreenPage>
                 horizontal: 5.0,
               ),
               child: Row(children: [
-                ButtonToUse("نسيت كلمة المرور ؟",
-                    fw: FontWeight.w500, fc: Colors.black),
+                ButtonToUse(
+                    AppLocalizations.of(context).translate('forget_password'),
+                    fw: FontWeight.w500,
+                    fc: Colors.black),
               ]),
             ),
             Padding(
@@ -177,38 +186,42 @@ class _MyHomePageState extends State<LoginScreenPage>
                       borderRadius: new BorderRadius.circular(18.0),
                       side: BorderSide(color: Colors.orange)),
                   onPressed: () {
-                    bolc.changechild();
+                    bolc.changechild(
+                        AppLocalizations.of(context).translate('Login'));
                     bolc.togelf();
                   },
                   color: Colors.deepOrangeAccent,
                   textColor: Colors.white,
-                  child: bolc.f),
+                  child: bolc.returnchild(
+                      AppLocalizations.of(context).translate('Login'))),
             ),
             Padding(
               padding: EdgeInsets.fromLTRB(0, 80, 00, 10),
               child: Text(
-                "لا تمتلك حساب ؟",
+                AppLocalizations.of(context).translate('dont_have_account'),
                 style: mystyle,
               ),
             ),
             Padding(
               padding: EdgeInsets.fromLTRB(0, 0, 00, 30),
-              child: ButtonToUse("إنشاء حساب",
-                  fw: FontWeight.bold, fc: Colors.black),
+              child: ButtonToUse(
+                  AppLocalizations.of(context).translate('create_account'),
+                  fw: FontWeight.bold,
+                  fc: Colors.black),
             ),
             Padding(
               padding: EdgeInsets.fromLTRB(0, 0, 00, 30),
               child: new Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
+                  Text(
+                    AppLocalizations.of(context).translate('you_have_shop_'),
+                    style: mystyle,
+                  ),
                   ButtonToUse(
-                    " اضغط هنا",
+                    AppLocalizations.of(context).translate('click_here'),
                     fw: FontWeight.bold,
                     fc: Colors.green,
-                  ),
-                  Text(
-                    "تمتلك متجر وترغب بالانضمام",
-                    style: mystyle,
                   ),
                 ],
               ),
@@ -222,27 +235,24 @@ class _MyHomePageState extends State<LoginScreenPage>
 
 class ButtonToUse extends StatelessWidget {
   ButtonToUse(this.buttonstring, {this.fw, this.fc, this.myfunc});
-  var buttonstring;
-  FontWeight fw;
-  Color fc;
-  Function myfunc;
+ final String buttonstring;
+ final FontWeight fw;
+ final Color fc;
+ final Function myfunc;
   @override
   Widget build(BuildContext context) {
     return RaisedButton(
-      color: Colors.transparent,
-      elevation: 0,
-      child: Text(
-        buttonstring,
-        style: TextStyle(
-          color: fc,
-          fontSize: 15,
-          fontFamily: "Almarai",
-          fontWeight: fw,
+        color: Colors.transparent,
+        elevation: 0,
+        child: Text(
+          buttonstring,
+          style: TextStyle(
+            color: fc,
+            fontSize: 15,
+            fontFamily: "Almarai",
+            fontWeight: fw,
+          ),
         ),
-      ),
-      onPressed: () {
-        myfunc();
-      },
-    );
+        onPressed: () => myfunc());
   }
 }
