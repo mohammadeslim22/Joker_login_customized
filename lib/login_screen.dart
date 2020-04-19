@@ -4,6 +4,8 @@ import 'package:login_page_customized/functions.dart';
 import 'package:provider/provider.dart';
 import 'appLocalizations.dart';
 import 'counter.dart';
+import 'env.dart' as env;
+import 'registrationscreen.dart';
 
 class LoginScreen extends StatelessWidget {
   @override
@@ -21,16 +23,20 @@ class LoginScreenPage extends StatefulWidget {
 
 class _MyHomePageState extends State<LoginScreenPage>
     with TickerProviderStateMixin {
-  final myController = TextEditingController();
-  final myController2 = TextEditingController();
+  final TextEditingController usernameController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
   bool _obscureText = false;
-
+  FocusScopeNode _focusScopeNode = FocusScopeNode();
   Widget customtext(String text, TextEditingController cController, IconData i,
-      TextInputType kt,
-      {IconData y, bool obscureText}) {
+      TextInputType kt, TextInputAction action,
+      {IconData y, bool obscureText, Function handleSubmission}) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
       child: TextFormField(
+        textInputAction: action,
+        // TODO(isleem): handle submissions on username field
+
+       // onFieldSubmitted: handleSubmission,
         keyboardType: kt,
         controller: cController,
         style: new TextStyle(
@@ -48,13 +54,12 @@ class _MyHomePageState extends State<LoginScreenPage>
           hintText: text,
           hintStyle: TextStyle(
             fontSize: 15,
-            fontFamily: 'Almarai',
           ),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(7),
           ),
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(70),
+            borderRadius: BorderRadius.circular(7),
           ),
           contentPadding: EdgeInsets.symmetric(vertical: 0),
           prefixIcon: Icon(i),
@@ -78,40 +83,33 @@ class _MyHomePageState extends State<LoginScreenPage>
         children: <Widget>[
           customtext(
             trans(context, 'mobile_no'),
-            // AppLocalizations.of(context).translate('mobile_no'),
-            myController,
+            usernameController,
             Icons.person_outline,
             TextInputType.phone,
+            TextInputAction.next,
             obscureText: false,
+            handleSubmission: () {
+           //   _focusScopeNode.nextFocus();
+            },
           ),
           customtext(
-            AppLocalizations.of(context).translate('password'),
-            myController2,
+            trans(context, 'password'),
+            passwordController,
             Icons.lock_outline,
             TextInputType.visiblePassword,
+            TextInputAction.go,
             y: (_obscureText == false)
                 ? Icons.visibility
                 : Icons.visibility_off,
             obscureText: _obscureText,
+            // handleSubmission:
+            //     lgoin(usernameController.text, passwordController.text),
           )
         ],
       ),
     );
   }
 
-  String fontfamily = "Almarai";
-  TextStyle mystyle = const TextStyle(
-    fontWeight: FontWeight.w100,
-    fontFamily: 'Almarai',
-    color: Colors.black,
-    fontSize: 15,
-  );
-  TextStyle mystyle2 = const TextStyle(
-    fontFamily: "Almarai",
-    fontWeight: FontWeight.bold,
-    color: Colors.black,
-    fontSize: 40,
-  );
   @override
   Widget build(BuildContext context) {
     final bolc = Provider.of<MyCounter>(context);
@@ -123,7 +121,7 @@ class _MyHomePageState extends State<LoginScreenPage>
       },
       child: new ListView(children: <Widget>[
         Padding(
-          padding: EdgeInsets.fromLTRB(15, 30, 15, 0),
+          padding: const EdgeInsets.fromLTRB(15, 30, 15, 0),
           child: new Image(
             image: new AssetImage('images/logo.png'),
             width: 100.0,
@@ -132,36 +130,26 @@ class _MyHomePageState extends State<LoginScreenPage>
         ),
         Column(
           children: <Widget>[
-            Padding(
-              padding: EdgeInsets.fromLTRB(0, 0, 0, 5),
-              child: Text(AppLocalizations.of(context).translate('Joker'),
-                  textAlign: TextAlign.center, style: mystyle2),
-            ),
-            Text(AppLocalizations.of(context).translate('all_you_need'),
+            Text(AppLocalizations.of(context).translate('joker'),
+                textAlign: TextAlign.center, style: env.mystyle2),
+            SizedBox(height: 5),
+            Text(trans(context, 'all_you_need'),
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontFamily: fontfamily,
                   fontWeight: FontWeight.w300,
                   color: Colors.orange,
                   fontSize: 20,
                 )),
           ],
         ),
-        Padding(
-            padding: EdgeInsets.fromLTRB(0, 50, 0, 0),
-            child: Column(
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
-                  child: Text(AppLocalizations.of(context).translate('Hello'),
-                      style: mystyle2),
-                ),
-                Text(
-                    AppLocalizations.of(context)
-                        .translate('enter_login_information'),
-                    style: mystyle),
-              ],
-            )),
+        SizedBox(height: 50),
+        Column(
+          children: <Widget>[
+            Text(trans(context, 'hello'), style: env.mystyle2),
+            SizedBox(height: 10),
+            Text(trans(context, 'enter_login_information'), style: env.mystyle),
+          ],
+        ),
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.max,
@@ -169,57 +157,59 @@ class _MyHomePageState extends State<LoginScreenPage>
           children: <Widget>[
             customcard(context),
             Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: 5.0,
+              padding: const EdgeInsets.symmetric(
+                horizontal: 10.0,
               ),
-              child: Row(children: [
-                ButtonToUse(
-                    AppLocalizations.of(context).translate('forget_password'),
-                    fw: FontWeight.w500,
-                    fc: Colors.black),
+              child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+                ButtonToUse(trans(context, 'forget_password'),
+                    fw: FontWeight.w500, fc: Colors.black),
               ]),
             ),
             Padding(
-              padding: EdgeInsets.fromLTRB(20, 30, 20, 0),
+              padding: const EdgeInsets.fromLTRB(20, 30, 20, 0),
               child: RaisedButton(
                   shape: new RoundedRectangleBorder(
                       borderRadius: new BorderRadius.circular(18.0),
                       side: BorderSide(color: Colors.orange)),
                   onPressed: () {
                     bolc.changechild(
-                        AppLocalizations.of(context).translate('Login'));
+                      trans(context, 'login'),
+                    );
                     bolc.togelf();
                   },
                   color: Colors.deepOrangeAccent,
                   textColor: Colors.white,
-                  child: bolc.returnchild(
-                      AppLocalizations.of(context).translate('Login'))),
+                  child: bolc.returnchild(trans(context, 'login'))),
+            ),
+            const SizedBox(height: 80),
+            Text(
+              trans(context, 'dont_have_account'),
+              style: env.mystyle,
+            ),
+            ButtonToUse(
+              trans(context, 'create_account'),
+              fw: FontWeight.bold,
+              fc: Colors.black,
+              myfunc: () {
+                Navigator.pushReplacement(
+                  context,
+                  new MaterialPageRoute(
+                    builder: (BuildContext context) => new Registration(),
+                  ),
+                );
+              },
             ),
             Padding(
-              padding: EdgeInsets.fromLTRB(0, 80, 00, 10),
-              child: Text(
-                AppLocalizations.of(context).translate('dont_have_account'),
-                style: mystyle,
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.fromLTRB(0, 0, 00, 30),
-              child: ButtonToUse(
-                  AppLocalizations.of(context).translate('create_account'),
-                  fw: FontWeight.bold,
-                  fc: Colors.black),
-            ),
-            Padding(
-              padding: EdgeInsets.fromLTRB(0, 0, 00, 30),
+              padding: const EdgeInsets.fromLTRB(0, 30, 00, 30),
               child: new Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                    AppLocalizations.of(context).translate('you_have_shop_'),
-                    style: mystyle,
+                    trans(context, 'you_have_shop_'),
+                    style: env.mystyle,
                   ),
                   ButtonToUse(
-                    AppLocalizations.of(context).translate('click_here'),
+                    trans(context, 'click_here'),
                     fw: FontWeight.bold,
                     fc: Colors.green,
                   ),
@@ -231,14 +221,16 @@ class _MyHomePageState extends State<LoginScreenPage>
       ]),
     ));
   }
+
+  lgoin(String username, String password) {}
 }
 
 class ButtonToUse extends StatelessWidget {
   ButtonToUse(this.buttonstring, {this.fw, this.fc, this.myfunc});
- final String buttonstring;
- final FontWeight fw;
- final Color fc;
- final Function myfunc;
+  final String buttonstring;
+  final FontWeight fw;
+  final Color fc;
+  final Function myfunc;
   @override
   Widget build(BuildContext context) {
     return RaisedButton(
@@ -249,7 +241,6 @@ class ButtonToUse extends StatelessWidget {
           style: TextStyle(
             color: fc,
             fontSize: 15,
-            fontFamily: "Almarai",
             fontWeight: fw,
           ),
         ),

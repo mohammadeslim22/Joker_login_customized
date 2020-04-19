@@ -7,9 +7,9 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 class MyCounter extends ChangeNotifier {
   var loading = false;
   static TickerProvider c;
-  static String loginbase=" d";
+  static String loginbase="login";
   static AnimationController _controller;
- // static String 
+
 
   final spinkit = SpinKitDoubleBounce(
       color: Colors.white, size: 50.0, controller: _controller);
@@ -18,7 +18,6 @@ class MyCounter extends ChangeNotifier {
       child: Text(loginbase,
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            fontFamily: 'Almarai',
             color: Colors.white,
             fontSize: 25,
           )));
@@ -32,7 +31,6 @@ class MyCounter extends ChangeNotifier {
               child: Text(login,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontFamily: 'Almarai',
                     color: Colors.white,
                     fontSize: 25,
                   ))));
@@ -53,7 +51,6 @@ class MyCounter extends ChangeNotifier {
               child: Text(login,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontFamily: 'Almarai',
                     color: Colors.white,
                     fontSize: 25,
                   ))));

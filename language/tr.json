@@ -10,5 +10,6 @@
     "dont_have_account": "Hesabınız yok mu ?",
     "create_account": "Bir hesap oluştur",
     "you_have_shop_": "Mağazanız var mı ve katılmak mı istiyorsunuz ?",
-    "click_here": "Buraya tıklayın"
+    "click_here": "Buraya tıklayın",
+    "account_creation":"Create Account"
 }
