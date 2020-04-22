@@ -36,5 +36,13 @@
     "discount_offers":"عروض الخصومات",
     "flitring":"فلترة",
     "stores":"متاجر",
-    "discounts":"عروض"
+    "discounts":"عروض",
+    "sign_out":"تسجيل الخروج",
+    "notifications":"الاشعارات",
+    "my_account":"حسابي",
+    "my_membership":"عضويتي",
+    "settings":"الإعدادات",
+    "rules":"الشروط والأحكام"
+    
+
 }

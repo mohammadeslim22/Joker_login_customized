@@ -36,7 +36,13 @@
     "discount_offers":"Discount Offers",
     "flitring":"Filtering",
     "stores":"Stores",
-    "discounts":"Discounts"
+    "discounts":"Discounts",
+    "sign_out":"Sign Out",
+    "notifications":"Notifications",
+    "my_account":"My Account",
+    "my_membership":"My Membership",
+    "settings":"Settings",
+    "rules":"Terms of service"
 
 
 }

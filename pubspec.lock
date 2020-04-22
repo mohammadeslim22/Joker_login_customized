@@ -58,7 +58,7 @@ packages:
     source: hosted
     version: "1.0.5"
   cached_network_image:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: cached_network_image
       url: "https://pub.dartlang.org"
@@ -71,13 +71,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.2"
-  city_pickers:
-    dependency: "direct main"
-    description:
-      name: city_pickers
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.1.30"
   clock:
     dependency: transitive
     description:
@@ -167,20 +160,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.6"
-  flutter_image:
-    dependency: transitive
-    description:
-      name: flutter_image
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.0.0"
-  flutter_inner_drawer:
-    dependency: "direct main"
-    description:
-      name: flutter_inner_drawer
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.5.5"
   flutter_launcher_icons:
     dependency: "direct main"
     description:
@@ -193,13 +172,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_map:
-    dependency: "direct main"
-    description:
-      name: flutter_map
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.9.0"
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:
@@ -207,13 +179,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.6"
-  flutter_slider_indicator:
-    dependency: transitive
-    description:
-      name: flutter_slider_indicator
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.1.1"
   flutter_spinkit:
     dependency: "direct main"
     description:
@@ -221,13 +186,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.1.2+1"
-  flutter_stack_card:
-    dependency: "direct main"
-    description:
-      name: flutter_stack_card
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.2.0+1"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -315,13 +273,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.6.1"
-  lists:
-    dependency: transitive
-    description:
-      name: lists
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.1.6"
   location:
     dependency: "direct main"
     description:
@@ -350,13 +301,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.11.4"
-  lpinyin:
-    dependency: transitive
-    description:
-      name: lpinyin
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.9"
   matcher:
     dependency: transitive
     description:
@@ -371,13 +315,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.8"
-  mgrs_dart:
-    dependency: transitive
-    description:
-      name: mgrs_dart
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.1"
   nice_button:
     dependency: "direct main"
     description:
@@ -462,20 +399,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.2"
-  positioned_tap_detector:
-    dependency: transitive
-    description:
-      name: positioned_tap_detector
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.3"
-  proj4dart:
-    dependency: transitive
-    description:
-      name: proj4dart
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.5"
   provider:
     dependency: "direct main"
     description:
@@ -579,20 +502,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.1"
-  transparent_image:
-    dependency: transitive
-    description:
-      name: transparent_image
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.0"
-  tuple:
-    dependency: transitive
-    description:
-      name: tuple
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.3"
   typed_data:
     dependency: transitive
     description:
@@ -600,13 +509,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.6"
-  unicode:
-    dependency: transitive
-    description:
-      name: unicode
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.2.2"
   uuid:
     dependency: transitive
     description:
@@ -628,13 +530,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.8"
-  wkt_parser:
-    dependency: transitive
-    description:
-      name: wkt_parser
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.7"
   xml:
     dependency: transitive
     description:

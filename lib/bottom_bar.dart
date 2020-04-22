@@ -62,6 +62,7 @@ class BottomContent extends StatelessWidget {
               ],
             ),
             onPressed: () {
+              
               if (_currentIndex == 0) {
               } else {
                 bolc.changebottomNavIndex();

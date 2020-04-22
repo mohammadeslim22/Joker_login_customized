@@ -136,17 +136,6 @@ class _MyDraweState extends State<MyDrawe> with SingleTickerProviderStateMixin {
      // typeOpen: TypeOpen.FROM_RIGHT,
       menu: Menu(),
       screenSelectedBuilder: (position, controller) {
-        Widget screenCurrent;
-
-        switch (position) {
-          case 0:
-            screenCurrent = Registration();
-            break;
-          case 1:
-            screenCurrent = LoginScreen();
-            break;
-        }
-
         return NotificationListener<ScrollNotification>(
             onNotification: _handleScrollNotification,
             child: Scaffold(
@@ -168,7 +157,7 @@ class _MyDraweState extends State<MyDrawe> with SingleTickerProviderStateMixin {
                     height: 15,
                   ),
                   Expanded(
-                    child: SingleNewsCard(Movie.movieData),
+                    child: DiscountsList(Movie.movieData),
                   )
                 ],
               ),

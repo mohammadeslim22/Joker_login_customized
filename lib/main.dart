@@ -36,6 +36,8 @@ class MyApp extends StatelessWidget {
         ],
         title: 'Flutter Demo',
         theme: ThemeData(
+          // highlightColor :Colors.transparent,
+          // splashColor :Colors.transparent,
           fontFamily: "Almarai",
          accentColor: Colors.white,
           appBarTheme: AppBarTheme(
@@ -47,7 +49,7 @@ class MyApp extends StatelessWidget {
           create: (context) => MyCounter(),
        //   child:Octions(),
         // child:Inner2Drawer(),
-          child:LoginScreen(),
+          child:Octions(),
           builder: (context) => MyCounter(),
         ));
   }

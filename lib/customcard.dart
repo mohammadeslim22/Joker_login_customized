@@ -8,18 +8,18 @@ import 'env.dart' as env;
 import 'package:flutter/material.dart';
 import 'package:animated_card/animated_card.dart';
 
-class SingleNewsCard extends StatefulWidget {
+class DiscountsList extends StatefulWidget {
   final List<Movie> movieData;
 
-  const SingleNewsCard(this.movieData);
+  const DiscountsList(this.movieData);
   @override
-  _SingleNewsCardState createState() => _SingleNewsCardState(movieData);
+  _DiscountsListState createState() => _DiscountsListState(movieData);
 }
 
-class _SingleNewsCardState extends State<SingleNewsCard> {
+class _DiscountsListState extends State<DiscountsList> {
   final List<Movie> movieData;
 
-  _SingleNewsCardState(this.movieData);
+  _DiscountsListState(this.movieData);
 
   var bolc;
   @override
