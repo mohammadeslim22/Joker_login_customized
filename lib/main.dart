@@ -1,12 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:login_page_customized/login_screen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:login_page_customized/drawertest.dart';
 import 'package:provider/provider.dart';
 import 'appLocalizations.dart';
 import 'counter.dart';
 import 'Octions.dart';
+import 'env.dart' as env;
+
+import 'customcard.dart';
+import 'movie.dart';
 import 'pincode.dart';
+import 'package:flutter_test/flutter_test.dart';
+
+import 'registrationscreen.dart';
 
 void main() => runApp(MyApp());
+
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -27,15 +37,17 @@ class MyApp extends StatelessWidget {
         title: 'Flutter Demo',
         theme: ThemeData(
           fontFamily: "Almarai",
-          primarySwatch: Colors.blue,
+         accentColor: Colors.white,
+          appBarTheme: AppBarTheme(
+              color:env.trans,
+          ),
+        //  scaffoldBackgroundColor: const Color(0xFBFBFB),
         ),
         home: ChangeNotifierProvider(
           create: (context) => MyCounter(),
-       //   child:AutoLocate(lat:31.5,long:34.5),
-        child: PinCode(monileNo:"0567505238"),
-         // child:LoginScreen(),
-        //  child:Registration(),
-      // child:Octions(),
+       //   child:Octions(),
+        // child:Inner2Drawer(),
+          child:LoginScreen(),
           builder: (context) => MyCounter(),
         ));
   }

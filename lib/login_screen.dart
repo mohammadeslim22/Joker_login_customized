@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:login_page_customized/functions.dart';
+import 'package:login_page_customized/octions.dart';
 import 'package:provider/provider.dart';
 import 'appLocalizations.dart';
 import 'counter.dart';
@@ -82,7 +83,7 @@ class _MyHomePageState extends State<LoginScreenPage>
       child: Column(
         children: <Widget>[
           customtext(
-            trans(context, 'mobile_no'),
+            translate(context, 'mobile_no'),
             usernameController,
             Icons.person_outline,
             TextInputType.phone,
@@ -93,7 +94,7 @@ class _MyHomePageState extends State<LoginScreenPage>
             },
           ),
           customtext(
-            trans(context, 'password'),
+            translate(context, 'password'),
             passwordController,
             Icons.lock_outline,
             TextInputType.visiblePassword,
@@ -123,7 +124,7 @@ class _MyHomePageState extends State<LoginScreenPage>
         Padding(
           padding: const EdgeInsets.fromLTRB(15, 30, 15, 0),
           child: new Image(
-            image: new AssetImage('images/logo.png'),
+            image: new AssetImage('assets/images/logo.png'),
             width: 100.0,
             height: 100.0,
           ),
@@ -133,7 +134,7 @@ class _MyHomePageState extends State<LoginScreenPage>
             Text(AppLocalizations.of(context).translate('joker'),
                 textAlign: TextAlign.center, style: env.mystyle2),
             SizedBox(height: 5),
-            Text(trans(context, 'all_you_need'),
+            Text(translate(context, 'all_you_need'),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontWeight: FontWeight.w300,
@@ -145,9 +146,9 @@ class _MyHomePageState extends State<LoginScreenPage>
         SizedBox(height: 50),
         Column(
           children: <Widget>[
-            Text(trans(context, 'hello'), style: env.mystyle2),
+            Text(translate(context, 'hello'), style: env.mystyle2),
             SizedBox(height: 10),
-            Text(trans(context, 'enter_login_information'), style: env.mystyle),
+            Text(translate(context, 'enter_login_information'), style: env.mystyle),
           ],
         ),
         Column(
@@ -161,7 +162,7 @@ class _MyHomePageState extends State<LoginScreenPage>
                 horizontal: 10.0,
               ),
               child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-                ButtonToUse(trans(context, 'forget_password'),
+                ButtonToUse(translate(context, 'forget_password'),
                     fw: FontWeight.w500, fc: Colors.black),
               ]),
             ),
@@ -172,22 +173,29 @@ class _MyHomePageState extends State<LoginScreenPage>
                       borderRadius: new BorderRadius.circular(18.0),
                       side: BorderSide(color: Colors.orange)),
                   onPressed: () {
+                                  Navigator.pushReplacement(
+                  context,
+                  new MaterialPageRoute(
+                    builder: (BuildContext context) => new Octions(),
+                  ),
+                );
                     bolc.changechild(
-                      trans(context, 'login'),
+                      translate(context, 'login'),
+
                     );
                     bolc.togelf();
                   },
                   color: Colors.deepOrangeAccent,
                   textColor: Colors.white,
-                  child: bolc.returnchild(trans(context, 'login'))),
+                  child: bolc.returnchild(translate(context, 'login'))),
             ),
             const SizedBox(height: 80),
             Text(
-              trans(context, 'dont_have_account'),
+              translate(context, 'dont_have_account'),
               style: env.mystyle,
             ),
             ButtonToUse(
-              trans(context, 'create_account'),
+              translate(context, 'create_account'),
               fw: FontWeight.bold,
               fc: Colors.black,
               myfunc: () {
@@ -205,11 +213,11 @@ class _MyHomePageState extends State<LoginScreenPage>
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                    trans(context, 'you_have_shop_'),
+                    translate(context, 'you_have_shop_'),
                     style: env.mystyle,
                   ),
                   ButtonToUse(
-                    trans(context, 'click_here'),
+                    translate(context, 'click_here'),
                     fw: FontWeight.bold,
                     fc: Colors.green,
                   ),
@@ -234,7 +242,7 @@ class ButtonToUse extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RaisedButton(
-        color: Colors.transparent,
+        color: env.trans,
         elevation: 0,
         child: Text(
           buttonstring,

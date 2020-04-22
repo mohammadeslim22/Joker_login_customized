@@ -154,7 +154,7 @@ class _MyHomePageState extends State<RegistrationPage>
       child: Column(
         children: <Widget>[
           customtext(
-            trans(context, 'name'),
+            translate(context, 'name'),
             env.usernameController,
             Icons.person_outline,
             TextInputType.visiblePassword,
@@ -162,7 +162,7 @@ class _MyHomePageState extends State<RegistrationPage>
             readOnly: false,
           ),
           customtext(
-            trans(context, 'email'),
+            translate(context, 'email'),
             env.emailController,
             Icons.mail_outline,
             TextInputType.emailAddress,
@@ -170,7 +170,7 @@ class _MyHomePageState extends State<RegistrationPage>
             readOnly: false,
           ),
           customtext(
-            trans(context, 'mobile_no'),
+            translate(context, 'mobile_no'),
             env.mobileNoController,
             Icons.phone,
             TextInputType.phone,
@@ -191,7 +191,7 @@ class _MyHomePageState extends State<RegistrationPage>
             ),
           ),
           customtext(
-            trans(context, 'password'),
+            translate(context, 'password'),
             env.passwordController,
             Icons.lock_outline,
             TextInputType.visiblePassword,
@@ -211,7 +211,7 @@ class _MyHomePageState extends State<RegistrationPage>
             obscureText: _obscureText,
           ),
           customtext(
-            trans(context, 'birth_date'),
+            translate(context, 'birth_date'),
             env.birthDateController,
             Icons.date_range,
             TextInputType.visiblePassword,
@@ -237,7 +237,7 @@ class _MyHomePageState extends State<RegistrationPage>
             ),
           ),
           customtext(
-            trans(context, 'get_location'),
+            translate(context, 'get_location'),
             env.locationController,
             Icons.my_location,
             TextInputType.visiblePassword,
@@ -272,7 +272,7 @@ class _MyHomePageState extends State<RegistrationPage>
     final bolc = Provider.of<MyCounter>(context);
     return Scaffold(
       appBar: new AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor:env.trans,
         elevation: 0,
       ),
       body: GestureDetector(
@@ -282,11 +282,11 @@ class _MyHomePageState extends State<RegistrationPage>
         child: new ListView(
           children: <Widget>[
             SizedBox(height: 20),
-            Text(trans(context, 'account_creation'),
+            Text(translate(context, 'account_creation'),
                 textAlign: TextAlign.center, style: env.mystyle2),
             SizedBox(height: 15),
             Text(
-              trans(context, 'please_check'),
+              translate(context, 'please_check'),
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontWeight: FontWeight.values.first,
@@ -303,13 +303,13 @@ class _MyHomePageState extends State<RegistrationPage>
                       side: BorderSide(color: Colors.orange)),
                   onPressed: () {
                     bolc.changechild(
-                      trans(context, 'Regisration'),
+                      translate(context, 'Regisration'),
                     );
                     bolc.togelf();
                   },
                   color: Colors.deepOrangeAccent,
                   textColor: Colors.white,
-                  child: bolc.returnchild(trans(context, 'Regisration'))),
+                  child: bolc.returnchild(translate(context, 'Regisration'))),
             ),
             Padding(
                 padding: const EdgeInsets.fromLTRB(30, 0, 30, 10),
@@ -318,11 +318,11 @@ class _MyHomePageState extends State<RegistrationPage>
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(
-                  trans(context, 'problem_in_regisration'),
+                  translate(context, 'problem_in_regisration'),
                   style: env.mystyle,
                 ),
                 ButtonToUse(
-                  trans(context, 'tech_support'),
+                  translate(context, 'tech_support'),
                   fw: FontWeight.bold,
                   fc: Colors.green,
                 ),
@@ -349,7 +349,7 @@ class ButtonToUse extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RaisedButton(
-        color: Colors.transparent,
+        color: env.trans,
         elevation: 0,
         child: Text(
           buttonstring,

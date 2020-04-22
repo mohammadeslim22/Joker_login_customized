@@ -4,7 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:geocoder/geocoder.dart';
 
 Color mainColor = Colors.white;
+Color trans =Colors.transparent;
 Color blue = Colors.blue;
+TextStyle mylight = const TextStyle(
+  fontWeight: FontWeight.w100,
+  color: Colors.grey,
+  fontSize: 15,
+);
 TextStyle mystyle = const TextStyle(
   fontWeight: FontWeight.w100,
   color: Colors.black,
@@ -26,18 +32,16 @@ TextStyle resend = const TextStyle(
   fontSize: 20,
 );
 
-  Address first;
-  Coordinates coordinates;
-  List<Address> addresses;
+Address first;
+Coordinates coordinates;
+List<Address> addresses;
 
-  double lat;
-  double long;
+double lat;
+double long;
 
-  
-  final TextEditingController usernameController = TextEditingController();
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController mobileNoController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-  final TextEditingController birthDateController = TextEditingController();
-  final TextEditingController locationController = TextEditingController();
-
+final TextEditingController usernameController = TextEditingController();
+final TextEditingController emailController = TextEditingController();
+final TextEditingController mobileNoController = TextEditingController();
+final TextEditingController passwordController = TextEditingController();
+final TextEditingController birthDateController = TextEditingController();
+final TextEditingController locationController = TextEditingController();

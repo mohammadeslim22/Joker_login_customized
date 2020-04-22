@@ -1,190 +1,206 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-class Octions extends StatefulWidget {
+import 'package:hidden_drawer_menu/hidden_drawer/screen_hidden_drawer.dart';
+import 'package:hidden_drawer_menu/menu/item_hidden_menu.dart';
+import 'package:login_page_customized/functions.dart';
+import 'package:login_page_customized/login_screen.dart';
+import 'package:provider/provider.dart';
+import 'appbarIcon.dart';
+import 'bottom_bar.dart';
+import 'counter.dart';
+import 'env.dart' as env;
+import 'customcard.dart';
+import 'movie.dart';
+import 'drawertest.dart';
+import 'myMenu.dart';
+
+class Octions extends StatelessWidget {
   @override
-  State<StatefulWidget> createState() {
-    return MyOctionState();
+  Widget build(BuildContext context) {
+    
+    return  ChangeNotifierProvider(
+          create: (context) => MyCounter(),
+          child:OctionsScreen(),
+          builder: (context) => MyCounter(),
+        );
+     
   }
 }
+class OctionsScreen extends StatefulWidget {
+  OctionsScreen({Key key}) : super(key: key);
 
-class MyOctionState extends State<Octions> with SingleTickerProviderStateMixin {
-  int _currentIndex = 0;
+  @override
+  MyOctionState createState() => new MyOctionState();
+}
 
-  List<Widget> _tabList = [
-    Container(
-      color: Colors.teal,
-    ),
-    Container(
-      color: Colors.red,
-    ),
-    Container(
-      color: Colors.purple,
-    )
-  ];
+class MyOctionState extends State<OctionsScreen> with SingleTickerProviderStateMixin {
+  AnimationController _hide;
+  bool _handleScrollNotification(ScrollNotification notification) {
+    if (notification.depth == 0) {
+      if (notification is UserScrollNotification) {
+        final UserScrollNotification userScroll = notification;
+        switch (userScroll.direction) {
+          case ScrollDirection.forward:
+            _hide.forward();
+            break;
+          case ScrollDirection.reverse:
+            _hide.reverse();
+            break;
+          case ScrollDirection.idle:
+            break;
+        }
+      }
+    }
+    return false;
+  }
 
-  TabController _tabController;
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: _tabList.length, vsync: this);
+    _hide = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 350),
+    );
+    _hide.forward();
   }
 
   @override
   void dispose() {
-    _tabController.dispose();
     super.dispose();
   }
 
   final GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
-  final GlobalKey<ScaffoldState> container = new GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
+    final bolc = Provider.of<MyCounter>(context);
+
     Widget texCity() {
-      return Padding(
+      return Container(
         padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Column(children: <Widget>[
-              Container(
-                margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                child: Text(
-                  "عروض الخصومات",
-                  style: new TextStyle(
-                    fontSize: 25.0,
-
-                    fontFamily: "Almarai",
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-                child: Text(
-                  "في المملكة العربية السعودية",
-                  style: new TextStyle(
-                      fontSize: 15.0,
-                      
-                      fontWeight: FontWeight.w100,
-                      fontFamily: "Almarai"),
-                ),
-              )
-            ]),
-            const SizedBox(width: 40,),
-            Padding(
-              
-                padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                child: Container(
-                    key: container,
-                    alignment: Alignment.center,
-                    width: 130,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(100.0),
+            Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Container(
+                    margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                    child: Text(
+                      translate(context, 'discount_offers'),
+                      style: new TextStyle(
+                        fontSize: 25.0,
+                        fontWeight: FontWeight.bold,
                       ),
-                     
                     ),
-                    child: RaisedButton(
-                     shape: new RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(18.0),
-                      side: BorderSide(color: Colors.orange)),
-                      color: Colors.transparent,
-                      elevation: 0,
-                      onPressed: (){},
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Text("filter"),
-                          IconButton(icon: Icon(Icons.local_grocery_store), onPressed: null)
-                        ],
+                  ),
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                    child:
+                        Text("في المملكة العربية السعودية", style: env.mystyle),
+                  )
+                ]),
+            const SizedBox(
+              width: 40,
+            ),
+            // here its wac a Card
+            RaisedButton(
+               color: Colors.white,
+                shape: new RoundedRectangleBorder(
+                    borderRadius: new BorderRadius.circular(100),
+                  
+                    ),
+                child: Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 0, vertical: 12),
+                  child: Row(
+                    children: <Widget>[
+                      Text(
+                        translate(context, 'flitring'),
+                        style: env.mystyle,
                       ),
-                    )))
-            // )
+                      const SizedBox(width: 10,),
+                      new Container(
+                        color: env.trans,
+                        child: new Image.asset(
+                          "assets/images/filter.png",
+                          height: 25,
+                          width: 25,
+                        ),
+                      ),
+                      // IconButton(icon: Icon(Icons.tune), onPressed: null)
+                    ],
+                  ),
+                ), onPressed: () {},),
           ],
         ),
       );
     }
 
-    return new  Scaffold(
+    return NotificationListener<ScrollNotification>(
+        onNotification: _handleScrollNotification,
+        child: Scaffold(
           key: scaffoldKey,
-         
           appBar: AppBar(
-            centerTitle: true,
-           
-            leading: IconButton(
-              iconSize: 40,
-              icon: Icon(Icons.sort),
-              onPressed: () => scaffoldKey.currentState.openDrawer(),
-            ),
+            backgroundColor: env.trans,
+            leading: AppBarIcon(scaffoldKey: scaffoldKey, icon: Icons.sort),
             actions: <Widget>[
-              IconButton(
-                iconSize: 30,
-                icon: Icon(Icons.search),
-                onPressed: () => scaffoldKey.currentState.openDrawer(),
-              ),
-              IconButton(
-                iconSize: 30,
-                icon: Icon(Icons.tune),
-                onPressed: () => scaffoldKey.currentState.openDrawer(),
-              ),
+              AppBarIcon(scaffoldKey: scaffoldKey, icon: Icons.search),
+              AppBarIcon(
+                  scaffoldKey: scaffoldKey, icon: Icons.notifications_none),
             ],
             elevation: 0.0,
           ),
           body: Column(
             children: <Widget>[
               texCity(),
-            ],
-          ),
-          bottomNavigationBar: BottomNavigationBar(
-            currentIndex: _currentIndex,
-            onTap: (currentIndex) {
-              setState(() {
-                _currentIndex = currentIndex;
-              });
-
-              _tabController.animateTo(_currentIndex);
-            },
-            items: [
-              BottomNavigationBarItem(
-                  title: Text("Home"), icon: Icon(Icons.home)),
-              BottomNavigationBarItem(
-                  title: Text("Files"), icon: Icon(Icons.folder)),
-              BottomNavigationBarItem(
-                  title: Text("Settings"), icon: Icon(Icons.settings))
-            ],
-          ),
-          drawer: Drawer(
-            child: SafeArea(
-              child: Padding(
-                padding: const EdgeInsets.all(18.0),
-                child: ListView(
-                  children: <Widget>[
-                    DrawerHeader(
-                      child: Text('Drawer Header'),
-                      decoration: BoxDecoration(
-                        color: Colors.blue,
-                      ),
-                    ),
-                    ListTile(
-                      title: Text('Item 1'),
-                      onTap: () {
-                        Navigator.of(context).pushReplacement(MaterialPageRoute(
-                          builder: (context) => Octions(),
-                        ));
-                      },
-                    ),
-                    ListTile(
-                      title: Text('Item 2'),
-                      onTap: () {},
-                    ),
-                  ],
-                ),
+              const SizedBox(
+                height: 15,
               ),
-            ),
+              Expanded(
+                child: SingleNewsCard(Movie.movieData),
+              )
+            ],
           ),
-        );
+          bottomNavigationBar: SizeTransition(
+            sizeFactor: _hide,
+            child: BottomContent(currentIndex: bolc.bottomNavIndex),
+          ),
+         // drawer: MenuScreen(),
+          
+          // Drawer(
+          //   child: SafeArea(
+          //     child: Padding(
+          //       padding: const EdgeInsets.all(18.0),
+          //       child: ListView(
+          //         children: <Widget>[
+          //           DrawerHeader(
+          //             child: Text('Drawer Header'),
+          //             decoration: BoxDecoration(
+          //               color: Colors.blue,
+          //             ),
+          //           ),
+          //           ListTile(
+          //             title: Text('Item 1'),
+          //             onTap: () {
+          //               Navigator.of(context).pushReplacement(MaterialPageRoute(
+          //                 builder: (context) => Octions(),
+          //               ));
+          //             },
+          //           ),
+          //           ListTile(
+          //             title: Text('Item 2'),
+          //             onTap: () {},
+          //           ),
+          //         ],
+          //       ),
+          //     ),
+          //   ),
+          // ),
+        ));
   }
 }
+

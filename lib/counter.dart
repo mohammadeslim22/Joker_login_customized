@@ -2,14 +2,23 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-
-
 class MyCounter extends ChangeNotifier {
   var loading = false;
   static TickerProvider c;
-  static String loginbase="login";
+  static String loginbase = "login";
   static AnimationController _controller;
+  int _currentIndex =0;
 
+  int get bottomNavIndex => _currentIndex;
+  changebottomNavIndex() {
+    if (_currentIndex == 0) {
+      _currentIndex = 1;
+    } else {
+      _currentIndex = 0;
+    }
+
+    notifyListeners();
+  }
 
   final spinkit = SpinKitDoubleBounce(
       color: Colors.white, size: 50.0, controller: _controller);
@@ -22,7 +31,7 @@ class MyCounter extends ChangeNotifier {
             fontSize: 25,
           )));
   changechild(String login) {
-    loginbase=login;
+    loginbase = login;
     if (loading) {
       f = Padding(
           padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
@@ -42,6 +51,7 @@ class MyCounter extends ChangeNotifier {
     //loading = !loading;
     notifyListeners();
   }
+
   returnchild(String login) {
     if (!loading) {
       return Padding(
@@ -54,12 +64,11 @@ class MyCounter extends ChangeNotifier {
                     color: Colors.white,
                     fontSize: 25,
                   ))));
-      
     } else {
       return spinkit;
-      
     }
   }
+
   togelf() {
     loading = !loading;
   }

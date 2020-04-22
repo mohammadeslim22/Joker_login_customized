@@ -114,11 +114,11 @@ class _AutoLocateState extends State<AutoLocate> {
                   AppBar(
                     iconTheme: IconThemeData(color: Colors.black),
                     title: Text(
-                      trans(context, 'set_ur_location'),
+                      translate(context, 'set_ur_location'),
                       style: TextStyle(color: Colors.black),
                     ),
                     elevation: 0,
-                    backgroundColor: Colors.transparent,
+                    backgroundColor: env.trans,
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -216,7 +216,7 @@ class _AutoLocateState extends State<AutoLocate> {
 
   Future _animateToUser() async {
     final Uint8List markerIcon =
-        await getBytesFromAsset('images/logo.png', 100);
+        await getBytesFromAsset('assets/images/logo.png', 100);
     await location.getLocation().then((value) {
       mapController.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
         target: LatLng(value.latitude, value.longitude),
@@ -263,7 +263,7 @@ class _AutoLocateState extends State<AutoLocate> {
                 onPressed: () => Navigator.pop(context),
                 color: Colors.red,
                 textColor: Colors.white,
-                child: Text(trans(context, 'cancel'))),
+                child: Text(translate(context, 'cancel'))),
             const SizedBox(
               width: 30,
             ),
@@ -286,7 +286,7 @@ class _AutoLocateState extends State<AutoLocate> {
                 },
                 color: Colors.blue,
                 textColor: Colors.white,
-                child: Text(trans(context, 'pick'))),
+                child: Text(translate(context, 'pick'))),
           ],
         ),
       ),

@@ -82,7 +82,7 @@ class _MyHomePageState extends State<LoginScreenPage>
 
     return Scaffold(
         appBar: new AppBar(
-          backgroundColor: Colors.transparent,
+          backgroundColor: env.trans,
           elevation: 0,
         ),
         body: GestureDetector(
@@ -91,10 +91,10 @@ class _MyHomePageState extends State<LoginScreenPage>
             },
             child: new ListView(children: <Widget>[
               SizedBox(height: 20),
-              Text(trans(context, 'pin_code'),
+              Text(translate(context, 'pin_code'),
                   textAlign: TextAlign.center, style: env.mystyle2),
               const SizedBox(height: 15),
-              Text(trans(context, 'pin_has_been_sent'),
+              Text(translate(context, 'pin_has_been_sent'),
                   textAlign: TextAlign.center, style: env.underHead),
               const SizedBox(height: 15),
               Text(monileNo,
@@ -125,7 +125,7 @@ class _MyHomePageState extends State<LoginScreenPage>
                 ),
               ),
               const SizedBox(height: 15),
-              Text(trans(context, 'code_not_recieved'),
+              Text(translate(context, 'code_not_recieved'),
                   textAlign: TextAlign.center, style: env.underHead),
               Padding(
                 padding: EdgeInsets.fromLTRB(100, 20, 100, 20),
@@ -138,7 +138,7 @@ class _MyHomePageState extends State<LoginScreenPage>
                   padding: EdgeInsets.all(8.0),
                   onPressed: () {},
                   child: Text(
-                    trans(context, 'resend_code'),
+                    translate(context, 'resend_code'),
                     style: env.resend,
                   ),
                 ),
@@ -151,13 +151,13 @@ class _MyHomePageState extends State<LoginScreenPage>
                           side: BorderSide(color: Colors.orange)),
                       onPressed: () {
                         bolc.changechild(
-                          trans(context, 'aprove'),
+                          translate(context, 'aprove'),
                         );
                         bolc.togelf();
                       },
                       color: Colors.deepOrangeAccent,
                       textColor: Colors.white,
-                      child: bolc.returnchild(trans(context, 'aprove')))),
+                      child: bolc.returnchild(translate(context, 'aprove')))),
               Padding(
                   padding: const EdgeInsets.fromLTRB(30, 0, 30, 10),
                   child: Divider(color: Colors.black)),
@@ -165,11 +165,11 @@ class _MyHomePageState extends State<LoginScreenPage>
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                    trans(context, 'problem_in_regisration'),
+                    translate(context, 'problem_in_regisration'),
                     style: env.mystyle,
                   ),
                   ButtonToUse(
-                    trans(context, 'tech_support'),
+                    translate(context, 'tech_support'),
                     fw: FontWeight.bold,
                     fc: Colors.green,
                   ),
@@ -188,7 +188,7 @@ class ButtonToUse extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RaisedButton(
-        color: Colors.transparent,
+        color: env.trans,
         elevation: 0,
         child: Text(
           buttonstring,

@@ -29,6 +29,14 @@
     "aprove":"done",
     "set_ur_location":"Set your Location",
     "cancel":"cancel",
-    "pick":"set"
+    "pick":"set",
+    "shop_name":"Shop name",
+    "branches_number":"Branches Number",
+    "current_sales":"Available sales",
+    "discount_offers":"Discount Offers",
+    "flitring":"Filtering",
+    "stores":"Stores",
+    "discounts":"Discounts"
+
 
 }
