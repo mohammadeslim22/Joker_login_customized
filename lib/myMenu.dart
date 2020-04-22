@@ -172,6 +172,7 @@ class MenuScreen extends StatelessWidget {
                               highlightElevation: 0,
                               highlightColor: Colors.transparent,
                               color: env.trans,
+                              elevation: 0,
                               child: Row(children: <Widget>[
                             FloatingActionButton(
                                 backgroundColor: item.backgroundcolor[100],

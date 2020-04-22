@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import 'counter.dart';
 import 'discount.dart';
 import 'functions.dart';
-
 import 'env.dart' as env;
 import 'package:flutter/material.dart';
 import 'package:animated_card/animated_card.dart';

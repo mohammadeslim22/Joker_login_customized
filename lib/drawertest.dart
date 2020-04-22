@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:login_page_customized/functions.dart';
 
 import 'customcard.dart';
+import 'discount.dart';
 import 'env.dart' as env;
 import 'appbarIcon.dart';
 import 'bottom_bar.dart';
@@ -13,7 +14,6 @@ import 'counter.dart';
 import 'env.dart';
 
 import 'login_screen.dart';
-import 'movie.dart';
 
 class MyDrawe extends StatefulWidget {
   @override
@@ -157,7 +157,7 @@ class _MyDraweState extends State<MyDrawe> with SingleTickerProviderStateMixin {
                     height: 15,
                   ),
                   Expanded(
-                    child: DiscountsList(Movie.movieData),
+                    child: DiscountsList(Discount.movieData),
                   )
                 ],
               ),

@@ -11,9 +11,9 @@ import 'package:provider/provider.dart';
 import 'appbarIcon.dart';
 import 'bottom_bar.dart';
 import 'counter.dart';
+import 'discount.dart';
 import 'env.dart' as env;
 import 'customcard.dart';
-import 'movie.dart';
 import 'drawertest.dart';
 import 'myMenu.dart';
 
@@ -170,7 +170,7 @@ final bool isRTL = (Directionality.of(context) == TextDirection.rtl);
                     height: 15,
                   ),
                   Expanded(
-                    child: DiscountsList(Movie.movieData),
+                    child: DiscountsList(Discount.movieData),
                   )
                 ],
               ),

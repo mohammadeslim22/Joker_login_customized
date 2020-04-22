@@ -9,7 +9,6 @@ import 'Octions.dart';
 import 'env.dart' as env;
 
 import 'customcard.dart';
-import 'movie.dart';
 import 'pincode.dart';
 import 'package:flutter_test/flutter_test.dart';
 

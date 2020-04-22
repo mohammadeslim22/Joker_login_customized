@@ -1,4 +1,4 @@
-class Movie {
+class Discount {
   final int id;
   final String title;
   final String image;
@@ -7,7 +7,7 @@ class Movie {
   final String gendres;
   final String desc;
 
-  Movie(
+  Discount(
       {this.id,
       this.title,
       this.image,
@@ -16,18 +16,18 @@ class Movie {
       this.gendres,
       this.desc});
 
-  static List<Movie> get movieData => [
-        new Movie(
+  static List<Discount> get movieData => [
+        new Discount(
           image: "assets/images/logo.jpg",
         ),
-        new Movie(
+        new Discount(
           image: "assets/images/logo.jpg",
         ),
-        new Movie(
+        new Discount(
            
             image: "assets/images/logo.jpg",
         ),
-        new Movie(
+        new Discount(
             id: 4,
             title: "Avengers: Endgame",
             image: "assets/images/logo.jpg",
@@ -36,7 +36,7 @@ class Movie {
             gendres: "Fantasy, Sci-fi",
             desc:
                 "Adrift in space with no food or water, Tony Stark sends a message to Pepper Potts as his oxygen supply starts to dwindle."),
-        new Movie(
+        new Discount(
             id: 5,
             title: "John Wick: Parabellum",
             image: "assets/images/logo.jpg",
@@ -45,7 +45,7 @@ class Movie {
             gendres: "Thriller, Mystery",
             desc:
                 "After gunning down a member of the High Table -- the shadowy international assassin's guild -- legendary hit man John Wick finds himself stripped of the organization's protective services."),
-        new Movie(
+        new Discount(
             id: 5,
             title: "John Wick: Parabellum",
             image: "assets/images/logo.jpg",
@@ -54,7 +54,7 @@ class Movie {
             gendres: "Thriller, Mystery",
             desc:
                 "After gunning down a member of the High Table -- the shadowy international assassin's guild -- legendary hit man John Wick finds himself stripped of the organization's protective services."),
-        new Movie(
+        new Discount(
             id: 5,
             title: "John Wick: Parabellum",
             image: "assets/images/logo.jpg",
@@ -63,7 +63,7 @@ class Movie {
             gendres: "Thriller, Mystery",
             desc:
                 "After gunning down a member of the High Table -- the shadowy international assassin's guild -- legendary hit man John Wick finds himself stripped of the organization's protective services."),
-        new Movie(
+        new Discount(
             id: 5,
             title: "John Wick: Parabellum",
             image: "assets/images/logo.jpg",
@@ -72,7 +72,7 @@ class Movie {
             gendres: "Thriller, Mystery",
             desc:
                 "After gunning down a member of the High Table -- the shadowy international assassin's guild -- legendary hit man John Wick finds himself stripped of the organization's protective services."),
-        new Movie(
+        new Discount(
             id: 5,
             title: "John Wick: Parabellum",
             image: "assets/images/logo.jpg",
@@ -81,7 +81,7 @@ class Movie {
             gendres: "Thriller, Mystery",
             desc:
                 "After gunning down a member of the High Table -- the shadowy international assassin's guild -- legendary hit man John Wick finds himself stripped of the organization's protective services."),
-        new Movie(
+        new Discount(
             id: 5,
             title: "John Wick: Parabellum",
             image: "assets/images/logo.jpg",
@@ -90,7 +90,7 @@ class Movie {
             gendres: "Thriller, Mystery",
             desc:
                 "After gunning down a member of the High Table -- the shadowy international assassin's guild -- legendary hit man John Wick finds himself stripped of the organization's protective services."),
-        new Movie(
+        new Discount(
             id: 5,
             title: "John Wick: Parabellum",
             image: "assets/images/logo.jpg",
@@ -99,7 +99,7 @@ class Movie {
             gendres: "Thriller, Mystery",
             desc:
                 "After gunning down a member of the High Table -- the shadowy international assassin's guild -- legendary hit man John Wick finds himself stripped of the organization's protective services."),
-        new Movie(
+        new Discount(
             id: 5,
             title: "John Wick: Parabellum",
             image: "assets/images/logo.jpg",
@@ -108,7 +108,7 @@ class Movie {
             gendres: "Thriller, Mystery",
             desc:
                 "After gunning down a member of the High Table -- the shadowy international assassin's guild -- legendary hit man John Wick finds himself stripped of the organization's protective services."),
-        new Movie(
+        new Discount(
             id: 5,
             title: "John Wick: Parabellum",
             image: "assets/images/logo.jpg",
@@ -117,7 +117,7 @@ class Movie {
             gendres: "Thriller, Mystery",
             desc:
                 "After gunning down a member of the High Table -- the shadowy international assassin's guild -- legendary hit man John Wick finds himself stripped of the organization's protective services."),
-        new Movie(
+        new Discount(
             id: 5,
             title: "John Wick: Parabellum",
             image: "assets/images/logo.jpg",
@@ -126,7 +126,7 @@ class Movie {
             gendres: "Thriller, Mystery",
             desc:
                 "After gunning down a member of the High Table -- the shadowy international assassin's guild -- legendary hit man John Wick finds himself stripped of the organization's protective services."),
-        new Movie(
+        new Discount(
             id: 5,
             title: "John Wick: Parabellum",
             image: "assets/images/logo.jpg",
@@ -135,7 +135,7 @@ class Movie {
             gendres: "Thriller, Mystery",
             desc:
                 "After gunning down a member of the High Table -- the shadowy international assassin's guild -- legendary hit man John Wick finds himself stripped of the organization's protective services."),
-        new Movie(
+        new Discount(
             id: 5,
             title: "John Wick: Parabellum",
             image: "assets/images/logo.jpg",
@@ -144,7 +144,7 @@ class Movie {
             gendres: "Thriller, Mystery",
             desc:
                 "After gunning down a member of the High Table -- the shadowy international assassin's guild -- legendary hit man John Wick finds himself stripped of the organization's protective services."),
-        new Movie(
+        new Discount(
             id: 5,
             title: "John Wick: Parabellum",
             image: "assets/images/logo.jpg",
@@ -153,7 +153,7 @@ class Movie {
             gendres: "Thriller, Mystery",
             desc:
                 "After gunning down a member of the High Table -- the shadowy international assassin's guild -- legendary hit man John Wick finds himself stripped of the organization's protective services."),
-        new Movie(
+        new Discount(
             id: 5,
             title: "John Wick: Parabellum",
             image: "assets/images/logo.jpg",
@@ -162,7 +162,7 @@ class Movie {
             gendres: "Thriller, Mystery",
             desc:
                 "After gunning down a member of the High Table -- the shadowy international assassin's guild -- legendary hit man John Wick finds himself stripped of the organization's protective services."),
-        new Movie(
+        new Discount(
             id: 5,
             title: "John Wick: Parabellum",
             image: "assets/images/logo.jpg",
@@ -171,7 +171,7 @@ class Movie {
             gendres: "Thriller, Mystery",
             desc:
                 "After gunning down a member of the High Table -- the shadowy international assassin's guild -- legendary hit man John Wick finds himself stripped of the organization's protective services."),
-        new Movie(
+        new Discount(
             id: 5,
             title: "John Wick: Parabellum",
             image: "assets/images/logo.jpg",
@@ -180,7 +180,7 @@ class Movie {
             gendres: "Thriller, Mystery",
             desc:
                 "After gunning down a member of the High Table -- the shadowy international assassin's guild -- legendary hit man John Wick finds himself stripped of the organization's protective services."),
-        new Movie(
+        new Discount(
             id: 5,
             title: "John Wick: Parabellum",
             image: "assets/images/logo.jpg",
@@ -189,7 +189,7 @@ class Movie {
             gendres: "Thriller, Mystery",
             desc:
                 "After gunning down a member of the High Table -- the shadowy international assassin's guild -- legendary hit man John Wick finds himself stripped of the organization's protective services."),
-        new Movie(
+        new Discount(
             id: 5,
             title: "John Wick: Parabellum",
             image: "assets/images/logo.jpg",
@@ -198,7 +198,7 @@ class Movie {
             gendres: "Thriller, Mystery",
             desc:
                 "After gunning down a member of the High Table -- the shadowy international assassin's guild -- legendary hit man John Wick finds himself stripped of the organization's protective services."),
-        new Movie(
+        new Discount(
             id: 5,
             title: "John Wick: Parabellum",
             image: "assets/images/logo.jpg",
@@ -207,7 +207,7 @@ class Movie {
             gendres: "Thriller, Mystery",
             desc:
                 "After gunning down a member of the High Table -- the shadowy international assassin's guild -- legendary hit man John Wick finds himself stripped of the organization's protective services."),
-        new Movie(
+        new Discount(
             id: 5,
             title: "John Wick: Parabellum",
             image: "assets/images/logo.jpg",
@@ -216,7 +216,7 @@ class Movie {
             gendres: "Thriller, Mystery",
             desc:
                 "After gunning down a member of the High Table -- the shadowy international assassin's guild -- legendary hit man John Wick finds himself stripped of the organization's protective services."),
-        new Movie(
+        new Discount(
             id: 5,
             title: "John Wick: Parabellum",
             image: "assets/images/logo.jpg",
