@@ -7,8 +7,7 @@ class AppBarIcon extends StatelessWidget {
   final SimpleHiddenDrawerBloc contrller;
   const AppBarIcon({
     Key key,
-    @required this.scaffoldKey,
-    this.icon, this.contrller,
+    this.icon, this.contrller, this.scaffoldKey,
   }) : super(key: key);
 
   final GlobalKey<ScaffoldState> scaffoldKey;
@@ -19,7 +18,7 @@ class AppBarIcon extends StatelessWidget {
       color: Colors.black,
       iconSize: 30,
       icon: Icon(icon),
-      onPressed: () {scaffoldKey.currentState.openDrawer();contrller.toggle();},
+      onPressed: () {contrller.toggle();},
     );
   }
 }

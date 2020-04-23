@@ -7,14 +7,19 @@ class MyCounter extends ChangeNotifier {
   static TickerProvider c;
   static String loginbase = "login";
   static AnimationController _controller;
-  int _currentIndex =0;
+  int _currentIndex = 0;
 
   int get bottomNavIndex => _currentIndex;
   changebottomNavIndex() {
+          print("counter my counter provider ^^^^^^^^^^^^^^^^^^^^^^$_currentIndex  ");
+
     if (_currentIndex == 0) {
+      
       _currentIndex = 1;
+      notifyListeners();
     } else {
       _currentIndex = 0;
+      notifyListeners();
     }
 
     notifyListeners();

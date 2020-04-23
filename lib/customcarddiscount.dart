@@ -1,7 +1,4 @@
 import 'package:flutter/rendering.dart';
-import 'package:provider/provider.dart';
-
-import 'counter.dart';
 import 'discount.dart';
 import 'functions.dart';
 import 'env.dart' as env;
@@ -45,17 +42,16 @@ class _DiscountsListState extends State<DiscountsList> {
     );
   }
 
-  Widget _itemBuilder(BuildContext context, movie) {
-    var text = "4";
+  Widget _itemBuilder(BuildContext context, Discount discount) {
+    String text = "الكل";
     String text2 = "5";
     return InkWell(
       onTap: () {},
       child: Card(
         shape: RoundedRectangleBorder(
-         // side: BorderSide(color: Colors.white70, width: 1),
-          borderRadius:const BorderRadius.only(
-                    topLeft: Radius.circular(12),
-                    topRight: Radius.circular(12)),
+          // side: BorderSide(color: Colors.white70, width: 1),
+          borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(12), topRight: Radius.circular(12)),
         ),
         child: Column(
           children: <Widget>[
@@ -67,7 +63,7 @@ class _DiscountsListState extends State<DiscountsList> {
                     topRight: Radius.circular(12)),
                 image: DecorationImage(
                   image: new AssetImage(
-                    'assets/images/shopone.jpg',
+                    discount.image,
                   ),
                   fit: BoxFit.cover,
                 ),
@@ -77,9 +73,11 @@ class _DiscountsListState extends State<DiscountsList> {
                   left: 0.0,
                   top: 1.0,
                   child: new IconButton(
-                   
                     color: env.mainColor,
-                    icon: new Image.asset("assets/images/loveicon.png",scale: 3,),
+                    icon: new Image.asset(
+                      "assets/images/loveicon.png",
+                      scale: 3,
+                    ),
                     onPressed: () {},
                   ),
                 ),
@@ -90,22 +88,72 @@ class _DiscountsListState extends State<DiscountsList> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text(
-                      translate(context, 'shop_name'),
-                      style: env.underHead,
-                    ),
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Container(
+                            width: MediaQuery.of(context).size.width * .5,
+                            child: Text(
+                              "اسم العرض الطويل جدا ولو كان اطول من هيك ",
+                              style: env.underHead,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                          Row(
+                            children: <Widget>[
+                              Text(
+                                translate(context, 'discount_status'),
+                                style: env.mylight,
+                              ),
+                              const SizedBox(
+                                width: 5,
+                              ),
+                              Container(
+                                decoration: BoxDecoration(
+                                    color: discount.display,
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(100))),
+                                width: 10,
+                                height: 10,
+                              )
+                            ],
+                          )
+                        ]),
                     const SizedBox(height: 8),
+                    Text(translate(context, 'discount_type'),
+                        style: env.mylight),
+                    const SizedBox(
+                      height: 10,
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Text(translate(context, 'city'), style: env.mylight),
                             Row(
                               children: <Widget>[
-                                Text(translate(context, 'branches_number'),
-                                    style: env.mystyle),
+                                Icon(
+                                  Icons.store_mall_directory,
+                                  color: Colors.grey,
+                                ),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                Container(
+                                  width: MediaQuery.of(context).size.width * .3,
+                                  child: Text(
+                                    "متجر كابيتال مول مترج كابيتال مول ",
+                                    overflow: TextOverflow.ellipsis,
+                                    style: env.mystyle,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              children: <Widget>[
+                                Text(translate(context, 'branch'),
+                                    style: env.mylight),
                                 const SizedBox(
                                   width: 10,
                                 ),
@@ -129,12 +177,25 @@ class _DiscountsListState extends State<DiscountsList> {
                         Column(
                           children: <Widget>[
                             Text(
-                              translate(context, 'current_sales'),
-                              style: env.mylight,
+                              translate(context, 'starting_date'),
+                              style: env.mysmalllight,
                             ),
-                            SizedBox(height: 7),
+                            const SizedBox(height: 7),
                             Text(
-                              text2,
+                              discount.startingDate,
+                              style: env.mystyle,
+                            )
+                          ],
+                        ),
+                        Column(
+                          children: <Widget>[
+                            Text(
+                              translate(context, 'end_date'),
+                              style: env.mysmalllight,
+                            ),
+                            const SizedBox(height: 7),
+                            Text(
+                              discount.endDtae,
                               style: env.mystyle,
                             )
                           ],

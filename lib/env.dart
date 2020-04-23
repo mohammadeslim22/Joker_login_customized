@@ -11,6 +11,16 @@ TextStyle mylight = const TextStyle(
   color: Colors.grey,
   fontSize: 15,
 );
+TextStyle mysmalllight = const TextStyle(
+  fontWeight: FontWeight.w100,
+  color: Colors.grey,
+  fontSize: 12,
+);
+TextStyle mysmall = const TextStyle(
+  fontWeight: FontWeight.w100,
+  color: Colors.black,
+  fontSize: 13,
+);
 TextStyle mystyle = const TextStyle(
   fontWeight: FontWeight.w100,
   color: Colors.black,

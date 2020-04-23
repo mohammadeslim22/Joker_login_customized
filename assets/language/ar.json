@@ -42,7 +42,13 @@
     "my_account":"حسابي",
     "my_membership":"عضويتي",
     "settings":"الإعدادات",
-    "rules":"الشروط والأحكام"
-    
+    "rules":"الشروط والأحكام",
+    "discount_name":"اسم العرض",
+    "discount_type":"نوع العرض",
+    "discount_place":"اسم المتجر",
+    "branch":"الفرع",
+    "starting_date":"تاريخ البداية",
+    "end_date":"تاريخ النهاية",
+    "discount_status":"حالة العرض"  
 
 }

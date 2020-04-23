@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:login_page_customized/login_screen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:login_page_customized/drawertest.dart';
 import 'package:provider/provider.dart';
 import 'appLocalizations.dart';
 import 'counter.dart';
@@ -9,6 +8,7 @@ import 'Octions.dart';
 import 'env.dart' as env;
 
 import 'customcard.dart';
+import 'fulldrawertest.dart';
 import 'pincode.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -46,9 +46,9 @@ class MyApp extends StatelessWidget {
         ),
         home: ChangeNotifierProvider(
           create: (context) => MyCounter(),
-       //   child:Octions(),
-        // child:Inner2Drawer(),
           child:Octions(),
+        // child:Inner2Drawer(),
+        //  child:FullDrawer(),
           builder: (context) => MyCounter(),
         ));
   }

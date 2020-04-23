@@ -2,26 +2,24 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:hidden_drawer_menu/hidden_drawer/hidden_drawer_menu.dart';
-import 'package:hidden_drawer_menu/hidden_drawer/screen_hidden_drawer.dart';
-import 'package:hidden_drawer_menu/menu/item_hidden_menu.dart';
 import 'package:hidden_drawer_menu/simple_hidden_drawer/simple_hidden_drawer.dart';
 import 'package:login_page_customized/functions.dart';
-import 'package:login_page_customized/login_screen.dart';
+import 'package:login_page_customized/shop.dart';
 import 'package:provider/provider.dart';
 import 'appbarIcon.dart';
 import 'bottom_bar.dart';
 import 'counter.dart';
+import 'customcarddiscount.dart';
+import 'customcard.dart';
+
 import 'discount.dart';
 import 'env.dart' as env;
-import 'customcard.dart';
-import 'drawertest.dart';
 import 'myMenu.dart';
 
 class Octions extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return 
-       OctionsScreen();
+    return OctionsScreen();
   }
 }
 
@@ -69,12 +67,11 @@ class MyOctionState extends State<OctionsScreen>
     super.dispose();
   }
 
-  final GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
-
   @override
   Widget build(BuildContext context) {
     final bolc = Provider.of<MyCounter>(context);
-
+    var r = bolc.bottomNavIndex;
+    // print("^^^^^^^my r in octions ^^^^^$r");
     Widget texCity() {
       return Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -103,60 +100,56 @@ class MyOctionState extends State<OctionsScreen>
           ),
           // here its wac a Card
           RaisedButton(
-            padding: const EdgeInsets.symmetric(vertical: 12,horizontal: 12),
+            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
             color: Colors.white,
             shape: new RoundedRectangleBorder(
               borderRadius: new BorderRadius.circular(100),
             ),
-       
-              child: Row(
-                children: <Widget>[
-                  Text(
-                    translate(context, 'flitring'),
-                    style: env.mystyle,
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  new Image.asset(
-                    "assets/images/filter.png",
-                    height: 25,
-                    width: 25,
-                  ),
-                ],
-              ),
-            
+            child: Row(
+              children: <Widget>[
+                Text(
+                  translate(context, 'flitring'),
+                  style: env.mystyle,
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                new Image.asset(
+                  "assets/images/filter.png",
+                  height: 25,
+                  width: 25,
+                ),
+              ],
+            ),
             onPressed: () {},
           ),
         ],
       );
     }
-final bool isRTL = (Directionality.of(context) == TextDirection.rtl);
+
+    final bool isRTL = (Directionality.of(context) == TextDirection.rtl);
     return SimpleHiddenDrawer(
-        key: scaffoldKey,
         verticalScalePercent: 60,
         contentCornerRadius: 30,
         enableCornerAnimin: true,
         enableScaleAnimin: true,
-
         isDraggable: true,
-        typeOpen: !isRTL?TypeOpen.FROM_LEFT:TypeOpen.FROM_RIGHT,
+        typeOpen: !isRTL ? TypeOpen.FROM_LEFT : TypeOpen.FROM_RIGHT,
         menu: MenuScreen(),
-        screenSelectedBuilder: (position, controller) {
+        screenSelectedBuilder: (
+          position,
+          controller,
+        ) {
+          print("^^^^^^^my r in octions ^^^^^$r");
           return NotificationListener<ScrollNotification>(
             onNotification: _handleScrollNotification,
             child: Scaffold(
-              key: scaffoldKey,
               appBar: AppBar(
                 backgroundColor: env.trans,
-                leading: AppBarIcon(
-                    scaffoldKey: scaffoldKey,
-                    contrller: controller,
-                    icon: Icons.sort),
+                leading: AppBarIcon(contrller: controller, icon: Icons.sort),
                 actions: <Widget>[
-                  AppBarIcon(scaffoldKey: scaffoldKey, icon: Icons.search),
-                  AppBarIcon(
-                      scaffoldKey: scaffoldKey, icon: Icons.notifications_none),
+                  AppBarIcon(icon: Icons.search),
+                  AppBarIcon(icon: Icons.notifications_none),
                 ],
                 elevation: 0.0,
               ),
@@ -170,13 +163,16 @@ final bool isRTL = (Directionality.of(context) == TextDirection.rtl);
                     height: 15,
                   ),
                   Expanded(
-                    child: DiscountsList(Discount.movieData),
+                    child: (position == 0)
+                        ? DiscountsList(Discount.movieData)
+                        : ShopList(Shop.movieData),
                   )
                 ],
               ),
               bottomNavigationBar: SizeTransition(
                 sizeFactor: _hide,
-                child: BottomContent(currentIndex: bolc.bottomNavIndex),
+                child: BottomContent(
+                    c: context, currentIndex: bolc.bottomNavIndex),
               ),
             ),
           );

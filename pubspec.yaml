@@ -71,7 +71,11 @@ flutter:
     - assets/images/menu.PNG
     - assets/images/search.PNG
     - assets/images/shopone.jpg
+    - assets/images/shoptwo.jpg
     - assets/images/loveicon.png
+    - assets/images/discount.png
+    - assets/images/discounttwo.png
+    - assets/images/discount_.png
     - assets/images/discounts.png
     - assets/images/lightoffdiscount.png
     - assets/images/filter.png

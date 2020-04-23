@@ -1,4 +1,5 @@
 import 'package:flutter/rendering.dart';
+import 'package:login_page_customized/shop.dart';
 import 'package:provider/provider.dart';
 
 import 'counter.dart';
@@ -9,18 +10,18 @@ import 'env.dart' as env;
 import 'package:flutter/material.dart';
 import 'package:animated_card/animated_card.dart';
 
-class DiscountsList extends StatefulWidget {
-  final List<Discount> movieData;
+class ShopList extends StatefulWidget {
+  final List<Shop> movieData;
 
-  const DiscountsList(this.movieData);
+  const ShopList(this.movieData);
   @override
-  _DiscountsListState createState() => _DiscountsListState(movieData);
+  _ShopListState createState() => _ShopListState(movieData);
 }
 
-class _DiscountsListState extends State<DiscountsList> {
-  final List<Discount> movieData;
+class _ShopListState extends State<ShopList> {
+  final List<Shop> movieData;
 
-  _DiscountsListState(this.movieData);
+  _ShopListState(this.movieData);
 
   var bolc;
   @override
@@ -46,17 +47,15 @@ class _DiscountsListState extends State<DiscountsList> {
     );
   }
 
-  Widget _itemBuilder(BuildContext context, movie) {
+  Widget _itemBuilder(BuildContext context, Shop shop) {
     var text = "4";
     String text2 = "5";
     return InkWell(
       onTap: () {},
       child: Card(
         shape: RoundedRectangleBorder(
-         // side: BorderSide(color: Colors.white70, width: 1),
-          borderRadius:const BorderRadius.only(
-                    topLeft: Radius.circular(12),
-                    topRight: Radius.circular(12)),
+          borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(12), topRight: Radius.circular(12)),
         ),
         child: Column(
           children: <Widget>[
@@ -68,7 +67,7 @@ class _DiscountsListState extends State<DiscountsList> {
                     topRight: Radius.circular(12)),
                 image: DecorationImage(
                   image: new AssetImage(
-                    'assets/images/shopone.jpg',
+                    shop.image,
                   ),
                   fit: BoxFit.cover,
                 ),
@@ -78,9 +77,11 @@ class _DiscountsListState extends State<DiscountsList> {
                   left: 0.0,
                   top: 1.0,
                   child: new IconButton(
-                   
                     color: env.mainColor,
-                    icon: new Image.asset("assets/images/loveicon.png",scale: 3,),
+                    icon: new Image.asset(
+                      "assets/images/loveicon.png",
+                      scale: 3,
+                    ),
                     onPressed: () {},
                   ),
                 ),
@@ -102,7 +103,8 @@ class _DiscountsListState extends State<DiscountsList> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Text(translate(context, 'city'), style: env.mylight),
+                            Text(translate(context, 'city'),
+                                style: env.mylight),
                             Row(
                               children: <Widget>[
                                 Text(translate(context, 'branches_number'),

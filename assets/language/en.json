@@ -42,7 +42,14 @@
     "my_account":"My Account",
     "my_membership":"My Membership",
     "settings":"Settings",
-    "rules":"Terms of service"
+    "rules":"Terms of service",
+    "discount_name":"Discount Nmae",
+    "discount_type":"Discount Type",
+    "discount_place":"Discount Place",
+    "branch":"Branch",
+    "starting_date":"Start Date",
+    "end_date":"End Date",
+    "discount_status":"Discount Status"
 
 
 }
