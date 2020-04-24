@@ -129,18 +129,21 @@ class MyOctionState extends State<OctionsScreen>
 
     final bool isRTL = (Directionality.of(context) == TextDirection.rtl);
     return SimpleHiddenDrawer(
+        initPosition: 0,
         verticalScalePercent: 60,
         contentCornerRadius: 30,
         enableCornerAnimin: true,
         enableScaleAnimin: true,
         isDraggable: true,
+
         typeOpen: !isRTL ? TypeOpen.FROM_LEFT : TypeOpen.FROM_RIGHT,
         menu: MenuScreen(),
         screenSelectedBuilder: (
           position,
+          myposition,
           controller,
         ) {
-          print("^^^^^^^my r in octions ^^^^^$r");
+          print("^^^^^^^my r in octions ^^^^^$myposition");
           return NotificationListener<ScrollNotification>(
             onNotification: _handleScrollNotification,
             child: Scaffold(
@@ -171,8 +174,7 @@ class MyOctionState extends State<OctionsScreen>
               ),
               bottomNavigationBar: SizeTransition(
                 sizeFactor: _hide,
-                child: BottomContent(
-                    c: context, currentIndex: bolc.bottomNavIndex),
+                child: BottomContent(currentIndex: position),
               ),
             ),
           );

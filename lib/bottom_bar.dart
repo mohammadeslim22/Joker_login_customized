@@ -10,24 +10,21 @@ import 'env.dart' as env;
 
 class BottomContent extends StatelessWidget {
   const BottomContent({
-   
-   this.currentIndex,
-    this.c,
-    
-  }) ;
-       
+    this.currentIndex,
+    //this.c,
+  });
 
   final int currentIndex;
-  final BuildContext c;
+  //final BuildContext c;
 
   @override
-  Widget build(c) {
-    final bolc = Provider.of<MyCounter>(c);
+  Widget build(BuildContext context) {
+    final bolc = Provider.of<MyCounter>(context);
     print("%%%%%%%%%%%%%%%%%$currentIndex");
     return Container(
       color: Colors.black,
       height: 60,
-      width: MediaQuery.of(c).size.width,
+      width: MediaQuery.of(context).size.width,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
@@ -53,7 +50,7 @@ class BottomContent extends StatelessWidget {
                   height: 2,
                 ),
                 Text(
-                  translate(c, 'discounts'),
+                  translate(context, 'discounts'),
                   style: env.mylight,
                 ),
                 const SizedBox(
@@ -62,18 +59,18 @@ class BottomContent extends StatelessWidget {
                 Container(
                   alignment: Alignment.bottomCenter,
                   height: 2,
-                  width: MediaQuery.of(c).size.width * .4,
+                  width: MediaQuery.of(context).size.width * .4,
                   color: currentIndex == 0 ? Colors.orange : env.trans,
                 )
               ],
             ),
             onPressed: () {
-              //  SimpleHiddenDrawerProvider.of(context)
-              //       .setSelectedMenuPosition(0);
               //                   SimpleHiddenDrawerProvider.of(context).toggle();
 
               if (currentIndex == 0) {
               } else {
+                SimpleHiddenDrawerProvider.of(context)
+                    .setSelectedPosition(0);
                 bolc.changebottomNavIndex();
               }
             },
@@ -108,7 +105,7 @@ class BottomContent extends StatelessWidget {
                   height: 5,
                 ),
                 Text(
-                  translate(c, 'stores'),
+                  translate(context, 'stores'),
                   style: env.mylight,
                 ),
                 const SizedBox(
@@ -117,7 +114,7 @@ class BottomContent extends StatelessWidget {
                 Container(
                   alignment: Alignment.bottomCenter,
                   height: 2,
-                  width: MediaQuery.of(c).size.width * .4,
+                  width: MediaQuery.of(context).size.width * .4,
                   color: currentIndex == 1 ? Colors.orange : env.trans,
                 )
               ],
@@ -125,6 +122,8 @@ class BottomContent extends StatelessWidget {
             onPressed: () {
               if (currentIndex == 1) {
               } else {
+                SimpleHiddenDrawerProvider.of(context)
+                    .setSelectedPosition(1);
                 bolc.changebottomNavIndex();
               }
             },
