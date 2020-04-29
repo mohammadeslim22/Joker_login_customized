@@ -1,27 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:login_page_customized/login_screen.dart';
+import 'package:login_page_customized/screens/login_screen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:login_page_customized/screens/advanced_search.dart';
 import 'package:provider/provider.dart';
 import 'appLocalizations.dart';
 import 'counter.dart';
-import 'Octions.dart';
 import 'env.dart' as env;
-
-import 'customcard.dart';
-import 'fulldrawertest.dart';
-import 'pincode.dart';
+import 'models/shop.dart';
+import 'screens/octions.dart';
+import 'screens/pincode.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'registrationscreen.dart';
+import 'screens/registrationscreen.dart';
+import 'screens/settings.dart';
+import 'screens/shop_details.dart';
+import 'widgets/table_cal_test.dart';
 
 void main() => runApp(MyApp());
-
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return ChangeNotifierProvider(
+      create: (context) => MyCounter(),
+      child: MaterialApp(
+        color: Colors.red,
         debugShowCheckedModeBanner: false,
         supportedLocales: [
           Locale("en", "US"),
@@ -35,21 +38,26 @@ class MyApp extends StatelessWidget {
         ],
         title: 'Flutter Demo',
         theme: ThemeData(
-          // highlightColor :Colors.transparent,
-          // splashColor :Colors.transparent,
+          primaryColor: Colors.orange,
+          // applyElevationOverlayColor: true,
+          scaffoldBackgroundColor: Colors.grey[100],
           fontFamily: "Almarai",
-         accentColor: Colors.white,
+
           appBarTheme: AppBarTheme(
-              color:env.trans,
+            elevation: 0,
+            color: env.trans,
           ),
-        //  scaffoldBackgroundColor: const Color(0xFBFBFB),
         ),
-        home: ChangeNotifierProvider(
-          create: (context) => MyCounter(),
-          child:Octions(),
-        // child:Inner2Drawer(),
-        //  child:FullDrawer(),
-          builder: (context) => MyCounter(),
-        ));
+         // home: Octions(),
+        home: ShopDetails(
+          shop: Shop(
+            image: "assets/images/shopone.jpg",
+          ),likecount:50,lovecount:50
+        )
+        ),);
+        
+      
+     
+    
   }
 }

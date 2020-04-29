@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:login_page_customized/functions.dart';
 import 'package:provider/provider.dart';
-import 'counter.dart';
+import 'package:login_page_customized/counter.dart';
+import 'package:login_page_customized/screens/octions.dart';
+
 import 'package:pin_code_fields/pin_code_fields.dart';
-import 'env.dart' as env;
+import 'package:login_page_customized/env.dart' as env;
 import 'package:timer_count_down/timer_count_down.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
@@ -44,36 +46,38 @@ class _MyHomePageState extends State<LoginScreenPage>
   }
 
   Widget pinCode() {
-    return Container(
-        margin: const EdgeInsets.fromLTRB(30, 30, 30, 30),
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: Colors.grey,
-            width: 1,
+    return Flexible(
+      child: Container(
+          margin: const EdgeInsets.fromLTRB(30, 30, 30, 30),
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: Colors.grey,
+              width: 1,
+            ),
+            borderRadius: BorderRadius.circular(7),
           ),
-          borderRadius: BorderRadius.circular(7),
-        ),
-        padding: const EdgeInsets.fromLTRB(80, 0, 80, 0),
-        child: PinCodeTextField(
-          length: 4,
-          obsecureText: false,
-          animationType: AnimationType.fade,
-          shape: PinCodeFieldShape.box,
-          animationDuration: Duration(milliseconds: 300),
-          borderRadius: BorderRadius.circular(5),
-          inactiveColor: Colors.grey,
-          textInputType: TextInputType.phone,
-          fieldHeight: 40,
-          fieldWidth: 30,
-          onCompleted: (v) {
-            // on complete
-          },
-          onChanged: (value) {
-            setState(() {
-              currentText = value;
-            });
-          },
-        ));
+          padding: const EdgeInsets.fromLTRB(80, 0, 80, 0),
+          child: PinCodeTextField(
+            length: 4,
+            obsecureText: false,
+            animationType: AnimationType.fade,
+            shape: PinCodeFieldShape.box,
+            animationDuration: Duration(milliseconds: 300),
+            borderRadius: BorderRadius.circular(5),
+            inactiveColor: Colors.grey,
+            textInputType: TextInputType.phone,
+            fieldHeight: 40,
+            fieldWidth: 30,
+            onCompleted: (v) {
+              // on complete
+            },
+            onChanged: (value) {
+              setState(() {
+                currentText = value;
+              });
+            },
+          )),
+    );
   }
 
   @override
@@ -81,10 +85,7 @@ class _MyHomePageState extends State<LoginScreenPage>
     final bolc = Provider.of<MyCounter>(context);
 
     return Scaffold(
-        appBar: new AppBar(
-          backgroundColor: env.trans,
-          elevation: 0,
-        ),
+        appBar: new AppBar(),
         body: GestureDetector(
             onTap: () {
               FocusScope.of(context).requestFocus(FocusNode());
@@ -111,7 +112,7 @@ class _MyHomePageState extends State<LoginScreenPage>
                 progressColor: Colors.orange[300],
                 circularStrokeCap: CircularStrokeCap.round,
                 animation: true,
-                animationDuration: 32000,
+                animationDuration: 30900,
                 lineWidth: 5.0,
                 percent: 1,
                 center: new CountDown(
@@ -154,6 +155,13 @@ class _MyHomePageState extends State<LoginScreenPage>
                           translate(context, 'aprove'),
                         );
                         bolc.togelf();
+                        Navigator.pushReplacement(
+                          context,
+                          new MaterialPageRoute(
+                            builder: (BuildContext context) => new Octions(),
+                          ),
+                        );
+                        
                       },
                       color: Colors.deepOrangeAccent,
                       textColor: Colors.white,
@@ -195,7 +203,6 @@ class ButtonToUse extends StatelessWidget {
           style: TextStyle(
             color: fc,
             fontSize: 15,
-            fontFamily: "Almarai",
             fontWeight: fw,
           ),
         ),

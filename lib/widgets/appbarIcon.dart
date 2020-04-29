@@ -15,6 +15,7 @@ class AppBarIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
+      
       color: Colors.black,
       iconSize: 30,
       icon: Icon(icon),

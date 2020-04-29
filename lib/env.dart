@@ -36,10 +36,20 @@ TextStyle underHead = const TextStyle(
   color: Color(0xFF303030),
   fontSize: 20,
 );
+TextStyle notificationNO = const TextStyle(
+  fontWeight: FontWeight.w100,
+  color: Colors.white,
+  fontSize: 20,
+);
 TextStyle resend = const TextStyle(
   fontWeight: FontWeight.w100,
   color: Colors.orange,
   fontSize: 20,
+);
+TextStyle redstyle = const TextStyle(
+  fontWeight: FontWeight.w100,
+  color: Colors.red,
+  fontSize: 12,
 );
 
 Address first;

@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:location/location.dart';
+import 'package:login_page_customized/screens/login_screen.dart';
+import 'package:login_page_customized/screens/octions.dart';
 import 'package:provider/provider.dart';
 import 'setlocation.dart';
-import 'counter.dart';
-import 'functions.dart';
-import 'env.dart' as env;
+import 'package:login_page_customized/counter.dart';
+import 'package:login_page_customized/functions.dart';
+import 'package:login_page_customized/env.dart' as env;
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:geocoder/geocoder.dart';
 
@@ -17,11 +19,7 @@ class Registration extends StatelessWidget {
   const Registration({Key key, this.lat, this.long}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => MyCounter(),
-      child: RegistrationPage(),
-      builder: (context) => MyCounter(),
-    );
+    return RegistrationPage();
   }
 }
 
@@ -48,10 +46,6 @@ class _MyHomePageState extends State<RegistrationPage>
     }
   }
 
-  Future updateLocation2(Function doo) {
-    return getLocation().then(doo);
-  }
-
   Future getLocationName() async {
     try {
       env.coordinates = Coordinates(env.lat, env.long);
@@ -65,7 +59,7 @@ class _MyHomePageState extends State<RegistrationPage>
             : env.first.addressLine == null ? "loading" : env.first.addressLine;
       });
     } catch (e) {
-      env.locationController.text = "";
+      // env.locationController.text = "";
     }
   }
 
@@ -129,7 +123,6 @@ class _MyHomePageState extends State<RegistrationPage>
             hintText: text,
             hintStyle: TextStyle(
               fontSize: 15,
-              fontFamily: 'Almarai',
             ),
             disabledBorder: OutlineInputBorder(
                 borderSide: new BorderSide(
@@ -243,7 +236,7 @@ class _MyHomePageState extends State<RegistrationPage>
             TextInputType.visiblePassword,
             readOnly: true,
             onTab: () async {
-              updateLocation();
+              await updateLocation();
               location.onLocationChanged.listen((LocationData currentLocation) {
                 getLocationName();
               });
@@ -254,8 +247,8 @@ class _MyHomePageState extends State<RegistrationPage>
                 Navigator.push(
                   context,
                   new MaterialPageRoute<Null>(
-                    builder: (BuildContext context) =>
-                        new AutoLocate(lat: env.lat, long: env.long),
+                    builder: (BuildContext context) => new AutoLocate(
+                        lat: env.lat ?? 51, long: env.long ?? 9.6),
                   ),
                 );
               },
@@ -271,10 +264,7 @@ class _MyHomePageState extends State<RegistrationPage>
   Widget build(BuildContext context) {
     final bolc = Provider.of<MyCounter>(context);
     return Scaffold(
-      appBar: new AppBar(
-        backgroundColor:env.trans,
-        elevation: 0,
-      ),
+      appBar: AppBar(),
       body: GestureDetector(
         onTap: () {
           FocusScope.of(context).requestFocus(FocusNode());
@@ -305,6 +295,14 @@ class _MyHomePageState extends State<RegistrationPage>
                     bolc.changechild(
                       translate(context, 'Regisration'),
                     );
+                    bolc.togelf();
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (BuildContext context) => new LoginScreen(),
+                      ),
+                    );
+                    // Navigator.pop(context);
                     bolc.togelf();
                   },
                   color: Colors.deepOrangeAccent,

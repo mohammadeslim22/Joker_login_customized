@@ -10,17 +10,12 @@ class MyCounter extends ChangeNotifier {
   int _currentIndex = 0;
 
   int get bottomNavIndex => _currentIndex;
-  changebottomNavIndex() {
+  changebottomNavIndex(int id) {
      //     print("counter my counter provider ^^^^^^^^^^^^^^^^^^^^^^$_currentIndex  ");
 
-    if (_currentIndex == 0) {
-      
-      _currentIndex = 1;
-      notifyListeners();
-    } else {
-      _currentIndex = 0;
-      notifyListeners();
-    }
+   
+      _currentIndex = id;
+    
 
     notifyListeners();
   }

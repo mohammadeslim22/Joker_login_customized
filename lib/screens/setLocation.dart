@@ -8,8 +8,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:geocoder/geocoder.dart';
-import 'env.dart' as env;
-import 'functions.dart';
+import 'package:login_page_customized/env.dart' as env;
+import 'package:login_page_customized/functions.dart';
 
 class AutoLocate extends StatefulWidget {
   final double long;
@@ -276,9 +276,9 @@ class _AutoLocateState extends State<AutoLocate> {
                     env.lat = lat;
                     env.long = long;
                     env.locationController.text = address == null
-                        ? "loading"
+                        ? "unkown"
                         : address.addressLine == null
-                            ? "loading"
+                            ? "unkown"
                             : address.addressLine;
                   });
                   Navigator.pop(context);

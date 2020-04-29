@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:login_page_customized/functions.dart';
-import 'package:login_page_customized/octions.dart';
+import 'package:login_page_customized/screens/pincode.dart';
 import 'package:provider/provider.dart';
-import 'appLocalizations.dart';
-import 'counter.dart';
-import 'env.dart' as env;
+import 'package:login_page_customized/appLocalizations.dart';
+import 'package:login_page_customized/counter.dart';
+import 'package:login_page_customized/env.dart' as env;
 import 'registrationscreen.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -37,7 +37,7 @@ class _MyHomePageState extends State<LoginScreenPage>
         textInputAction: action,
         // TODO(isleem): handle submissions on username field
 
-       // onFieldSubmitted: handleSubmission,
+        // onFieldSubmitted: handleSubmission,
         keyboardType: kt,
         controller: cController,
         style: new TextStyle(
@@ -90,7 +90,7 @@ class _MyHomePageState extends State<LoginScreenPage>
             TextInputAction.next,
             obscureText: false,
             handleSubmission: () {
-           //   _focusScopeNode.nextFocus();
+              //   _focusScopeNode.nextFocus();
             },
           ),
           customtext(
@@ -148,7 +148,8 @@ class _MyHomePageState extends State<LoginScreenPage>
           children: <Widget>[
             Text(translate(context, 'hello'), style: env.mystyle2),
             SizedBox(height: 10),
-            Text(translate(context, 'enter_login_information'), style: env.mystyle),
+            Text(translate(context, 'enter_login_information'),
+                style: env.mystyle),
           ],
         ),
         Column(
@@ -173,15 +174,16 @@ class _MyHomePageState extends State<LoginScreenPage>
                       borderRadius: new BorderRadius.circular(18.0),
                       side: BorderSide(color: Colors.orange)),
                   onPressed: () {
-                                  Navigator.pushReplacement(
-                  context,
-                  new MaterialPageRoute(
-                    builder: (BuildContext context) => new Octions(),
-                  ),
-                );
+                    bolc.togelf();
+                    Navigator.pushReplacement(
+                      context,
+                      new MaterialPageRoute(
+                        builder: (BuildContext context) =>
+                            new PinCode(monileNo: "0567505238"),
+                      ),
+                    );
                     bolc.changechild(
                       translate(context, 'login'),
-
                     );
                     bolc.togelf();
                   },
@@ -202,9 +204,10 @@ class _MyHomePageState extends State<LoginScreenPage>
                 Navigator.pushReplacement(
                   context,
                   new MaterialPageRoute(
-                    builder: (BuildContext context) => new Registration(),
+                    builder: (BuildContext context) => new PinCode(monileNo:"0567505238"),
                   ),
                 );
+              //  Navigator.pop(context);
               },
             ),
             Padding(

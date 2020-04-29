@@ -49,7 +49,30 @@
     "branch":"Branch",
     "starting_date":"Start Date",
     "end_date":"End Date",
-    "discount_status":"Discount Status"
+    "discount_status":"Discount Status",
+    "font":"الخط",
+    "large":"كبير",
+    "meduim":"وسط",
+    "small":"صغير",
+    "notification_sound":"صوت الاشعارات",
+    "recieving_offers_notifies":"استقبال اشعارات العروض",
+    "language":"اللغة",
+    "arabic":"العربية",
+    "english":"الإنجليزية",
+    "user_account":"حساب المستخدم",
+    "cancel_account":"إلغاء الحساب",
+    "advanced_search":"Advanced Search",
+    "shop_name_or_part_of_it":"اسم المتجر أو جزء منه",
+    "offername_or_doscreption":"اسم العرض أو الوصف",
+    "search_through":"Search based on",
+    "offer_history":"تاريخ العرض",
+    "accourding_offer_start_end_date":"حسب تاريخ بداية ونهاية العرض",
+    "accourding_to_rating":"حسب التقييم",
+    "search":"search",
+    "specializations":"التخصصات",
+    "shop_details":"Shop Details"
+
+
 
 
 }
