@@ -70,5 +70,11 @@
     "accourding_to_rating": "حسب التقييم",
     "search": "بحث",
     "specializations":"التخصصات",
-    "shop_details":"تفاصيل المتجر"
+    "shop_details":"تفاصيل المتجر",
+    "shop_branches":"أفرع المتجر",
+    "send_complaint":"تقديم شكوى",
+    "rate_shop":"تقييم المتجر",
+    "shop_offers":"عروض المتجر",
+    "show_all":"عرض الكل",
+    "fav":"المفضلة"
 }

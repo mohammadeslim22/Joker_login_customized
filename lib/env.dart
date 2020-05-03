@@ -36,6 +36,11 @@ TextStyle underHead = const TextStyle(
   color: Color(0xFF303030),
   fontSize: 20,
 );
+TextStyle underHeadblack = const TextStyle(
+  fontWeight: FontWeight.w100,
+  color: Colors.black,
+  fontSize: 20,
+);
 TextStyle notificationNO = const TextStyle(
   fontWeight: FontWeight.w100,
   color: Colors.white,

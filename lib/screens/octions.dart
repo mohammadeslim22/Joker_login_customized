@@ -3,17 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:hidden_drawer_menu/hidden_drawer/hidden_drawer_menu.dart';
 import 'package:hidden_drawer_menu/simple_hidden_drawer/simple_hidden_drawer.dart';
-import 'package:login_page_customized/functions.dart';
-import 'package:login_page_customized/models/shop.dart';
+import '../functions.dart';
+import '../models/shop.dart';
+import '../screens/advanced_search.dart';
 import 'package:provider/provider.dart';
-import 'package:login_page_customized/widgets/appbarIcon.dart';
-import 'package:login_page_customized/widgets/bottom_bar.dart';
-import 'package:login_page_customized/counter.dart';
-import 'package:login_page_customized/widgets/customcarddiscount.dart';
-import 'package:login_page_customized/widgets/customcard.dart';
-import 'package:login_page_customized/models/discount.dart';
-import 'package:login_page_customized/env.dart' as env;
-import 'package:login_page_customized/widgets/myMenu.dart';
+import '../widgets/appbarIcon.dart';
+import '../widgets/bottom_bar.dart';
+import '../counter.dart';
+import '../widgets/customcarddiscount.dart';
+import '../widgets/customcard.dart';
+import '../models/discount.dart';
+import '../env.dart' as env;
+import '../widgets/myMenu.dart';
 
 class Octions extends StatelessWidget {
   @override
@@ -112,9 +113,9 @@ class OcState extends State<Oc> with TickerProviderStateMixin {
     final bolc = Provider.of<MyCounter>(context);
     Widget texCity() {
       return Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          
           Flexible(
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -124,15 +125,15 @@ class OcState extends State<Oc> with TickerProviderStateMixin {
                     child: Text(
                       translate(context, 'discount_offers'),
                       style: new TextStyle(
-                        fontSize: 25.0,
+                        fontSize: 22.0,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                    padding: EdgeInsets.fromLTRB(10, 10, 0, 0),
                     child:
-                        Text("في المملكة العربية السعودية", style: env.mystyle),
+                        Text("In the Kingdom of Saudi Arabia", style: env.mystyle),
                   )
                 ]),
           ),
@@ -164,6 +165,7 @@ class OcState extends State<Oc> with TickerProviderStateMixin {
             ),
             onPressed: () {},
           ),
+          const SizedBox(width: 7,)
         ],
       );
     }
@@ -174,7 +176,17 @@ class OcState extends State<Oc> with TickerProviderStateMixin {
         appBar: AppBar(
           leading: AppBarIcon(contrller: controller, icon: Icons.sort),
           actions: <Widget>[
-            AppBarIcon(icon: Icons.search),
+            AppBarIcon(
+              icon: Icons.search,
+              func: () {
+                Navigator.push(
+                  context,
+                  new MaterialPageRoute(
+                    builder: (BuildContext context) => new AdvancedSearch(),
+                  ),
+                );
+              },
+            ),
             AppBarIcon(icon: Icons.notifications_none),
           ],
         ),
@@ -196,7 +208,7 @@ class OcState extends State<Oc> with TickerProviderStateMixin {
         ),
         bottomNavigationBar: SizeTransition(
           sizeFactor: _hide,
-          child: BottomContent(currentIndex: bolc.bottomNavIndex),
+          child: BottomContent(),
         ),
       ),
     );

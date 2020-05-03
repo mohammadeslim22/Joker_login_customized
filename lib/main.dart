@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:login_page_customized/screens/login_screen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:login_page_customized/models/membership.dart';
 import 'package:login_page_customized/screens/advanced_search.dart';
+import 'package:login_page_customized/screens/favorite.dart';
+import 'package:login_page_customized/screens/my_membership.dart';
+import 'package:login_page_customized/screens/myaccount.dart';
 import 'package:provider/provider.dart';
 import 'appLocalizations.dart';
 import 'counter.dart';
@@ -13,7 +16,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'screens/registrationscreen.dart';
 import 'screens/settings.dart';
 import 'screens/shop_details.dart';
-import 'widgets/table_cal_test.dart';
 
 void main() => runApp(MyApp());
 
@@ -24,7 +26,7 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => MyCounter(),
       child: MaterialApp(
-        color: Colors.red,
+        // color: Colors.red,
         debugShowCheckedModeBanner: false,
         supportedLocales: [
           Locale("en", "US"),
@@ -48,16 +50,13 @@ class MyApp extends StatelessWidget {
             color: env.trans,
           ),
         ),
-         // home: Octions(),
-        home: ShopDetails(
-          shop: Shop(
-            image: "assets/images/shopone.jpg",
-          ),likecount:50,lovecount:50
-        )
+       //  home: MyMemberShip(MemberShip.membershipsData),
+          home: Registration(),
+        // home: ShopDetails(
+        //   shop: Shop(
+        //     image: "assets/images/shopone.jpg",
+        //   ),likecount:50,lovecount:50
+        // )
         ),);
-        
-      
-     
-    
   }
 }

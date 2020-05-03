@@ -16,6 +16,7 @@ Future<List<String>> getLocation() async {
   serviceEnabled = await location.serviceEnabled();
   if (!serviceEnabled) {
     serviceEnabled = await location.requestService();
+    
     if (!serviceEnabled) {
       return locaion;
     }

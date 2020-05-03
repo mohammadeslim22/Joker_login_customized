@@ -1,10 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:login_page_customized/functions.dart';
-import 'package:login_page_customized/env.dart' as env;
-import 'package:login_page_customized/models/shop.dart';
+import '../functions.dart';
+import '../env.dart' as env;
+import '../models/branch.dart';
+import '../models/discount.dart';
+import '../models/shop.dart';
 import 'package:like_button/like_button.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import '../widgets/customcarddiscount.dart';
+import 'package:rating_bar/rating_bar.dart';
 
 class ShopDetails extends StatefulWidget {
   final Shop shop;
@@ -14,22 +17,39 @@ class ShopDetails extends StatefulWidget {
   const ShopDetails({Key key, this.shop, this.likecount, this.lovecount})
       : super(key: key);
   @override
-  _MyHomePageState createState() =>
-      _MyHomePageState(shop, likecount, lovecount);
+  ShopDetailsPage createState() =>
+      ShopDetailsPage(shop, likecount, lovecount);
 }
 
-class _MyHomePageState extends State<ShopDetails>
+class ShopDetailsPage extends State<ShopDetails>
     with TickerProviderStateMixin {
-  _MyHomePageState(this.shop, this.likecount, this.lovecount);
+  ShopDetailsPage(this.shop, this.likecount, this.lovecount);
   final Shop shop;
   final int likecount;
   final int lovecount;
+  double ratingStar = 0;
   String text2 = "5";
   var text = "4";
+  Color tabBackgroundColor = env.trans;
+  List<Branch> branches = Branch.branchData;
+  TabController _tabController;
   Color floatingbuttonCo = Colors.grey;
+  int index = 2;
 
   Future<bool> onLikeButtonTapped(bool isLiked) async {
     return !isLiked;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = new TabController(vsync: this, length: branches.length);
+    _tabController.addListener(() {
+      if (_tabController.indexIsChanging) {
+      } else if (_tabController.index != _tabController.previousIndex) {
+        setState(() {});
+      }
+    });
   }
 
   @override
@@ -42,147 +62,295 @@ class _MyHomePageState extends State<ShopDetails>
         centerTitle: true,
       ),
       body: ListView(
-        padding: const EdgeInsets.symmetric(horizontal: 15),
         shrinkWrap: true,
         children: <Widget>[
           Container(
-            height: MediaQuery.of(context).size.height * .25,
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(12), topRight: Radius.circular(12)),
-              image: DecorationImage(
-                image: new AssetImage(
-                  shop.image,
-                ),
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: Column(
                 children: <Widget>[
-                  Text(
-                    translate(context, 'shop_name'),
-                    style: env.underHead,
-                  ),
-                       const SizedBox(
-                        height: 6,
-                      ),
-                  Text(translate(context, 'city'), style: env.mylight),
-                ],
-              ),
-              Row(
-                children: <Widget>[
-                  Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        LikeButton(
-                          size: 26,
-                          likeBuilder: (bool isLiked) {
-                            return Container(
-                              child: FloatingActionButton(
-                                elevation: 0,
-                                backgroundColor:
-                                    !isLiked ? Colors.grey : Colors.blue,
-                                child: new Image.asset(
-                                  "assets/images/like.png",
-                                  scale: 3.5,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            );
-                          },
-                          likeCountPadding:
-                              const EdgeInsets.symmetric(vertical: 3),
-                          padding: const EdgeInsets.symmetric(horizontal: 5),
-                          countBuilder: (int c, bool b, String i) {
-                            return Text(
-                              i,
-                              style: TextStyle(color: Colors.black),
-                            );
-                          },
-                          likeCount: lovecount,
-                          countPostion: CountPostion.bottom,
-                          circleColor: CircleColor(
-                              start: Colors.white, end: Colors.purple),
-                          onTap: (bool loved) {
-                            return onLikeButtonTapped(loved);
-                          },
+                  Container(
+                    height: MediaQuery.of(context).size.height * .25,
+                    decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(12),
+                          topRight: Radius.circular(12)),
+                      image: DecorationImage(
+                        image: new AssetImage(
+                          shop.image,
                         ),
-
-                        // Container(
-                        //   width: 27.0,
-                        //   height: 25.0,
-                        //   child: FloatingActionButton(
-                        //     elevation: 0,
-                        //     backgroundColor: floatingbuttonCo,
-                        //     mini: true,
-                        //     child: new Image.asset(
-                        //       "assets/images/like.png",
-                        //       scale: 3.5,
-                        //       fit: BoxFit.cover,
-                        //     ),
-                        //     onPressed: () {
-                        //       setState(() {
-                        //         floatingbuttonCo = Colors.blue[300];
-                        //       });
-                        //     },
-                        //   ),
-                        // ),
-                        // const SizedBox(
-                        //   height: 2,
-                        // ),
-                        // Text(
-                        //   likecount.toString(),
-                        //   style: env.mystyle,
-                        // ),
-                        // const SizedBox(
-                        //   height: 7,
-                        // ),
-                      ]),
-                  SizedBox(width: 7),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      LikeButton(
-                        size: 31,
-                        padding: const EdgeInsets.symmetric(horizontal: 5),
-                        countBuilder: (int c, bool b, String i) {
-                          return Text(
-                            i,
-                            style: TextStyle(color: Colors.black),
-                          );
-                        },
-                        isLiked: true,
-                        likeCount: lovecount,
-                        countPostion: CountPostion.bottom,
-                        circleColor: CircleColor(
-                            start: Colors.white, end: Colors.purple),
-                        onTap: (bool loved) {
-                          return onLikeButtonTapped(loved);
-                        },
-                        likeCountPadding:
-                            const EdgeInsets.symmetric(vertical: 0),
+                        fit: BoxFit.cover,
                       ),
-                      const SizedBox(
-                        height: 6,
-                      )
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            translate(context, 'shop_name'),
+                            style: env.underHead,
+                          ),
+                          const SizedBox(
+                            height: 6,
+                          ),
+                          Text(translate(context, 'city'), style: env.mylight),
+                        ],
+                      ),
+                      Row(
+                        children: <Widget>[
+                          Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                LikeButton(
+                                  size: 26,
+                                  likeBuilder: (bool isLiked) {
+                                    return Container(
+                                      child: FloatingActionButton(
+                                        heroTag: "ferotag",
+                                        elevation: 0,
+                                        backgroundColor: !isLiked
+                                            ? Colors.grey
+                                            : Colors.blue,
+                                        child: new Image.asset(
+                                          "assets/images/like.png",
+                                          scale: 3.5,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  likeCountPadding:
+                                      const EdgeInsets.symmetric(vertical: 3),
+                                  padding:
+                                      const EdgeInsets.symmetric(horizontal: 5),
+                                  countBuilder: (int c, bool b, String i) {
+                                    return Text(
+                                      i,
+                                      style: TextStyle(color: Colors.black),
+                                    );
+                                  },
+                                  likeCount: lovecount,
+                                  countPostion: CountPostion.bottom,
+                                  circleColor: CircleColor(
+                                      start: Colors.white, end: Colors.purple),
+                                  onTap: (bool loved) {
+                                    return onLikeButtonTapped(loved);
+                                  },
+                                ),
+                              ]),
+                          const SizedBox(width: 8),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              LikeButton(
+                                size: 31,
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 5),
+                                countBuilder: (int c, bool b, String i) {
+                                  return Text(
+                                    i,
+                                    style: TextStyle(color: Colors.black),
+                                  );
+                                },
+                                likeCount: lovecount,
+                                countPostion: CountPostion.bottom,
+                                circleColor: CircleColor(
+                                    start: Colors.blue, end: Colors.purple),
+                                onTap: (bool loved) {
+                                  return onLikeButtonTapped(loved);
+                                },
+                                likeCountPadding:
+                                    const EdgeInsets.symmetric(vertical: 0),
+                              ),
+                              const SizedBox(
+                                height: 6,
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
                     ],
                   ),
                 ],
+              )),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+            color: Colors.white,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Expanded(
+                  child: Divider(
+                    color: Colors.grey,
+                    thickness: 1,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Text(
+                    translate(context, "shop_branches"),
+                    style: env.mystyle,
+                  ),
+                ),
+                Expanded(
+                  child: Divider(
+                    color: Colors.grey,
+                    thickness: 1,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Column(
+            children: <Widget>[
+              Container(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                color: Colors.grey[300],
+                child: TabBar(
+                    indicatorColor: env.trans,
+                    isScrollable: true,
+                    onTap: (int i) {
+                      setState(() {
+                        index = i;
+                      });
+                    },
+                    controller: _tabController,
+                    tabs: branches.map((tab) {
+                      
+                      return Container(
+                        
+                          decoration: BoxDecoration(
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(8)),
+                            color: _tabController.index != tab.id
+                                ? tabBackgroundColor
+                                : Colors.orange[100],
+                          ),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 5, vertical: 8),
+                          child: Text(
+                            tab.title,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: _tabController.index != tab.id
+                                  ? Colors.black
+                                  : Colors.orange,
+                            ),
+                          ));
+                    }).toList()),
+              ),
+              Container(
+                color: Colors.white,
+                padding: const EdgeInsets.fromLTRB(12, 12, 12, 0),
+                width: MediaQuery.of(context).size.width,
+                height: 96,
+                child: TabBarView(
+                    controller: _tabController,
+                    children: branches.map((tab) {
+                      return Column(
+                        children: <Widget>[
+                          Row(children: <Widget>[
+                            new Image.asset(
+                              "assets/images/addreess_icon.png",
+                              scale: 3.5,
+                              fit: BoxFit.cover,
+                            ),
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            Text(tab.address)
+                          ]),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              RaisedButton(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 12, horizontal: 25),
+                                shape: new RoundedRectangleBorder(
+                                  borderRadius: new BorderRadius.circular(28.0),
+                                ),
+                                onPressed: () {},
+                                color: Colors.grey[300],
+                                textColor: Colors.black,
+                                child: Text(
+                                    translate(
+                                      context,
+                                      "send_complaint",
+                                    ),
+                                    style: env.mystyle),
+                              ),
+                              Column(
+                                children: <Widget>[
+                                  RatingBar(
+                                    onRatingChanged: (rating) =>
+                                        setState(() => ratingStar = rating),
+                                    filledIcon: Icons.star,
+                                    emptyIcon: Icons.star_border,
+                                    halfFilledIcon: Icons.star_half,
+                                    isHalfAllowed: true,
+                                    filledColor: Colors.amberAccent,
+                                    emptyColor: Colors.grey,
+                                    halfFilledColor: Colors.orange[300],
+                                    size: 20,
+                                  ),
+                                  Row(
+                                    children: <Widget>[
+                                      Text(
+                                          translate(
+                                            context,
+                                            "rate_shop",
+                                          ),
+                                          style: env.mystyle),
+                                      Icon(
+                                        Icons.arrow_forward,
+                                        color: Colors.orange,
+                                        size: 20,
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              )
+                            ],
+                          )
+                        ],
+                      );
+                    }).toList()),
               ),
             ],
           ),
-        
+          
+          Padding(
+            padding: const EdgeInsets.fromLTRB( 20, 10,20,10),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text(translate(context, "shop_offers") +
+                    "   ( ${branches.length} )"),
+                InkWell(
+                  child: Text(
+                    translate(context, "show_all"),
+                  ),
+                  onTap: () {
+                    print("value of your text");
+                  },
+                ),
+   
+              ],
+            ),
+          ),
+          Container(child: DiscountsList(Discount.movieData))
         ],
       ),
     );

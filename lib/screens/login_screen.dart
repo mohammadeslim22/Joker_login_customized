@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:login_page_customized/functions.dart';
-import 'package:login_page_customized/screens/pincode.dart';
+import '../functions.dart';
+import '../screens/pincode.dart';
+import '../widgets/buttonTouse.dart';
 import 'package:provider/provider.dart';
-import 'package:login_page_customized/appLocalizations.dart';
-import 'package:login_page_customized/counter.dart';
-import 'package:login_page_customized/env.dart' as env;
+import '../appLocalizations.dart';
+import '../counter.dart';
+import '../env.dart' as env;
 import 'registrationscreen.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -219,6 +220,7 @@ class _MyHomePageState extends State<LoginScreenPage>
                     translate(context, 'you_have_shop_'),
                     style: env.mystyle,
                   ),
+                  
                   ButtonToUse(
                     translate(context, 'click_here'),
                     fw: FontWeight.bold,
@@ -236,25 +238,4 @@ class _MyHomePageState extends State<LoginScreenPage>
   lgoin(String username, String password) {}
 }
 
-class ButtonToUse extends StatelessWidget {
-  ButtonToUse(this.buttonstring, {this.fw, this.fc, this.myfunc});
-  final String buttonstring;
-  final FontWeight fw;
-  final Color fc;
-  final Function myfunc;
-  @override
-  Widget build(BuildContext context) {
-    return RaisedButton(
-        color: env.trans,
-        elevation: 0,
-        child: Text(
-          buttonstring,
-          style: TextStyle(
-            color: fc,
-            fontSize: 15,
-            fontWeight: fw,
-          ),
-        ),
-        onPressed: () => myfunc());
-  }
-}
+

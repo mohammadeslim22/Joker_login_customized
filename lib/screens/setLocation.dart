@@ -8,8 +8,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:geocoder/geocoder.dart';
-import 'package:login_page_customized/env.dart' as env;
-import 'package:login_page_customized/functions.dart';
+import '../env.dart' as env;
+import '../functions.dart';
 
 class AutoLocate extends StatefulWidget {
   final double long;
@@ -29,14 +29,43 @@ class _AutoLocateState extends State<AutoLocate> {
   Location location = Location();
   double lat;
   double long;
-
+  bool serviceEnabled;
+  PermissionStatus permissionGranted;
+  LocationData locationData;
   Map<MarkerId, Marker> markers = <MarkerId, Marker>{};
 
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  void _onMapCreated(GoogleMapController controller) {
+  Future<void> _onMapCreated(GoogleMapController controller) async {
     mapController = controller;
-    _animateToUser();
+
+    serviceEnabled = await location.serviceEnabled();
+    if (!serviceEnabled) {
+      serviceEnabled = await location.requestService();
+      if (!serviceEnabled) {
+      } else {
+        permissionGranted = await location.hasPermission();
+        if (permissionGranted == PermissionStatus.denied) {
+          permissionGranted = await location.requestPermission();
+          if (permissionGranted == PermissionStatus.granted) {
+            _animateToUser();
+          }
+        } else {
+          _animateToUser();
+        }
+      }
+    } else {
+      permissionGranted = await location.hasPermission();
+      if (permissionGranted == PermissionStatus.denied) {
+        permissionGranted = await location.requestPermission();
+              if (permissionGranted ==
+                                  PermissionStatus.granted) {
+                                _animateToUser();
+                              }
+      } else {
+        _animateToUser();
+      }
+    }
   }
 
   Coordinates coordinates;
@@ -48,7 +77,6 @@ class _AutoLocateState extends State<AutoLocate> {
     super.initState();
     lat = widget.lat;
     long = widget.long;
-    getLocationName(long, lat);
   }
 
   @override
@@ -59,10 +87,12 @@ class _AutoLocateState extends State<AutoLocate> {
 
   Future getLocationName(double long, double lat) async {
     try {
+    
+
       coordinates = Coordinates(lat, long);
       addresses =
           await Geocoder.local.findAddressesFromCoordinates(coordinates);
-      setState(() =>address = addresses.first);
+      setState(() => address = addresses.first);
       print('fetched ${address.addressLine}');
     } catch (e) {}
   }
@@ -134,7 +164,7 @@ class _AutoLocateState extends State<AutoLocate> {
                             Text(
                               address == null
                                   ? 'Loading'
-                                  : address.addressLine??'',
+                                  : address.addressLine ?? '',
                               style: TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 11),
                             ),
@@ -193,7 +223,38 @@ class _AutoLocateState extends State<AutoLocate> {
                           color: Color.fromARGB(1023, 150, 150, 150),
                         ),
                       ),
-                      onTap: _animateToUser,
+                      onTap: () async {
+                        serviceEnabled = await location.serviceEnabled();
+                        if (!serviceEnabled) {
+                          serviceEnabled = await location.requestService();
+                          if (!serviceEnabled) {
+                          } else {
+                            permissionGranted = await location.hasPermission();
+                            if (permissionGranted == PermissionStatus.denied) {
+                              permissionGranted =
+                                  await location.requestPermission();
+                              if (permissionGranted ==
+                                  PermissionStatus.granted) {
+                                _animateToUser();
+                              }
+                            } else {
+                              _animateToUser();
+                            }
+                          }
+                        } else {
+                          permissionGranted = await location.hasPermission();
+                          if (permissionGranted == PermissionStatus.denied) {
+                            permissionGranted =
+                                await location.requestPermission();
+                                      if (permissionGranted ==
+                                  PermissionStatus.granted) {
+                                _animateToUser();
+                              }
+                          } else {
+                            _animateToUser();
+                          }
+                        }
+                      },
                     ),
                   ),
                 ),
@@ -282,7 +343,6 @@ class _AutoLocateState extends State<AutoLocate> {
                             : address.addressLine;
                   });
                   Navigator.pop(context);
-
                 },
                 color: Colors.blue,
                 textColor: Colors.white,

@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:location/location.dart';
-import 'package:login_page_customized/screens/login_screen.dart';
-import 'package:login_page_customized/screens/octions.dart';
+import '../screens/login_screen.dart';
+import '../widgets/TextFormInput.dart';
+import '../widgets/buttonTouse.dart';
 import 'package:provider/provider.dart';
 import 'setlocation.dart';
-import 'package:login_page_customized/counter.dart';
-import 'package:login_page_customized/functions.dart';
-import 'package:login_page_customized/env.dart' as env;
+import '../counter.dart';
+import '../functions.dart';
+import '../env.dart' as env;
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:geocoder/geocoder.dart';
 
@@ -32,17 +33,21 @@ class _MyHomePageState extends State<RegistrationPage>
     with TickerProviderStateMixin {
   List<String> location2;
   Location location = new Location();
-  updateLocation() {
+  updateLocation() async {
     if (env.lat == null || env.long == null) {
-      Future<List<String>> loglat = getLocation();
-
-      loglat.then((langandlat) {
-        setState(() {
-          this.location2 = langandlat;
-          env.lat = double.parse(location2.elementAt(0));
-          env.long = double.parse(location2.elementAt(1));
-        });
-      });
+      List<String> loglat = await getLocation();
+      if (loglat.isEmpty) {
+      } else {
+        if (loglat[0] == null || loglat[1] == null) {
+          List<String> loglat = await getLocation();
+        } else {
+          setState(() {
+            this.location2 = loglat;
+            env.lat = double.parse(location2.elementAt(0));
+            env.long = double.parse(location2.elementAt(1));
+          });
+        }
+      }
     }
   }
 
@@ -94,79 +99,33 @@ class _MyHomePageState extends State<RegistrationPage>
       FocusScope.of(context).requestFocus(FocusNode());
   }
 
-  Widget customtext(String text, TextEditingController cController,
-      IconData prefixIcon, TextInputType kt,
-      {IconData y,
-      bool obscureText,
-      Widget suffixwidget,
-      bool readOnly,
-      Function onTab}) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
-      child: TextFormField(
-        readOnly: readOnly,
-        keyboardType: kt,
-        onTap: onTab,
-        controller: cController,
-        style: new TextStyle(
-          color: Colors.black,
-          fontSize: 15,
-        ),
-        obscureText: obscureText,
-        decoration: InputDecoration(
-            enabledBorder: new OutlineInputBorder(
-                borderSide: new BorderSide(
-              color: Colors.grey,
-            )),
-            filled: true,
-            fillColor: Colors.white70,
-            hintText: text,
-            hintStyle: TextStyle(
-              fontSize: 15,
-            ),
-            disabledBorder: OutlineInputBorder(
-                borderSide: new BorderSide(
-              color: Colors.grey,
-            )),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(7),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(7),
-            ),
-            contentPadding: EdgeInsets.symmetric(vertical: 0),
-            prefixIcon: Icon(prefixIcon),
-            suffixIcon: suffixwidget),
-      ),
-    );
-  }
 
   Widget customcard(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(15, 30, 15, 0),
       child: Column(
         children: <Widget>[
-          customtext(
-            translate(context, 'name'),
-            env.usernameController,
-            Icons.person_outline,
-            TextInputType.visiblePassword,
+          TextFormInput(
+           text: translate(context, 'name'),
+            cController:env.usernameController,
+           prefixIcon: Icons.person_outline,
+          kt:  TextInputType.visiblePassword,
             obscureText: false,
             readOnly: false,
           ),
-          customtext(
-            translate(context, 'email'),
-            env.emailController,
-            Icons.mail_outline,
-            TextInputType.emailAddress,
+          TextFormInput(
+           text: translate(context, 'email'),
+           cController: env.emailController,
+            prefixIcon: Icons.mail_outline,
+            kt: TextInputType.emailAddress,
             obscureText: false,
             readOnly: false,
           ),
-          customtext(
-            translate(context, 'mobile_no'),
-            env.mobileNoController,
-            Icons.phone,
-            TextInputType.phone,
+          TextFormInput(
+          text:  translate(context, 'mobile_no'),
+           cController: env.mobileNoController,
+          prefixIcon:  Icons.phone,
+           kt: TextInputType.phone,
             obscureText: _obscureText,
             readOnly: false,
             suffixwidget: CountryCodePicker(
@@ -183,11 +142,11 @@ class _MyHomePageState extends State<RegistrationPage>
                   : const EdgeInsets.fromLTRB(30, 0, 0, 0)),
             ),
           ),
-          customtext(
-            translate(context, 'password'),
-            env.passwordController,
-            Icons.lock_outline,
-            TextInputType.visiblePassword,
+          TextFormInput(
+            text:  translate(context, 'password'),
+          cController:   env.passwordController,
+            prefixIcon: Icons.lock_outline,
+            kt:TextInputType.visiblePassword,
             readOnly: false,
             suffixwidget: IconButton(
               icon: Icon(
@@ -203,11 +162,11 @@ class _MyHomePageState extends State<RegistrationPage>
             ),
             obscureText: _obscureText,
           ),
-          customtext(
-            translate(context, 'birth_date'),
-            env.birthDateController,
-            Icons.date_range,
-            TextInputType.visiblePassword,
+          TextFormInput(
+           text:   translate(context, 'birth_date'),
+          cController:  env.birthDateController,
+            prefixIcon: Icons.date_range,
+            kt: TextInputType.visiblePassword,
             obscureText: _obscureText,
             readOnly: false,
             suffixwidget: Row(
@@ -229,24 +188,25 @@ class _MyHomePageState extends State<RegistrationPage>
               ],
             ),
           ),
-          customtext(
-            translate(context, 'get_location'),
-            env.locationController,
-            Icons.my_location,
-            TextInputType.visiblePassword,
+          TextFormInput(
+             text:  translate(context, 'get_location'),
+             cController:  env.locationController,
+             prefixIcon: Icons.my_location,
+            kt: TextInputType.visiblePassword,
             readOnly: true,
             onTab: () async {
-              await updateLocation();
-              location.onLocationChanged.listen((LocationData currentLocation) {
-                getLocationName();
-              });
+              // await updateLocation();
+              // location.onLocationChanged.listen((LocationData currentLocation) {
+              //   getLocationName();
+              // });
+              // print("fucklkkkkkkkk");
             },
             suffixwidget: IconButton(
               icon: Icon(Icons.add_location),
               onPressed: () {
                 Navigator.push(
                   context,
-                  new MaterialPageRoute<Null>(
+                  new MaterialPageRoute(
                     builder: (BuildContext context) => new AutoLocate(
                         lat: env.lat ?? 51, long: env.long ?? 9.6),
                   ),
@@ -315,14 +275,18 @@ class _MyHomePageState extends State<RegistrationPage>
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Text(
-                  translate(context, 'problem_in_regisration'),
-                  style: env.mystyle,
+                Flexible(
+                  child: Text(
+                    translate(context, 'problem_in_regisration'),
+                    style: env.mystyle,
+                  ),
                 ),
-                ButtonToUse(
-                  translate(context, 'tech_support'),
-                  fw: FontWeight.bold,
-                  fc: Colors.green,
+                Flexible(
+                  child: ButtonToUse(
+                    translate(context, 'tech_support'),
+                    fw: FontWeight.bold,
+                    fc: Colors.green,
+                  ),
                 ),
               ],
             ),
@@ -338,25 +302,4 @@ class _MyHomePageState extends State<RegistrationPage>
   }
 }
 
-class ButtonToUse extends StatelessWidget {
-  ButtonToUse(this.buttonstring, {this.fw, this.fc, this.myfunc});
-  final String buttonstring;
-  final FontWeight fw;
-  final Color fc;
-  final Function myfunc;
-  @override
-  Widget build(BuildContext context) {
-    return RaisedButton(
-        color: env.trans,
-        elevation: 0,
-        child: Text(
-          buttonstring,
-          style: TextStyle(
-            color: fc,
-            fontSize: 15,
-            fontWeight: fw,
-          ),
-        ),
-        onPressed: () => myfunc());
-  }
-}
+

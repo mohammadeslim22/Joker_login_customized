@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:login_page_customized/functions.dart';
+import '../functions.dart';
+import '../widgets/buttonTouse.dart';
 import 'package:provider/provider.dart';
-import 'package:login_page_customized/counter.dart';
-import 'package:login_page_customized/screens/octions.dart';
+import '../counter.dart';
+import '../screens/octions.dart';
 
 import 'package:pin_code_fields/pin_code_fields.dart';
-import 'package:login_page_customized/env.dart' as env;
+import '../env.dart' as env;
 import 'package:timer_count_down/timer_count_down.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
@@ -43,40 +44,55 @@ class _MyHomePageState extends State<LoginScreenPage>
       vsync: this,
       duration: Duration(seconds: 30),
     );
+   
   }
 
   Widget pinCode() {
-    return Flexible(
+
+    
+    return SafeArea(
       child: Container(
-          margin: const EdgeInsets.fromLTRB(30, 30, 30, 30),
-          decoration: BoxDecoration(
-            border: Border.all(
-              color: Colors.grey,
-              width: 1,
-            ),
-            borderRadius: BorderRadius.circular(7),
+        width: MediaQuery.of(context).size.width,
+        margin: const EdgeInsets.fromLTRB(15, 30, 15, 30),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          border: Border.all(
+            color: Colors.grey,
+            width: 1,
           ),
-          padding: const EdgeInsets.fromLTRB(80, 0, 80, 0),
-          child: PinCodeTextField(
-            length: 4,
-            obsecureText: false,
-            animationType: AnimationType.fade,
-            shape: PinCodeFieldShape.box,
-            animationDuration: Duration(milliseconds: 300),
-            borderRadius: BorderRadius.circular(5),
-            inactiveColor: Colors.grey,
-            textInputType: TextInputType.phone,
-            fieldHeight: 40,
-            fieldWidth: 30,
-            onCompleted: (v) {
-              // on complete
-            },
-            onChanged: (value) {
-              setState(() {
-                currentText = value;
-              });
-            },
-          )),
+          borderRadius: BorderRadius.circular(7),
+        ),
+           padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+        child: Row(
+
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Container(
+              width: 140,
+              child: PinCodeTextField(
+                length: 4,
+                obsecureText: false,
+                animationType: AnimationType.fade,
+                shape: PinCodeFieldShape.box,
+                animationDuration: Duration(milliseconds: 300),
+                borderRadius: BorderRadius.circular(5),
+                inactiveColor: Colors.grey,
+                textInputType: TextInputType.phone,
+                fieldHeight: 40,
+                fieldWidth: 30,
+                onCompleted: (v) {
+                  // on complete
+                },
+                onChanged: (value) {
+                  setState(() {
+                    currentText = value;
+                  });
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 
@@ -161,7 +177,6 @@ class _MyHomePageState extends State<LoginScreenPage>
                             builder: (BuildContext context) => new Octions(),
                           ),
                         );
-                        
                       },
                       color: Colors.deepOrangeAccent,
                       textColor: Colors.white,
@@ -172,40 +187,23 @@ class _MyHomePageState extends State<LoginScreenPage>
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text(
+                      Flexible(
+                  child: Text(
                     translate(context, 'problem_in_regisration'),
                     style: env.mystyle,
                   ),
-                  ButtonToUse(
+                ),
+                Flexible(
+                  child: ButtonToUse(
                     translate(context, 'tech_support'),
                     fw: FontWeight.bold,
                     fc: Colors.green,
                   ),
+                ),
                 ],
               ),
             ])));
   }
 }
 
-class ButtonToUse extends StatelessWidget {
-  ButtonToUse(this.buttonstring, {this.fw, this.fc, this.myfunc});
-  final String buttonstring;
-  final FontWeight fw;
-  final Color fc;
-  final Function myfunc;
-  @override
-  Widget build(BuildContext context) {
-    return RaisedButton(
-        color: env.trans,
-        elevation: 0,
-        child: Text(
-          buttonstring,
-          style: TextStyle(
-            color: fc,
-            fontSize: 15,
-            fontWeight: fw,
-          ),
-        ),
-        onPressed: () => myfunc());
-  }
-}
+

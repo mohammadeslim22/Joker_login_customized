@@ -8,15 +8,53 @@ class MyCounter extends ChangeNotifier {
   static String loginbase = "login";
   static AnimationController _controller;
   int _currentIndex = 0;
+  int favocurrentIndex = 0;
+  List<bool> fontlist = [true, false, false];
+  List<bool> language = [true, false, false];
+  bool _visible = true;
+  bool __visible = false;
 
   int get bottomNavIndex => _currentIndex;
+  bool get visible1 => _visible;
+  List<bool> get font => fontlist;
+    List<bool> get lang => language;
+
+  bool get visible2 => __visible;
   changebottomNavIndex(int id) {
-     //     print("counter my counter provider ^^^^^^^^^^^^^^^^^^^^^^$_currentIndex  ");
+    _currentIndex = id;
 
-   
-      _currentIndex = id;
-    
+    notifyListeners();
+  }
+  changelanguageindex(int index) {
+    for (int i = 0; i < language.length; i++) {
+      if (i == index) {
+        language[i] = true;
+      } else {
+        language[i] = false;
+      }
+    }
 
+    notifyListeners();
+  }
+  changefontindex(int index) {
+    for (int i = 0; i < fontlist.length; i++) {
+      if (i == index) {
+        fontlist[i] = true;
+      } else {
+        fontlist[i] = false;
+      }
+    }
+
+    notifyListeners();
+  }
+
+  changeTabBarIndex(int id) {
+    favocurrentIndex = id;
+    _visible = !_visible;
+    __visible = !__visible;
+
+    print(visible2);
+    print(visible1);
     notifyListeners();
   }
 

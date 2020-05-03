@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/rendering.dart';
-import 'package:login_page_customized/models/discount.dart';
-import 'package:login_page_customized/functions.dart';
-import 'package:login_page_customized/env.dart' as env;
+import '../models/discount.dart';
+import '../functions.dart';
+import '../env.dart' as env;
 import 'package:flutter/material.dart';
 import 'package:animated_card/animated_card.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -45,49 +45,22 @@ class _DiscountsListState extends State<DiscountsList> {
 
   @override
   Widget build(BuildContext context) {
-    return SmartRefresher(
-        enablePullDown: true,
-        enablePullUp: true,
-        header: WaterDropHeader(
-          waterDropColor: Colors.orange,
-        ),
-        footer: CustomFooter(
-          builder: (BuildContext context, LoadStatus mode) {
-            Widget body;
-            if (mode == LoadStatus.idle) {
-              body = Text("pull up load");
-            } else if (mode == LoadStatus.loading) {
-              body = CupertinoActivityIndicator();
-            } else if (mode == LoadStatus.failed) {
-              body = Text("Load Failed!Click retry!");
-            } else if (mode == LoadStatus.canLoading) {
-              body = Text("release to load more");
-            } else {
-              body = Text("No more Data");
-            }
-            return Container(
-              height: 55.0,
-              child: Center(child: body),
-            );
-          },
-        ),
-        controller: _refreshController,
-        onRefresh: _onRefresh,
-        onLoading: _onLoading,
-        child: ListView.builder(
-          padding: const EdgeInsets.all(20),
-          itemCount: movieData.length,
-          addRepaintBoundaries: true,
-          itemBuilder: (context, index) {
-            return AnimatedCard(
-              direction: AnimatedCardDirection.left,
-              initDelay: Duration(milliseconds: 0),
-              duration: Duration(seconds: 1),
-              curve: Curves.ease,
-              child: _itemBuilder(context, movieData.elementAt(index)),
-            );
-          },
-        ));
+    return ListView.builder(
+      shrinkWrap: true,
+      physics: ScrollPhysics(),
+      padding: const EdgeInsets.all(20),
+      itemCount: movieData.length,
+      addRepaintBoundaries: true,
+      itemBuilder: (context, index) {
+        return AnimatedCard(
+          direction: AnimatedCardDirection.left,
+          initDelay: Duration(milliseconds: 0),
+          duration: Duration(seconds: 1),
+          curve: Curves.ease,
+          child: _itemBuilder(context, movieData.elementAt(index)),
+        );
+      },
+    );
   }
 
   Widget _itemBuilder(BuildContext context, Discount discount) {

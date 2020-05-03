@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hidden_drawer_menu/hidden_drawer/hidden_drawer_menu.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:login_page_customized/env.dart' as env;
-import 'package:login_page_customized/functions.dart';
+import '../env.dart' as env;
+import '../functions.dart';
 
 class MenuScreen extends StatefulWidget {
   MenuScreen({Key key}) : super(key: key);

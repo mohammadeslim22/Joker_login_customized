@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/rendering.dart';
-import 'package:login_page_customized/models/shop.dart';
+import '../models/shop.dart';
+import '../screens/shop_details.dart';
 import 'package:provider/provider.dart';
-import 'package:login_page_customized/functions.dart';
+import '../functions.dart';
 
-import 'package:login_page_customized/env.dart' as env;
+import '../env.dart' as env;
 import 'package:flutter/material.dart';
 import 'package:animated_card/animated_card.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -30,18 +31,12 @@ class _ShopListState extends State<ShopList> {
   }
 
   void _onRefresh() async {
-    // monitor network fetch
     await Future.delayed(Duration(milliseconds: 1000));
-    print("am i refreshing ???????????");
     _refreshController.refreshCompleted();
   }
 
   void _onLoading() async {
-    // monitor network fetch
     await Future.delayed(Duration(milliseconds: 1000));
-    print("am i loading ???????????");
-    // if failed,use loadFailed(),if no data return,use LoadNodata()
-
     if (mounted) setState(() {});
     _refreshController.loadComplete();
   }
@@ -99,7 +94,19 @@ class _ShopListState extends State<ShopList> {
     var text = "4";
     String text2 = "5";
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(
+          context,
+          new MaterialPageRoute(
+            builder: (BuildContext context) => new ShopDetails(
+                shop: Shop(
+                  image: "assets/images/shopone.jpg",
+                ),
+                likecount: 50,
+                lovecount: 50),
+          ),
+        );
+      },
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: const BorderRadius.only(
@@ -161,11 +168,12 @@ class _ShopListState extends State<ShopList> {
                                 width: 10,
                               ),
                               Container(
-                                padding: const EdgeInsets.symmetric(horizontal: 24,vertical: 4 ),
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 24, vertical: 4),
                                 decoration: BoxDecoration(
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(12)),
-                                    color: Colors.white),
+                                    color: Colors.grey[300]),
                                 alignment: Alignment.center,
                                 child: Text(
                                   text,
@@ -182,6 +190,7 @@ class _ShopListState extends State<ShopList> {
                             Text(
                               translate(context, 'current_sales'),
                               style: env.mylight,
+                              textAlign: TextAlign.center,
                             ),
                             SizedBox(height: 7),
                             Text(
