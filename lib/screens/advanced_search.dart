@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import '../functions.dart';
 import '../env.dart' as env;
 import '../models/search_model.dart';
@@ -92,10 +93,14 @@ class AdvanceSearchscreen extends State<AdvancedSearch>
             TextFormInput(
               text: translate(context, 'shop_name_or_part_of_it'),
               cController: usernameController,
+              readOnly: false,
+              obscureText: false,
             ),
             TextFormInput(
               text: translate(context, 'offername_or_doscreption'),
               cController: passwordController,
+              readOnly: false,
+              obscureText: false,
             )
           ]),
           const SizedBox(
@@ -140,6 +145,16 @@ class AdvanceSearchscreen extends State<AdvancedSearch>
                         selectedOptions.remove(item.id);
                       }
                     });
+                  },
+                  onLongPress: () {
+                    Fluttertoast.showToast(
+                        msg: item.search,
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.CENTER,
+                        timeInSecForIosWeb: 1,
+                        backgroundColor: Colors.grey[300],
+                        textColor: Colors.orange,
+                        fontSize: 16.0);
                   },
                   child: Text(
                     item.search,

@@ -51,7 +51,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
        //  home: MyMemberShip(MemberShip.membershipsData),
-          home: Registration(),
+          home: AdvancedSearch(),
         // home: ShopDetails(
         //   shop: Shop(
         //     image: "assets/images/shopone.jpg",

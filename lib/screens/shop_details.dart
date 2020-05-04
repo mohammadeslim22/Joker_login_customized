@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../widgets/shopCustomCard.dart';
 import '../functions.dart';
 import '../env.dart' as env;
 import '../models/branch.dart';
@@ -17,12 +18,10 @@ class ShopDetails extends StatefulWidget {
   const ShopDetails({Key key, this.shop, this.likecount, this.lovecount})
       : super(key: key);
   @override
-  ShopDetailsPage createState() =>
-      ShopDetailsPage(shop, likecount, lovecount);
+  ShopDetailsPage createState() => ShopDetailsPage(shop, likecount, lovecount);
 }
 
-class ShopDetailsPage extends State<ShopDetails>
-    with TickerProviderStateMixin {
+class ShopDetailsPage extends State<ShopDetails> with TickerProviderStateMixin {
   ShopDetailsPage(this.shop, this.likecount, this.lovecount);
   final Shop shop;
   final int likecount;
@@ -224,9 +223,7 @@ class ShopDetailsPage extends State<ShopDetails>
                     },
                     controller: _tabController,
                     tabs: branches.map((tab) {
-                      
                       return Container(
-                        
                           decoration: BoxDecoration(
                             borderRadius:
                                 const BorderRadius.all(Radius.circular(8)),
@@ -304,20 +301,23 @@ class ShopDetailsPage extends State<ShopDetails>
                                     halfFilledColor: Colors.orange[300],
                                     size: 20,
                                   ),
-                                  Row(
-                                    children: <Widget>[
-                                      Text(
-                                          translate(
-                                            context,
-                                            "rate_shop",
-                                          ),
-                                          style: env.mystyle),
-                                      Icon(
-                                        Icons.arrow_forward,
-                                        color: Colors.orange,
-                                        size: 20,
-                                      ),
-                                    ],
+                                  InkWell(
+                                    child: Row(
+                                      children: <Widget>[
+                                        Text(
+                                            translate(
+                                              context,
+                                              "rate_shop",
+                                            ),
+                                            style: env.mystyle),
+                                        Icon(
+                                          Icons.arrow_forward,
+                                          color: Colors.orange,
+                                          size: 20,
+                                        ),
+                                      ],
+                                    ),
+                                    onTap: (){},
                                   )
                                 ],
                               )
@@ -329,9 +329,8 @@ class ShopDetailsPage extends State<ShopDetails>
               ),
             ],
           ),
-          
           Padding(
-            padding: const EdgeInsets.fromLTRB( 20, 10,20,10),
+            padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -346,11 +345,10 @@ class ShopDetailsPage extends State<ShopDetails>
                     print("value of your text");
                   },
                 ),
-   
               ],
             ),
           ),
-          Container(child: DiscountsList(Discount.movieData))
+          Container(child: ShopDiscountList(Discount.movieData))
         ],
       ),
     );

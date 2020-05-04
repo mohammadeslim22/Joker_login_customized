@@ -38,30 +38,12 @@ class _AutoLocateState extends State<AutoLocate> {
 
   Future<void> _onMapCreated(GoogleMapController controller) async {
     mapController = controller;
-
+    
     serviceEnabled = await location.serviceEnabled();
     if (!serviceEnabled) {
-      serviceEnabled = await location.requestService();
-      if (!serviceEnabled) {
-      } else {
-        permissionGranted = await location.hasPermission();
-        if (permissionGranted == PermissionStatus.denied) {
-          permissionGranted = await location.requestPermission();
-          if (permissionGranted == PermissionStatus.granted) {
-            _animateToUser();
-          }
-        } else {
-          _animateToUser();
-        }
-      }
     } else {
       permissionGranted = await location.hasPermission();
       if (permissionGranted == PermissionStatus.denied) {
-        permissionGranted = await location.requestPermission();
-              if (permissionGranted ==
-                                  PermissionStatus.granted) {
-                                _animateToUser();
-                              }
       } else {
         _animateToUser();
       }
@@ -87,14 +69,13 @@ class _AutoLocateState extends State<AutoLocate> {
 
   Future getLocationName(double long, double lat) async {
     try {
-    
-
       coordinates = Coordinates(lat, long);
       addresses =
           await Geocoder.local.findAddressesFromCoordinates(coordinates);
+          
       setState(() => address = addresses.first);
       print('fetched ${address.addressLine}');
-    } catch (e) {}
+    } catch (e) {address=null;}
   }
 
   @override
@@ -246,10 +227,9 @@ class _AutoLocateState extends State<AutoLocate> {
                           if (permissionGranted == PermissionStatus.denied) {
                             permissionGranted =
                                 await location.requestPermission();
-                                      if (permissionGranted ==
-                                  PermissionStatus.granted) {
-                                _animateToUser();
-                              }
+                            if (permissionGranted == PermissionStatus.granted) {
+                              _animateToUser();
+                            }
                           } else {
                             _animateToUser();
                           }
@@ -342,6 +322,7 @@ class _AutoLocateState extends State<AutoLocate> {
                             ? "unkown"
                             : address.addressLine;
                   });
+                  print("${env.lat},${env.long}");
                   Navigator.pop(context);
                 },
                 color: Colors.blue,

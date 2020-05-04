@@ -33,20 +33,20 @@ class _MyHomePageState extends State<RegistrationPage>
     with TickerProviderStateMixin {
   List<String> location2;
   Location location = new Location();
-  updateLocation() async {
-    if (env.lat == null || env.long == null) {
-      List<String> loglat = await getLocation();
-      if (loglat.isEmpty) {
+  Future<bool> updateLocation() async {
+    List<String> loglat = await getLocation();
+    if (loglat.isEmpty) {
+      return false;
+    } else {
+      if (loglat[0] == null || loglat[1] == null) {
+        return false;
       } else {
-        if (loglat[0] == null || loglat[1] == null) {
-          List<String> loglat = await getLocation();
-        } else {
-          setState(() {
-            this.location2 = loglat;
-            env.lat = double.parse(location2.elementAt(0));
-            env.long = double.parse(location2.elementAt(1));
-          });
-        }
+        setState(() {
+          this.location2 = loglat;
+          env.lat = double.parse(location2.elementAt(0));
+          env.long = double.parse(location2.elementAt(1));
+          return true;
+        });
       }
     }
   }
@@ -63,9 +63,7 @@ class _MyHomePageState extends State<RegistrationPage>
             ? "loading"
             : env.first.addressLine == null ? "loading" : env.first.addressLine;
       });
-    } catch (e) {
-      // env.locationController.text = "";
-    }
+    } catch (e) {}
   }
 
   @override
@@ -81,7 +79,7 @@ class _MyHomePageState extends State<RegistrationPage>
 
   DateTime firstDate = new DateTime(today.year - 90, today.month, today.day);
   DateTime lastDate = new DateTime(today.year - 18, today.month, today.day);
-
+  final _formKey = GlobalKey<FormState>();
   Future<Null> _selectDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
         context: context,
@@ -99,125 +97,132 @@ class _MyHomePageState extends State<RegistrationPage>
       FocusScope.of(context).requestFocus(FocusNode());
   }
 
-
   Widget customcard(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(15, 30, 15, 0),
-      child: Column(
-        children: <Widget>[
-          TextFormInput(
-           text: translate(context, 'name'),
-            cController:env.usernameController,
-           prefixIcon: Icons.person_outline,
-          kt:  TextInputType.visiblePassword,
-            obscureText: false,
-            readOnly: false,
-          ),
-          TextFormInput(
-           text: translate(context, 'email'),
-           cController: env.emailController,
-            prefixIcon: Icons.mail_outline,
-            kt: TextInputType.emailAddress,
-            obscureText: false,
-            readOnly: false,
-          ),
-          TextFormInput(
-          text:  translate(context, 'mobile_no'),
-           cController: env.mobileNoController,
-          prefixIcon:  Icons.phone,
-           kt: TextInputType.phone,
-            obscureText: _obscureText,
-            readOnly: false,
-            suffixwidget: CountryCodePicker(
-              onChanged: _onCountryChange,
-              initialSelection: 'SA',
-              favorite: <String>['+966', 'SA'],
-              showFlagDialog: true,
-              showFlag: false,
-              showCountryOnly: false,
-              showOnlyCountryWhenClosed: false,
-              alignLeft: false,
-              padding: (isRTL == true
-                  ? const EdgeInsets.fromLTRB(0, 0, 30, 0)
-                  : const EdgeInsets.fromLTRB(30, 0, 0, 0)),
-            ),
-          ),
-          TextFormInput(
-            text:  translate(context, 'password'),
-          cController:   env.passwordController,
-            prefixIcon: Icons.lock_outline,
-            kt:TextInputType.visiblePassword,
-            readOnly: false,
-            suffixwidget: IconButton(
-              icon: Icon(
-                (_obscureText == false)
-                    ? Icons.visibility
-                    : Icons.visibility_off,
+        padding: const EdgeInsets.fromLTRB(15, 30, 15, 0),
+        child: Form(
+            key: _formKey,
+            onWillPop: () {
+              return;
+            },
+            child: Column(children: <Widget>[
+              TextFormInput(
+                text: translate(context, 'name'),
+                cController: env.usernameController,
+                prefixIcon: Icons.person_outline,
+                kt: TextInputType.visiblePassword,
+                obscureText: false,
+                readOnly: false,
               ),
-              onPressed: () {
-                setState(() {
-                  _obscureText = !_obscureText;
-                });
-              },
-            ),
-            obscureText: _obscureText,
-          ),
-          TextFormInput(
-           text:   translate(context, 'birth_date'),
-          cController:  env.birthDateController,
-            prefixIcon: Icons.date_range,
-            kt: TextInputType.visiblePassword,
-            obscureText: _obscureText,
-            readOnly: false,
-            suffixwidget: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Text("${today.toLocal()}".split(' ')[0]),
-                SizedBox(
-                  height: 20.0,
+              TextFormInput(
+                text: translate(context, 'email'),
+                cController: env.emailController,
+                prefixIcon: Icons.mail_outline,
+                kt: TextInputType.emailAddress,
+                obscureText: false,
+                readOnly: false,
+              ),
+              TextFormInput(
+                text: translate(context, 'mobile_no'),
+                cController: env.mobileNoController,
+                prefixIcon: Icons.phone,
+                kt: TextInputType.phone,
+                obscureText: _obscureText,
+                readOnly: false,
+                suffixwidget: CountryCodePicker(
+                  onChanged: _onCountryChange,
+                  initialSelection: 'SA',
+                  favorite: <String>['+966', 'SA'],
+                  showFlagDialog: true,
+                  showFlag: false,
+                  showCountryOnly: false,
+                  showOnlyCountryWhenClosed: false,
+                  alignLeft: false,
+                  padding: (isRTL == true
+                      ? const EdgeInsets.fromLTRB(0, 0, 30, 0)
+                      : const EdgeInsets.fromLTRB(30, 0, 0, 0)),
                 ),
-                IconButton(
-                  color: Colors.orange,
+              ),
+              TextFormInput(
+                text: translate(context, 'password'),
+                cController: env.passwordController,
+                prefixIcon: Icons.lock_outline,
+                kt: TextInputType.visiblePassword,
+                readOnly: false,
+                suffixwidget: IconButton(
                   icon: Icon(
-                    Icons.calendar_today,
+                    (_obscureText == false)
+                        ? Icons.visibility
+                        : Icons.visibility_off,
                   ),
                   onPressed: () {
-                    _selectDate(context);
+                    setState(() {
+                      _obscureText = !_obscureText;
+                    });
                   },
                 ),
-              ],
-            ),
-          ),
-          TextFormInput(
-             text:  translate(context, 'get_location'),
-             cController:  env.locationController,
-             prefixIcon: Icons.my_location,
-            kt: TextInputType.visiblePassword,
-            readOnly: true,
-            onTab: () async {
-              // await updateLocation();
-              // location.onLocationChanged.listen((LocationData currentLocation) {
-              //   getLocationName();
-              // });
-              // print("fucklkkkkkkkk");
-            },
-            suffixwidget: IconButton(
-              icon: Icon(Icons.add_location),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  new MaterialPageRoute(
-                    builder: (BuildContext context) => new AutoLocate(
-                        lat: env.lat ?? 51, long: env.long ?? 9.6),
-                  ),
-                );
-              },
-            ),
-            obscureText: _obscureText,
-          ),
-        ],
-      ),
-    );
+                obscureText: _obscureText,
+              ),
+              TextFormInput(
+                text: translate(context, 'birth_date'),
+                cController: env.birthDateController,
+                prefixIcon: Icons.date_range,
+                kt: TextInputType.visiblePassword,
+                obscureText: _obscureText,
+                readOnly: false,
+                suffixwidget: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Text("${today.toLocal()}".split(' ')[0]),
+                    SizedBox(
+                      height: 20.0,
+                    ),
+                    IconButton(
+                      color: Colors.orange,
+                      icon: Icon(
+                        Icons.calendar_today,
+                      ),
+                      onPressed: () {
+                        _selectDate(context);
+                      },
+                    ),
+                  ],
+                ),
+              ),
+              TextFormInput(
+                text: translate(context, 'get_location'),
+                cController: env.locationController,
+                prefixIcon: Icons.my_location,
+                kt: TextInputType.visiblePassword,
+                readOnly: true,
+                onTab: () async {
+                  try {
+                    if (await updateLocation()) {
+                      location.onLocationChanged
+                          .listen((LocationData currentLocation) {
+                        getLocationName();
+                      });
+                    } else {}
+                    print("fucklkkkkkkkk");
+                  } catch (e) {
+                    print("catchhhhhhhhhhhhhhhhhhhhhh");
+                  }
+                },
+                suffixwidget: IconButton(
+                  icon: Icon(Icons.add_location),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      new MaterialPageRoute(
+                        builder: (BuildContext context) => new AutoLocate(
+                            lat: env.lat ?? 51, long: env.long ?? 9.6),
+                      ),
+                    );
+                  },
+                ),
+                obscureText: _obscureText,
+              ),
+            ])));
   }
 
   @override
@@ -262,7 +267,7 @@ class _MyHomePageState extends State<RegistrationPage>
                         builder: (BuildContext context) => new LoginScreen(),
                       ),
                     );
-                    // Navigator.pop(context);
+                    _formKey.currentState.validate();
                     bolc.togelf();
                   },
                   color: Colors.deepOrangeAccent,
@@ -301,5 +306,3 @@ class _MyHomePageState extends State<RegistrationPage>
     print("New Country selected: " + countryCode.toString());
   }
 }
-
-
