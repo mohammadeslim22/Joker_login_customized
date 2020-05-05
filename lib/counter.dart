@@ -3,29 +3,30 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class MyCounter extends ChangeNotifier {
-  var loading = false;
+  bool loading = false;
   static TickerProvider c;
   static String loginbase = "login";
   static AnimationController _controller;
   int _currentIndex = 0;
   int favocurrentIndex = 0;
-  List<bool> fontlist = [true, false, false];
-  List<bool> language = [true, false, false];
+  List<bool> fontlist = <bool> [true, false, false];
+  List<bool> language =  <bool>[true, false, false];
   bool _visible = true;
   bool __visible = false;
 
   int get bottomNavIndex => _currentIndex;
   bool get visible1 => _visible;
   List<bool> get font => fontlist;
-    List<bool> get lang => language;
+  List<bool> get lang => language;
 
   bool get visible2 => __visible;
-  changebottomNavIndex(int id) {
+  void changebottomNavIndex(int id) {
     _currentIndex = id;
 
     notifyListeners();
   }
-  changelanguageindex(int index) {
+
+  void changelanguageindex(int index) {
     for (int i = 0; i < language.length; i++) {
       if (i == index) {
         language[i] = true;
@@ -36,7 +37,8 @@ class MyCounter extends ChangeNotifier {
 
     notifyListeners();
   }
-  changefontindex(int index) {
+
+  void changefontindex(int index) {
     for (int i = 0; i < fontlist.length; i++) {
       if (i == index) {
         fontlist[i] = true;
@@ -48,7 +50,7 @@ class MyCounter extends ChangeNotifier {
     notifyListeners();
   }
 
-  changeTabBarIndex(int id) {
+  void changeTabBarIndex(int id) {
     favocurrentIndex = id;
     _visible = !_visible;
     __visible = !__visible;
@@ -58,56 +60,44 @@ class MyCounter extends ChangeNotifier {
     notifyListeners();
   }
 
-  final spinkit = SpinKitDoubleBounce(
+  final SpinKitDoubleBounce spinkit = SpinKitDoubleBounce(
       color: Colors.white, size: 50.0, controller: _controller);
-  Widget f = Padding(
-      padding: EdgeInsets.fromLTRB(30, 20, 30, 20),
-      child: Text(loginbase,
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-            fontSize: 25,
-          )));
-  changechild(String login) {
+  Widget f;
+   void changechild(String login) {
     loginbase = login;
     if (loading) {
       f = Padding(
-          padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
-          child: Padding(
-              padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-              child: Text(login,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                    fontSize: 25,
-                  ))));
-      notifyListeners();
+          padding:const EdgeInsets.fromLTRB(30, 20, 30, 20),
+          child: Text(loginbase,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+                fontSize: 25,
+              )));
     } else {
       f = spinkit;
-      notifyListeners();
     }
-    //loading = !loading;
+
     notifyListeners();
   }
 
-  returnchild(String login) {
+ Widget  returnchild(String login) {
+    loginbase = login;
     if (!loading) {
       return Padding(
-          padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
-          child: Padding(
-              padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-              child: Text(login,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                    fontSize: 25,
-                  ))));
+          padding:const EdgeInsets.fromLTRB(30, 20, 30, 20),
+          child: Text(loginbase,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+                fontSize: 25,
+              )));
     } else {
       return spinkit;
     }
   }
 
-  togelf() {
+  void togelf() {
     loading = !loading;
   }
 }

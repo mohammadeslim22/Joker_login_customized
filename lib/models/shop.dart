@@ -1,15 +1,9 @@
 import 'dart:ui';
 
 class Shop {
-  final int id;
-  final String title;
-  final String image;
-  final Color display;
-  final double imdb;
-  final String gendres;
-  final String desc;
 
-  Shop(
+
+ const Shop(
       {this.id,
       this.title,
       this.image,
@@ -17,71 +11,77 @@ class Shop {
       this.imdb,
       this.gendres,
       this.desc});
-
-  static List<Shop> get movieData => [
-        new Shop(
+  final int id;
+  final String title;
+  final String image;
+  final Color display;
+  final double imdb;
+  final String gendres;
+  final String desc;
+  static List<Shop> get movieData => const <Shop>[
+         Shop(
           image: "assets/images/shopone.jpg",
         ),
-        new Shop(
+         Shop(
           image: "assets/images/shoptwo.jpg",
 
         ),
-        new Shop(
+         Shop(
            
             image: "assets/images/shopone.jpg",
         ),
-                new Shop(
+                 Shop(
           image: "assets/images/shopone.jpg",
         ),
-        new Shop(
+         Shop(
           image: "assets/images/shoptwo.jpg",
 
         ),
-        new Shop(
+         Shop(
            
             image: "assets/images/shopone.jpg",
         ),
-                new Shop(
+                 Shop(
           image: "assets/images/shopone.jpg",
         ),
-        new Shop(
+         Shop(
           image: "assets/images/shoptwo.jpg",
 
         ),
-        new Shop(
+         Shop(
            
             image: "assets/images/shopone.jpg",
         ),
-                new Shop(
+                 Shop(
           image: "assets/images/shopone.jpg",
         ),
-        new Shop(
+         Shop(
           image: "assets/images/shoptwo.jpg",
 
         ),
-        new Shop(
+         Shop(
            
             image: "assets/images/shopone.jpg",
         ),
-                new Shop(
+                 Shop(
           image: "assets/images/shopone.jpg",
         ),
-        new Shop(
+         Shop(
           image: "assets/images/shoptwo.jpg",
 
         ),
-        new Shop(
+         Shop(
            
             image: "assets/images/shopone.jpg",
         ),
-                new Shop(
+                 Shop(
           image: "assets/images/shopone.jpg",
         ),
-        new Shop(
+         Shop(
           image: "assets/images/shoptwo.jpg",
 
         ),
-        new Shop(
+         Shop(
            
             image: "assets/images/shopone.jpg",
         ),

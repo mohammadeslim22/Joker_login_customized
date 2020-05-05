@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import '../functions.dart';
-import '../screens/pincode.dart';
+import '../pass_args.dart';
 import '../widgets/buttonTouse.dart';
 import 'package:provider/provider.dart';
 import '../appLocalizations.dart';
 import '../counter.dart';
 import '../env.dart' as env;
-import 'registrationscreen.dart';
 
 class LoginScreen extends StatelessWidget {
+  const LoginScreen({Key key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return LoginScreenPage();
@@ -17,10 +17,8 @@ class LoginScreen extends StatelessWidget {
 }
 
 class LoginScreenPage extends StatefulWidget {
-  LoginScreenPage({Key key}) : super(key: key);
-
   @override
-  _MyHomePageState createState() => new _MyHomePageState();
+  _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<LoginScreenPage>
@@ -28,7 +26,7 @@ class _MyHomePageState extends State<LoginScreenPage>
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   bool _obscureText = false;
-  FocusScopeNode _focusScopeNode = FocusScopeNode();
+  final FocusScopeNode _focusScopeNode = FocusScopeNode();
   Widget customtext(String text, TextEditingController cController, IconData i,
       TextInputType kt, TextInputAction action,
       {IconData y, bool obscureText, Function handleSubmission}) {
@@ -37,24 +35,24 @@ class _MyHomePageState extends State<LoginScreenPage>
       child: TextFormField(
         textInputAction: action,
         // TODO(isleem): handle submissions on username field
-
+        focusNode: _focusScopeNode,
         // onFieldSubmitted: handleSubmission,
         keyboardType: kt,
         controller: cController,
-        style: new TextStyle(
+        style: TextStyle(
           color: Colors.black,
           fontSize: 15,
         ),
         obscureText: obscureText,
         decoration: InputDecoration(
-          enabledBorder: new OutlineInputBorder(
-              borderSide: new BorderSide(
+          enabledBorder: const OutlineInputBorder(
+              borderSide: BorderSide(
             color: Colors.grey,
           )),
           filled: true,
           fillColor: const Color(0xFFE9E9E9),
           hintText: text,
-          hintStyle: TextStyle(
+          hintStyle: const TextStyle(
             fontSize: 15,
           ),
           border: OutlineInputBorder(
@@ -63,7 +61,6 @@ class _MyHomePageState extends State<LoginScreenPage>
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(7),
           ),
-          contentPadding: EdgeInsets.symmetric(vertical: 0),
           prefixIcon: Icon(i),
           suffixIcon: IconButton(
             icon: Icon(y),
@@ -114,18 +111,18 @@ class _MyHomePageState extends State<LoginScreenPage>
 
   @override
   Widget build(BuildContext context) {
-    final bolc = Provider.of<MyCounter>(context);
-
+    final MyCounter bolc = Provider.of<MyCounter>(context);
+final bool isRTL = Directionality.of(context) == TextDirection.rtl;
     return Scaffold(
         body: GestureDetector(
       onTap: () {
         FocusScope.of(context).requestFocus(FocusNode());
       },
-      child: new ListView(children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.fromLTRB(15, 30, 15, 0),
-          child: new Image(
-            image: new AssetImage('assets/images/logo.png'),
+      child: ListView(children: <Widget>[
+        const Padding(
+          padding: EdgeInsets.fromLTRB(15, 30, 15, 0),
+          child: Image(
+            image: AssetImage('assets/images/logo.png'),
             width: 100.0,
             height: 100.0,
           ),
@@ -134,7 +131,7 @@ class _MyHomePageState extends State<LoginScreenPage>
           children: <Widget>[
             Text(AppLocalizations.of(context).translate('joker'),
                 textAlign: TextAlign.center, style: env.mystyle2),
-            SizedBox(height: 5),
+            const SizedBox(height: 5),
             Text(translate(context, 'all_you_need'),
                 textAlign: TextAlign.center,
                 style: TextStyle(
@@ -144,11 +141,11 @@ class _MyHomePageState extends State<LoginScreenPage>
                 )),
           ],
         ),
-        SizedBox(height: 50),
+        const SizedBox(height: 50),
         Column(
           children: <Widget>[
             Text(translate(context, 'hello'), style: env.mystyle2),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Text(translate(context, 'enter_login_information'),
                 style: env.mystyle),
           ],
@@ -163,25 +160,24 @@ class _MyHomePageState extends State<LoginScreenPage>
               padding: const EdgeInsets.symmetric(
                 horizontal: 10.0,
               ),
-              child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-                ButtonToUse(translate(context, 'forget_password'),
+              child: Container(
+                alignment: isRTL?Alignment.centerLeft:Alignment.centerRight,
+                child: ButtonToUse(translate(context, 'forget_password'),
                     fw: FontWeight.w500, fc: Colors.black),
-              ]),
+              ),
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 30, 20, 0),
               child: RaisedButton(
-                  shape: new RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(18.0),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(18.0),
                       side: BorderSide(color: Colors.orange)),
                   onPressed: () {
                     bolc.togelf();
-                    Navigator.pushReplacement(
+                    Navigator.pushNamed(
                       context,
-                      new MaterialPageRoute(
-                        builder: (BuildContext context) =>
-                            new PinCode(monileNo: "0567505238"),
-                      ),
+                      '/Pin',
+                      arguments: ScreenArguments(mobileNO: "0567505238"),
                     );
                     bolc.changechild(
                       translate(context, 'login'),
@@ -201,26 +197,17 @@ class _MyHomePageState extends State<LoginScreenPage>
               translate(context, 'create_account'),
               fw: FontWeight.bold,
               fc: Colors.black,
-              myfunc: () {
-                Navigator.pushReplacement(
-                  context,
-                  new MaterialPageRoute(
-                    builder: (BuildContext context) => new PinCode(monileNo:"0567505238"),
-                  ),
-                );
-              //  Navigator.pop(context);
-              },
+              myfunc: () {},
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 30, 00, 30),
-              child: new Row(
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text(
                     translate(context, 'you_have_shop_'),
                     style: env.mystyle,
                   ),
-                  
                   ButtonToUse(
                     translate(context, 'click_here'),
                     fw: FontWeight.bold,
@@ -235,7 +222,5 @@ class _MyHomePageState extends State<LoginScreenPage>
     ));
   }
 
-  lgoin(String username, String password) {}
+  void lgoin(String username, String password) {}
 }
-
-

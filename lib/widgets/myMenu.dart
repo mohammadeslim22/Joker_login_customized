@@ -5,8 +5,6 @@ import '../env.dart' as env;
 import '../functions.dart';
 
 class MenuScreen extends StatefulWidget {
-  MenuScreen({Key key}) : super(key: key);
-
   @override
   _MenuScreenState createState() => _MenuScreenState();
 }
@@ -17,84 +15,100 @@ class _MenuScreenState extends State<MenuScreen> {
       "https://celebritypets.net/wp-content/uploads/2016/12/Adriana-Lima.jpg";
   @override
   Widget build(BuildContext context) {
-    final bool isRTL = (Directionality.of(context) == TextDirection.rtl);
-    final List<MenuItem> options = [
+    final bool isRTL = Directionality.of(context) == TextDirection.rtl;
+    final List<MenuItem> options =  <MenuItem>[
       MenuItem(
-          Icons.notifications_none,
-          translate(context, 'notifications'),
-          Colors.yellow,
-          new Image.asset(
-            "assets/images/notification.png",
-            height: 25,
-            width: 25,
+        Icons.notifications_none,
+        translate(context, 'notifications'),
+        Colors.yellow,
+        Image.asset(
+          "assets/images/notification.png",
+          height: 25,
+          width: 25,
+        ),
+        FloatingActionButton(
+          materialTapTargetSize: MaterialTapTargetSize.padded,
+          splashColor: Colors.transparent,
+          highlightElevation: 0,
+          mini: true,
+          backgroundColor: const Color(0xFFFFC000),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(100),
           ),
-          backgroundcolortrans: env.trans,
-          notifiesNo: FloatingActionButton(
-            materialTapTargetSize: MaterialTapTargetSize.padded,
-            splashColor: Colors.transparent,
-            highlightElevation: 0,
-            mini: true,
-            backgroundColor: Color(0xFFFFC000),
-            shape: new RoundedRectangleBorder(
-              borderRadius: new BorderRadius.circular(100),
-            ),
-            child: Text(
-              notificationNo,
-              style: env.notificationNO,
-            ),
-            onPressed: () {},
+          child: Text(
+            notificationNo,
+            style: env.notificationNO,
           ),
-          func: () {}),
+          onPressed: () {},
+        ),
+        () {},
+        env.trans,
+      ),
       MenuItem(
-          Icons.shopping_basket,
-          translate(context, 'my_account'),
-          Colors.red,
-          new Image.asset(
-            "assets/images/myaccount.png",
-            height: 25,
-            width: 25,
-          ),
-          func: () {}),
+        Icons.shopping_basket,
+        translate(context, 'my_account'),
+        Colors.red,
+        Image.asset(
+          "assets/images/myaccount.png",
+          height: 25,
+          width: 25,
+        ),
+        null,
+        () {},
+        null,
+      ),
       MenuItem(
-          Icons.favorite,
-          translate(context, 'my_membership'),
-          Colors.blueGrey,
-          new Image.asset(
-            "assets/images/membership.png",
-            height: 25,
-            width: 25,
-          ),
-          func: () {}),
+        Icons.favorite,
+        translate(context, 'my_membership'),
+        Colors.blueGrey,
+        Image.asset(
+          "assets/images/membership.png",
+          height: 25,
+          width: 25,
+        ),
+        null,
+        () {},
+        null,
+      ),
       MenuItem(
-          Icons.code,
-          translate(context, 'settings'),
-          Colors.orange,
-          new Image.asset(
-            "assets/images/settings.png",
-            height: 25,
-            width: 25,
-          ),
-          func: () {}),
+        Icons.code,
+        translate(context, 'settings'),
+        Colors.orange,
+        Image.asset(
+          "assets/images/settings.png",
+          height: 25,
+          width: 25,
+        ),
+        null,
+        () {},
+        null,
+      ),
       MenuItem(
-          Icons.format_list_bulleted,
-          translate(context, 'rules'),
-          Colors.lightGreen,
-          new Image.asset(
-            "assets/images/termsandconditions.png",
-            height: 25,
-            width: 25,
-          ),
-          func: () {}),
+        Icons.format_list_bulleted,
+        translate(context, 'rules'),
+        Colors.lightGreen,
+        Image.asset(
+          "assets/images/termsandconditions.png",
+          height: 25,
+          width: 25,
+        ),
+        null,
+        () {},
+        null,
+      ),
       MenuItem(
-          Icons.format_list_bulleted,
-          translate(context, 'tech_support'),
-          Colors.green,
-          new Image.asset(
-            "assets/images/tech_support.png",
-            height: 25,
-            width: 25,
-          ),
-          func: () {}),
+        Icons.format_list_bulleted,
+        translate(context, 'tech_support'),
+        Colors.green,
+        Image.asset(
+          "assets/images/tech_support.png",
+          height: 25,
+          width: 25,
+        ),
+        null,
+        () {},
+        null,
+      ),
     ];
     return GestureDetector(
         onTap: () {
@@ -102,7 +116,8 @@ class _MenuScreenState extends State<MenuScreen> {
         },
         child: Scaffold(
           body: Container(
-            padding: EdgeInsets.only(top: 55, left: 8, bottom: 16, right: 8),
+            padding:
+                const EdgeInsets.only(top: 55, left: 8, bottom: 16, right: 8),
             child: ListView(
               shrinkWrap: true,
               children: <Widget>[
@@ -155,19 +170,22 @@ class _MenuScreenState extends State<MenuScreen> {
                           minRadius: 30,
                           child: CachedNetworkImage(
                             imageUrl: imageUrl,
-                            imageBuilder: (context, imageProvider) => Container(
+                            imageBuilder: (BuildContext context,
+                                    ImageProvider imageProvider) =>
+                                Container(
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 image: DecorationImage(
                                     image: imageProvider,
                                     fit: BoxFit.cover,
-                                    colorFilter: ColorFilter.mode(
+                                    colorFilter: const ColorFilter.mode(
                                         Colors.white, BlendMode.colorBurn)),
                               ),
                             ),
-                            placeholder: (context, url) =>
-                                CircularProgressIndicator(),
-                            errorWidget: (context, url, error) =>
+                            placeholder: (BuildContext context, String url) =>
+                                const CircularProgressIndicator(),
+                            errorWidget: (BuildContext context, String url,
+                                    dynamic error) =>
                                 Icon(Icons.error),
                           ),
                         )),
@@ -175,10 +193,12 @@ class _MenuScreenState extends State<MenuScreen> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 20,),
+                const SizedBox(
+                  height: 20,
+                ),
                 Column(
                   mainAxisSize: MainAxisSize.min,
-                  children: options.map((item) {
+                  children: options.map((MenuItem item) {
                     return Column(
                       children: <Widget>[
                         Row(
@@ -203,7 +223,7 @@ class _MenuScreenState extends State<MenuScreen> {
                                 ),
                                 Text(item.title, style: env.underHead),
                               ]),
-                              onPressed: item.func,
+                              onPressed: ()=>item.func,
                             ),
                             item.notifiesNo ?? Container()
                           ],
@@ -215,7 +235,9 @@ class _MenuScreenState extends State<MenuScreen> {
                     );
                   }).toList(),
                 ),
-              const SizedBox(height: 20,),
+                const SizedBox(
+                  height: 20,
+                ),
                 Row(children: <Widget>[
                   const SizedBox(
                     width: 18,
@@ -224,7 +246,7 @@ class _MenuScreenState extends State<MenuScreen> {
                     backgroundColor: Colors.grey,
                     elevation: 0,
                     onPressed: () {},
-                    child: new Image.asset(
+                    child:  Image.asset(
                       "assets/images/logout.png",
                       height: 25,
                       width: 25,
@@ -244,21 +266,20 @@ class _MenuScreenState extends State<MenuScreen> {
 }
 
 class MenuItem {
-  String title;
+  const MenuItem(
+    this.icon,
+    this.title,
+    this.backgroundcolor,
+    this.image,
+    this.notifiesNo,
+    this.func,
+    this.backgroundcolortrans,
+  );
+ final   String title;
   final Image image;
-  IconData icon;
+  final IconData icon;
   final Widget notifiesNo;
   final MaterialColor backgroundcolor;
   final Color backgroundcolortrans;
   final Function func;
-
-  MenuItem(
-    this.icon,
-    this.title,
-    this.backgroundcolor,
-    this.image, {
-    this.notifiesNo,
-    this.func,
-    this.backgroundcolortrans,
-  });
 }

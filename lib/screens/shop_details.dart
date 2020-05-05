@@ -7,16 +7,14 @@ import '../models/branch.dart';
 import '../models/discount.dart';
 import '../models/shop.dart';
 import 'package:like_button/like_button.dart';
-import '../widgets/customcarddiscount.dart';
 import 'package:rating_bar/rating_bar.dart';
 
 class ShopDetails extends StatefulWidget {
+  const ShopDetails({Key key, this.shop, this.likecount, this.lovecount})
+      : super(key: key);
   final Shop shop;
   final int likecount;
   final int lovecount;
-
-  const ShopDetails({Key key, this.shop, this.likecount, this.lovecount})
-      : super(key: key);
   @override
   ShopDetailsPage createState() => ShopDetailsPage(shop, likecount, lovecount);
 }
@@ -28,12 +26,13 @@ class ShopDetailsPage extends State<ShopDetails> with TickerProviderStateMixin {
   final int lovecount;
   double ratingStar = 0;
   String text2 = "5";
-  var text = "4";
+  String text = "4";
   Color tabBackgroundColor = env.trans;
   List<Branch> branches = Branch.branchData;
   TabController _tabController;
   Color floatingbuttonCo = Colors.grey;
   int index = 2;
+  Color containercolor = Colors.grey;
 
   Future<bool> onLikeButtonTapped(bool isLiked) async {
     return !isLiked;
@@ -42,7 +41,7 @@ class ShopDetailsPage extends State<ShopDetails> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    _tabController = new TabController(vsync: this, length: branches.length);
+    _tabController = TabController(vsync: this, length: branches.length);
     _tabController.addListener(() {
       if (_tabController.indexIsChanging) {
       } else if (_tabController.index != _tabController.previousIndex) {
@@ -54,7 +53,7 @@ class ShopDetailsPage extends State<ShopDetails> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: new AppBar(
+      appBar: AppBar(
         title: Text(
           translate(context, "shop_details"),
         ),
@@ -74,7 +73,7 @@ class ShopDetailsPage extends State<ShopDetails> with TickerProviderStateMixin {
                           topLeft: Radius.circular(12),
                           topRight: Radius.circular(12)),
                       image: DecorationImage(
-                        image: new AssetImage(
+                        image: AssetImage(
                           shop.image,
                         ),
                         fit: BoxFit.cover,
@@ -103,47 +102,41 @@ class ShopDetailsPage extends State<ShopDetails> with TickerProviderStateMixin {
                       ),
                       Row(
                         children: <Widget>[
-                          Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                LikeButton(
-                                  size: 26,
-                                  likeBuilder: (bool isLiked) {
-                                    return Container(
-                                      child: FloatingActionButton(
-                                        heroTag: "ferotag",
-                                        elevation: 0,
-                                        backgroundColor: !isLiked
-                                            ? Colors.grey
-                                            : Colors.blue,
-                                        child: new Image.asset(
-                                          "assets/images/like.png",
-                                          scale: 3.5,
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                  likeCountPadding:
-                                      const EdgeInsets.symmetric(vertical: 3),
-                                  padding:
-                                      const EdgeInsets.symmetric(horizontal: 5),
-                                  countBuilder: (int c, bool b, String i) {
-                                    return Text(
-                                      i,
-                                      style: TextStyle(color: Colors.black),
-                                    );
-                                  },
-                                  likeCount: lovecount,
-                                  countPostion: CountPostion.bottom,
-                                  circleColor: CircleColor(
-                                      start: Colors.white, end: Colors.purple),
-                                  onTap: (bool loved) {
-                                    return onLikeButtonTapped(loved);
-                                  },
+                          LikeButton(
+                            size: 26,
+                            likeBuilder: (bool isLiked) {
+                              return Container(
+                                padding: const EdgeInsets.all(3),
+                                decoration: BoxDecoration(
+                                  color: !isLiked
+                                      ? Colors.grey
+                                      : Colors.blue,
+                                  borderRadius: BorderRadius.circular(70),
                                 ),
-                              ]),
+                                child: Image.asset(
+                                  "assets/images/like.png",
+                                  width: 10,
+                                  height: 10,
+                                ),
+                              );
+                            },
+                            likeCountPadding:
+                                const EdgeInsets.symmetric(vertical: 3),
+                            padding: const EdgeInsets.symmetric(horizontal: 5),
+                            countBuilder: (int c, bool b, String i) {
+                              return Text(
+                                i,
+                                style: TextStyle(color: Colors.black),
+                              );
+                            },
+                            likeCount: lovecount,
+                            countPostion: CountPostion.bottom,
+                            circleColor: CircleColor(
+                                start: Colors.white, end: Colors.purple),
+                            onTap: (bool loved) {
+                              return onLikeButtonTapped(loved);
+                            },
+                          ),
                           const SizedBox(width: 8),
                           Column(
                             mainAxisAlignment: MainAxisAlignment.start,
@@ -186,7 +179,7 @@ class ShopDetailsPage extends State<ShopDetails> with TickerProviderStateMixin {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Expanded(
+                const Expanded(
                   child: Divider(
                     color: Colors.grey,
                     thickness: 1,
@@ -199,7 +192,7 @@ class ShopDetailsPage extends State<ShopDetails> with TickerProviderStateMixin {
                     style: env.mystyle,
                   ),
                 ),
-                Expanded(
+                const Expanded(
                   child: Divider(
                     color: Colors.grey,
                     thickness: 1,
@@ -222,7 +215,7 @@ class ShopDetailsPage extends State<ShopDetails> with TickerProviderStateMixin {
                       });
                     },
                     controller: _tabController,
-                    tabs: branches.map((tab) {
+                    tabs: branches.map((Branch tab) {
                       return Container(
                           decoration: BoxDecoration(
                             borderRadius:
@@ -251,11 +244,11 @@ class ShopDetailsPage extends State<ShopDetails> with TickerProviderStateMixin {
                 height: 96,
                 child: TabBarView(
                     controller: _tabController,
-                    children: branches.map((tab) {
+                    children: branches.map((Branch tab) {
                       return Column(
                         children: <Widget>[
                           Row(children: <Widget>[
-                            new Image.asset(
+                            Image.asset(
                               "assets/images/addreess_icon.png",
                               scale: 3.5,
                               fit: BoxFit.cover,
@@ -274,8 +267,8 @@ class ShopDetailsPage extends State<ShopDetails> with TickerProviderStateMixin {
                               RaisedButton(
                                 padding: const EdgeInsets.symmetric(
                                     vertical: 12, horizontal: 25),
-                                shape: new RoundedRectangleBorder(
-                                  borderRadius: new BorderRadius.circular(28.0),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(28.0),
                                 ),
                                 onPressed: () {},
                                 color: Colors.grey[300],
@@ -290,7 +283,7 @@ class ShopDetailsPage extends State<ShopDetails> with TickerProviderStateMixin {
                               Column(
                                 children: <Widget>[
                                   RatingBar(
-                                    onRatingChanged: (rating) =>
+                                    onRatingChanged: (double rating) =>
                                         setState(() => ratingStar = rating),
                                     filledIcon: Icons.star,
                                     emptyIcon: Icons.star_border,
@@ -317,7 +310,7 @@ class ShopDetailsPage extends State<ShopDetails> with TickerProviderStateMixin {
                                         ),
                                       ],
                                     ),
-                                    onTap: (){},
+                                    onTap: () {},
                                   )
                                 ],
                               )

@@ -5,19 +5,20 @@ import '../env.dart' as env;
 import '../functions.dart';
 
 class ItemBuilder extends StatelessWidget {
- final BuildContext context;
- final  Discount discount;
+
 
   const ItemBuilder({Key key, this.context, this.discount}) : super(key: key);
+   final BuildContext context;
+ final  Discount discount;
   @override
   Widget build(BuildContext context) {
     
-      String text = "الكل";
+     const String text = "الكل";
     return InkWell(
       onTap: () {},
       child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: const BorderRadius.only(
+        shape: const RoundedRectangleBorder(
+          borderRadius:  BorderRadius.only(
               topLeft: Radius.circular(12), topRight: Radius.circular(12)),
         ),
         child: Column(
@@ -29,19 +30,19 @@ class ItemBuilder extends StatelessWidget {
                     topLeft: Radius.circular(12),
                     topRight: Radius.circular(12)),
                 image: DecorationImage(
-                  image: new AssetImage(
+                  image:  AssetImage(
                     discount.image,
                   ),
                   fit: BoxFit.cover,
                 ),
               ),
-              child: new Stack(children: <Widget>[
-                new Positioned(
+              child:  Stack(children: <Widget>[
+                 Positioned(
                   left: 0.0,
                   top: 1.0,
-                  child: new IconButton(
+                  child:  IconButton(
                     color: env.mainColor,
-                    icon: new Image.asset(
+                    icon:  Image.asset(
                       "assets/images/loveicon.png",
                       scale: 3,
                     ),
@@ -132,7 +133,7 @@ class ItemBuilder extends StatelessWidget {
                                     padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 4 ),
                                     decoration: BoxDecoration(
                                       borderRadius:
-                                          BorderRadius.all(Radius.circular(12)),
+                                         const BorderRadius.all(Radius.circular(12)),
                                       color: Colors.grey[200],
                                     ),
                                     alignment: Alignment.center,

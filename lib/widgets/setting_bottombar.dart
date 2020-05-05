@@ -1,8 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hidden_drawer_menu/simple_hidden_drawer/provider/simple_hidden_drawer_provider.dart';
-import 'package:provider/provider.dart';
-import '../counter.dart';
 import '../functions.dart';
 import '../env.dart' as env;
 
@@ -26,7 +23,7 @@ class SettingBottom extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                new Image.asset(
+                 Image.asset(
                   "assets/images/delete.png",
                   height: 20,
                   width: 20,

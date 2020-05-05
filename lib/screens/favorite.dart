@@ -20,16 +20,16 @@ class _MyHomePageState extends State<Favorite>
      
   @override
   Widget build(BuildContext context) {
-        final bolc = Provider.of<MyCounter>(context);
+        final MyCounter bolc = Provider.of<MyCounter>(context);
 
     return Scaffold(
-      appBar: new AppBar(
+      appBar:  AppBar(
           title: Text(
             translate(context, "fav"),
           ),
           centerTitle: true,
           bottom: PreferredSize(
-            preferredSize: Size.fromHeight(50.0), 
+            preferredSize:const  Size.fromHeight(50.0), 
             child: FavoritBar(),
           )),
       body: (bolc.favocurrentIndex == 0)

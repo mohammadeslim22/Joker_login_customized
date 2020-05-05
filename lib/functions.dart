@@ -10,13 +10,13 @@ Future<List<String>> getLocation() async {
   bool serviceEnabled;
   PermissionStatus permissionGranted;
   LocationData locationData;
-  List<String> locaion = new List<String>();
-  Location location = new Location();
+  final List<String> locaion = <String>[];
+  final Location location = Location();
 
   serviceEnabled = await location.serviceEnabled();
   if (!serviceEnabled) {
     serviceEnabled = await location.requestService();
-    
+
     if (!serviceEnabled) {
       return locaion;
     }
@@ -38,31 +38,29 @@ Future<List<String>> getLocation() async {
 
 Widget myBottomAppBar(BuildContext context) {
   return BottomAppBar(
-
     color: Colors.black,
     child: Row(
-     
       mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: [
+      children: <Widget>[
         Container(
-          width: 60,
+            width: 60,
             child: Column(
-          children: <Widget>[
-            Icon(Icons.local_offer),
-            Text(translate(context, 'discounts')),
-            Divider(color: Colors.black)
-          ],
-        )),
+              children: <Widget>[
+                Icon(Icons.local_offer),
+                Text(translate(context, 'discounts')),
+                Divider(color: Colors.black)
+              ],
+            )),
         VerticalDivider(color: Colors.red),
         Container(
-          width: 60,
+            width: 60,
             child: Column(
-          children: <Widget>[
-            Icon(Icons.local_offer),
-            Text(translate(context, 'discounts')),
-            Divider(color: Colors.black)
-          ],
-        ))
+              children: <Widget>[
+                Icon(Icons.local_offer),
+                Text(translate(context, 'discounts')),
+                Divider(color: Colors.black)
+              ],
+            ))
       ],
     ),
   );

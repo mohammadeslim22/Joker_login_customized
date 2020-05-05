@@ -2,51 +2,49 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../functions.dart';
 import '../env.dart' as env;
-import '../widgets/bottom_bar.dart';
-import '../widgets/favoritetab_bar.dart';
 import '../widgets/setting_bottombar.dart';
 import 'package:provider/provider.dart';
 
 import '../counter.dart';
 
 class Settings extends StatelessWidget {
+  const Settings({Key key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return SettingsScreen();
+    return const SettingsScreen();
   }
 }
 
 class SettingsScreen extends StatefulWidget {
-  SettingsScreen({Key key}) : super(key: key);
+  const SettingsScreen({Key key}) : super(key: key);
 
   @override
-  MySettingState createState() => new MySettingState();
+  MySettingState createState() => MySettingState();
 }
 
 class MySettingState extends State<SettingsScreen>
     with SingleTickerProviderStateMixin {
-      String dropdownValue = 'كتم';
+  String dropdownValue = 'كتم';
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
-      appBar: new AppBar(
+      appBar: AppBar(
           centerTitle: true,
           title: Text(
             translate(context, "settings"),
             style: env.mystyle,
           )),
-      body: new ListView(
+      body: ListView(
         shrinkWrap: true,
         children: <Widget>[
-          new Image(
-            image: new AssetImage('assets/images/setting.png'),
+          Image(
+            image: const AssetImage('assets/images/setting.png'),
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height * .35,
           ),
           // without sperating line
           Container(
-            padding:EdgeInsets.symmetric( horizontal: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 10),
               color: Colors.white,
               child: Row(
                 children: <Widget>[
@@ -63,28 +61,7 @@ class MySettingState extends State<SettingsScreen>
                   )
                 ],
               )),
-          //wit hsperating line
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.start,
-          //   children: <Widget>[
-          //     Container(
-          //       padding:
-          //           const EdgeInsets.symmetric(vertical: 16, horizontal: 10),
-          //       color: Colors.white,
-          //       child: Text(
-          //         translate(context, "font"),
-          //         style: env.mystyle,
-          //       ),
-          //     ),
-          //     const SizedBox(
-          //       width: 3,
-          //     ),
-          //     Flexible(
-          //       fit: FlexFit.tight,
-          //       child: Container(color: Colors.white, child: fontBar(context)),
-          //     )
-          //   ],
-          // ),
+
           const SizedBox(
             height: 10,
           ),
@@ -131,7 +108,7 @@ class MySettingState extends State<SettingsScreen>
                   translate(context, "recieving_offers_notifies"),
                   style: env.mystyle,
                 ),
-                new Switch(
+                 Switch(
                   activeColor: Colors.orange,
                   onChanged: switchChanged,
                   value: true,
@@ -167,10 +144,11 @@ class MySettingState extends State<SettingsScreen>
   void switchChanged(bool value) {}
 }
 
-Widget fontBarChoice(BuildContext context, String choice, int index, List list,
+Widget fontBarChoice(BuildContext context, String choice, int index, List<bool> list,
     String category) {
-  final bolc = Provider.of<MyCounter>(context);
+  final MyCounter bolc = Provider.of<MyCounter>(context);
   return Flexible(
+    fit: FlexFit.tight,
       child: FlatButton(
           textColor: Colors.black,
           disabledColor: Colors.grey,
@@ -184,6 +162,7 @@ Widget fontBarChoice(BuildContext context, String choice, int index, List list,
               bolc.changelanguageindex(index);
           },
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
               Text(
                 translate(context, choice),
@@ -193,11 +172,11 @@ Widget fontBarChoice(BuildContext context, String choice, int index, List list,
                 height: 3,
               ),
               AnimatedOpacity(
-                  opacity: list[index] ? 1.0 : 0.0,
-                  duration: Duration(milliseconds: 800),
+                  opacity: list[index]? 1.0 : 0.0,
+                  duration: const Duration(milliseconds: 800),
                   child: Container(
-                    decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.only(
+                    decoration: const BoxDecoration(
+                        borderRadius:  BorderRadius.only(
                             topLeft: Radius.circular(12),
                             topRight: Radius.circular(12)),
                         color: Colors.orange),
@@ -210,9 +189,10 @@ Widget fontBarChoice(BuildContext context, String choice, int index, List list,
 }
 
 Widget fontBar(BuildContext context) {
-  final bolc = Provider.of<MyCounter>(context);
+  final MyCounter bolc = Provider.of<MyCounter>(context);
   return Container(
     child: Row(
+      
       children: <Widget>[
         fontBarChoice(context, "large", 0, bolc.fontlist, "font"),
         verticalDiv(),
@@ -225,7 +205,7 @@ Widget fontBar(BuildContext context) {
 }
 
 Widget languagBar(BuildContext context) {
-  final bolc = Provider.of<MyCounter>(context);
+  final MyCounter bolc = Provider.of<MyCounter>(context);
   return Container(
     child: Row(
       mainAxisAlignment: MainAxisAlignment.start,

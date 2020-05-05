@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hidden_drawer_menu/simple_hidden_drawer/provider/simple_hidden_drawer_provider.dart';
 import 'package:provider/provider.dart';
 import '../counter.dart';
 import '../functions.dart';
@@ -9,7 +8,7 @@ import '../env.dart' as env;
 class BottomContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final bolc = Provider.of<MyCounter>(context);
+    final  MyCounter bolc = Provider.of<MyCounter>(context);
 
     return Container(
       color: Colors.black,
@@ -27,9 +26,9 @@ class BottomContent extends StatelessWidget {
                   const SizedBox(
                     height: 2,
                   ),
-                  new Container(
+                   Container(
                     color: env.trans,
-                    child: new Image.asset(
+                    child:  Image.asset(
                       bolc.bottomNavIndex == 0
                           ? "assets/images/discounts.png"
                           : "assets/images/lightoffdiscount.png",
@@ -63,9 +62,9 @@ class BottomContent extends StatelessWidget {
               },
             ),
           ),
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: 12),
-            child: const VerticalDivider(
+         const Padding(
+            padding:  EdgeInsets.symmetric(vertical: 12),
+            child:  VerticalDivider(
               color: Colors.orange,
               width: 1,
             ),
@@ -78,9 +77,9 @@ class BottomContent extends StatelessWidget {
                 const SizedBox(
                   height: 5,
                 ),
-                new Container(
+                 Container(
                   color: env.trans,
-                  child: new Image.asset(
+                  child:  Image.asset(
                     bolc.bottomNavIndex == 0
                         ? "assets/images/lightoffshop.png"
                         : "assets/images/shop.png",

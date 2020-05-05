@@ -11,7 +11,7 @@ class MyAccountPage extends State<MyAccount> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: new AppBar(
+      appBar:  AppBar(
         title: Text(translate(context, "my_account")),
         centerTitle: true,
       ),
@@ -43,7 +43,7 @@ class MyAccountPage extends State<MyAccount> {
 class HeaderColor extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
-    var path = new Path();
+    Path path;
     path.lineTo(0.0, size.height - 360);
     path.lineTo(size.width, size.height - 420);
     path.lineTo(size.width, size.height - 520);

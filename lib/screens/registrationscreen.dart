@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:location/location.dart';
-import '../screens/login_screen.dart';
 import '../widgets/TextFormInput.dart';
 import '../widgets/buttonTouse.dart';
 import 'package:provider/provider.dart';
-import 'setlocation.dart';
 import '../counter.dart';
 import '../functions.dart';
 import '../env.dart' as env;
@@ -14,10 +12,10 @@ import 'package:country_code_picker/country_code_picker.dart';
 import 'package:geocoder/geocoder.dart';
 
 class Registration extends StatelessWidget {
+  const Registration({Key key, this.lat, this.long}) : super(key: key);
   final double lat;
   final double long;
 
-  const Registration({Key key, this.lat, this.long}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return RegistrationPage();
@@ -26,32 +24,34 @@ class Registration extends StatelessWidget {
 
 class RegistrationPage extends StatefulWidget {
   @override
-  _MyHomePageState createState() => new _MyHomePageState();
+  _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<RegistrationPage>
     with TickerProviderStateMixin {
   List<String> location2;
-  Location location = new Location();
-  Future<bool> updateLocation() async {
-    List<String> loglat = await getLocation();
+  Location location = Location();
+  Future<bool> get updateLocation async {
+    bool res;
+    final List<String> loglat = await getLocation();
     if (loglat.isEmpty) {
-      return false;
+      res = false;
     } else {
       if (loglat[0] == null || loglat[1] == null) {
-        return false;
+        res = false;
       } else {
         setState(() {
-          this.location2 = loglat;
+          location2 = loglat;
           env.lat = double.parse(location2.elementAt(0));
           env.long = double.parse(location2.elementAt(1));
-          return true;
+          res = true;
         });
       }
     }
+    return res;
   }
 
-  Future getLocationName() async {
+  Future<void> getLocationName() async {
     try {
       env.coordinates = Coordinates(env.lat, env.long);
       env.addresses =
@@ -61,9 +61,9 @@ class _MyHomePageState extends State<RegistrationPage>
         env.first = env.addresses.first;
         env.locationController.text = (env.first == null)
             ? "loading"
-            : env.first.addressLine == null ? "loading" : env.first.addressLine;
+            : env.first.addressLine?? "loading";
       });
-    } catch (e) {}
+    } catch (e){return;}
   }
 
   @override
@@ -77,10 +77,10 @@ class _MyHomePageState extends State<RegistrationPage>
 
   static DateTime today = DateTime.now();
 
-  DateTime firstDate = new DateTime(today.year - 90, today.month, today.day);
-  DateTime lastDate = new DateTime(today.year - 18, today.month, today.day);
-  final _formKey = GlobalKey<FormState>();
-  Future<Null> _selectDate(BuildContext context) async {
+  DateTime firstDate =  DateTime(today.year - 90, today.month, today.day);
+  DateTime lastDate =  DateTime(today.year - 18, today.month, today.day);
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  Future<void> _selectDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
         context: context,
         initialDate: lastDate,
@@ -132,15 +132,15 @@ class _MyHomePageState extends State<RegistrationPage>
                 suffixwidget: CountryCodePicker(
                   onChanged: _onCountryChange,
                   initialSelection: 'SA',
-                  favorite: <String>['+966', 'SA'],
+                  favorite: const <String>['+966', 'SA'],
                   showFlagDialog: true,
                   showFlag: false,
                   showCountryOnly: false,
                   showOnlyCountryWhenClosed: false,
                   alignLeft: false,
-                  padding: (isRTL == true
+                  padding: isRTL == true
                       ? const EdgeInsets.fromLTRB(0, 0, 30, 0)
-                      : const EdgeInsets.fromLTRB(30, 0, 0, 0)),
+                      : const EdgeInsets.fromLTRB(30, 0, 0, 0),
                 ),
               ),
               TextFormInput(
@@ -174,7 +174,7 @@ class _MyHomePageState extends State<RegistrationPage>
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     Text("${today.toLocal()}".split(' ')[0]),
-                    SizedBox(
+                   const SizedBox(
                       height: 20.0,
                     ),
                     IconButton(
@@ -197,28 +197,17 @@ class _MyHomePageState extends State<RegistrationPage>
                 readOnly: true,
                 onTab: () async {
                   try {
-                    if (await updateLocation()) {
+                    if (await updateLocation) {
                       location.onLocationChanged
                           .listen((LocationData currentLocation) {
                         getLocationName();
                       });
                     } else {}
-                    print("fucklkkkkkkkk");
-                  } catch (e) {
-                    print("catchhhhhhhhhhhhhhhhhhhhhh");
-                  }
+                  } catch (e) {return;}
                 },
                 suffixwidget: IconButton(
                   icon: Icon(Icons.add_location),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      new MaterialPageRoute(
-                        builder: (BuildContext context) => new AutoLocate(
-                            lat: env.lat ?? 51, long: env.long ?? 9.6),
-                      ),
-                    );
-                  },
+                  onPressed: () {},
                 ),
                 obscureText: _obscureText,
               ),
@@ -227,25 +216,25 @@ class _MyHomePageState extends State<RegistrationPage>
 
   @override
   Widget build(BuildContext context) {
-    final bolc = Provider.of<MyCounter>(context);
+    final MyCounter bolc = Provider.of<MyCounter>(context);
     return Scaffold(
       appBar: AppBar(),
       body: GestureDetector(
         onTap: () {
           FocusScope.of(context).requestFocus(FocusNode());
         },
-        child: new ListView(
+        child:  ListView(
           children: <Widget>[
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Text(translate(context, 'account_creation'),
                 textAlign: TextAlign.center, style: env.mystyle2),
-            SizedBox(height: 15),
+           const SizedBox(height: 15),
             Text(
               translate(context, 'please_check'),
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontWeight: FontWeight.values.first,
-                color: Color(0xFF303030),
+                color:const Color(0xFF303030),
                 fontSize: 20,
               ),
             ),
@@ -253,19 +242,18 @@ class _MyHomePageState extends State<RegistrationPage>
             Padding(
               padding: const EdgeInsets.fromLTRB(30, 30, 30, 30),
               child: RaisedButton(
-                  shape: new RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(18.0),
-                      side: BorderSide(color: Colors.orange)),
+                  shape:  RoundedRectangleBorder(
+                      borderRadius:  BorderRadius.circular(18.0),
+                      side: const BorderSide(color: Colors.orange)),
                   onPressed: () {
                     bolc.changechild(
                       translate(context, 'Regisration'),
                     );
                     bolc.togelf();
-                    Navigator.pushReplacement(
+                    Navigator.pushNamed(
                       context,
-                      MaterialPageRoute(
-                        builder: (BuildContext context) => new LoginScreen(),
-                      ),
+                      '/Log',
+                      arguments: null,
                     );
                     _formKey.currentState.validate();
                     bolc.togelf();

@@ -3,9 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:hidden_drawer_menu/simple_hidden_drawer/bloc/simple_hidden_drawer_bloc.dart';
 
 class AppBarIcon extends StatelessWidget {
-  final IconData icon;
-  final SimpleHiddenDrawerBloc contrller;
-  final Function func;
   const AppBarIcon({
     Key key,
     this.icon,
@@ -13,7 +10,9 @@ class AppBarIcon extends StatelessWidget {
     this.scaffoldKey,
     this.func,
   }) : super(key: key);
-
+  final IconData icon;
+  final SimpleHiddenDrawerBloc contrller;
+  final Function func;
   final GlobalKey<ScaffoldState> scaffoldKey;
 
   @override
@@ -23,7 +22,8 @@ class AppBarIcon extends StatelessWidget {
       iconSize: 30,
       icon: Icon(icon),
       onPressed: () {
-        if (contrller != null) contrller.toggle();
+        if (contrller != null) 
+        contrller.toggle();
         func();
       },
     );

@@ -1,44 +1,42 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/rendering.dart';
+import '../counter.dart';
 import '../models/shop.dart';
-import '../screens/shop_details.dart';
-import 'package:provider/provider.dart';
 import '../functions.dart';
-
 import '../env.dart' as env;
 import 'package:flutter/material.dart';
 import 'package:animated_card/animated_card.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class ShopList extends StatefulWidget {
-  final List<Shop> movieData;
-
   const ShopList(this.movieData);
+  final List<Shop> movieData;
   @override
   _ShopListState createState() => _ShopListState(movieData);
 }
 
 class _ShopListState extends State<ShopList> {
-  final List<Shop> movieData;
-
   _ShopListState(this.movieData);
-  RefreshController _refreshController =
+  final List<Shop> movieData;
+  final RefreshController _refreshController =
       RefreshController(initialRefresh: false);
-  var bolc;
+  MyCounter bolc;
   @override
-  initState() {
+  void initState() {
     super.initState();
   }
 
-  void _onRefresh() async {
-    await Future.delayed(Duration(milliseconds: 1000));
+  Future<void> _onRefresh() async {
+    await Future<void>.delayed(const Duration(milliseconds: 1000));
     _refreshController.refreshCompleted();
   }
 
-  void _onLoading() async {
-    await Future.delayed(Duration(milliseconds: 1000));
-    if (mounted) setState(() {});
-    _refreshController.loadComplete();
+  Future<void> _onLoading() async {
+    await Future<void>.delayed(const Duration(milliseconds: 1000));
+    if (mounted) {
+      setState(() {});
+      _refreshController.loadComplete();
+    }
   }
 
   @override
@@ -46,7 +44,7 @@ class _ShopListState extends State<ShopList> {
     return SmartRefresher(
         enablePullDown: true,
         enablePullUp: true,
-        header: WaterDropMaterialHeader(
+        header:const WaterDropMaterialHeader(
           color: Colors.white,
           offset: 00,
         ),
@@ -55,15 +53,15 @@ class _ShopListState extends State<ShopList> {
           builder: (BuildContext context, LoadStatus mode) {
             Widget body;
             if (mode == LoadStatus.idle) {
-              body = Text("pull up load");
+              body = const Text("pull up load");
             } else if (mode == LoadStatus.loading) {
-              body = CupertinoActivityIndicator();
+              body =const CupertinoActivityIndicator();
             } else if (mode == LoadStatus.failed) {
-              body = Text("Load Failed!Click retry!");
+              body = const Text("Load Failed!Click retry!");
             } else if (mode == LoadStatus.canLoading) {
-              body = Text("release to load more");
+              body =const Text("release to load more");
             } else {
-              body = Text("No more Data");
+              body =const Text("No more Data");
             }
             return Container(
               height: 55.0,
@@ -78,11 +76,11 @@ class _ShopListState extends State<ShopList> {
           padding: const EdgeInsets.all(20),
           itemCount: movieData.length,
           addRepaintBoundaries: true,
-          itemBuilder: (context, index) {
+          itemBuilder: (BuildContext context, int index) {
             return AnimatedCard(
               direction: AnimatedCardDirection.left,
-              initDelay: Duration(milliseconds: 0),
-              duration: Duration(seconds: 1),
+              initDelay: const Duration(milliseconds: 0),
+              duration: const Duration(seconds: 1),
               curve: Curves.ease,
               child: _itemBuilder(context, movieData.elementAt(index)),
             );
@@ -91,25 +89,15 @@ class _ShopListState extends State<ShopList> {
   }
 
   Widget _itemBuilder(BuildContext context, Shop shop) {
-    var text = "4";
-    String text2 = "5";
+    const String text = "4";
+   const String text2 = "5";
     return InkWell(
       onTap: () {
-        Navigator.push(
-          context,
-          new MaterialPageRoute(
-            builder: (BuildContext context) => new ShopDetails(
-                shop: Shop(
-                  image: "assets/images/shopone.jpg",
-                ),
-                likecount: 50,
-                lovecount: 50),
-          ),
-        );
+
       },
       child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: const BorderRadius.only(
+        shape: const RoundedRectangleBorder(
+          borderRadius:  BorderRadius.only(
               topLeft: Radius.circular(12), topRight: Radius.circular(12)),
         ),
         child: Column(
@@ -121,19 +109,19 @@ class _ShopListState extends State<ShopList> {
                     topLeft: Radius.circular(12),
                     topRight: Radius.circular(12)),
                 image: DecorationImage(
-                  image: new AssetImage(
+                  image:  AssetImage(
                     shop.image,
                   ),
                   fit: BoxFit.cover,
                 ),
               ),
-              child: new Stack(children: <Widget>[
-                new Positioned(
+              child:  Stack(children: <Widget>[
+                 Positioned(
                   left: 0.0,
                   top: 1.0,
-                  child: new IconButton(
+                  child:  IconButton(
                     color: env.mainColor,
-                    icon: new Image.asset(
+                    icon:  Image.asset(
                       "assets/images/loveicon.png",
                       scale: 3,
                     ),
@@ -172,7 +160,7 @@ class _ShopListState extends State<ShopList> {
                                     horizontal: 24, vertical: 4),
                                 decoration: BoxDecoration(
                                     borderRadius:
-                                        BorderRadius.all(Radius.circular(12)),
+                                       const BorderRadius.all(Radius.circular(12)),
                                     color: Colors.grey[300]),
                                 alignment: Alignment.center,
                                 child: Text(
@@ -192,7 +180,7 @@ class _ShopListState extends State<ShopList> {
                               style: env.mylight,
                               textAlign: TextAlign.center,
                             ),
-                            SizedBox(height: 7),
+                           const SizedBox(height: 7),
                             Text(
                               text2,
                               style: env.mystyle,

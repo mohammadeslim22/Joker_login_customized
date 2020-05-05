@@ -12,20 +12,16 @@ import '../env.dart' as env;
 import '../functions.dart';
 
 class AutoLocate extends StatefulWidget {
+  const AutoLocate({Key key, this.long, this.lat}) : super(key: key);
   final double long;
   final double lat;
-
-  const AutoLocate({Key key, this.long, this.lat}) : super(key: key);
-
   @override
   _AutoLocateState createState() => _AutoLocateState();
 }
 
 class _AutoLocateState extends State<AutoLocate> {
+  StreamSubscription<dynamic> getPositionSubscription;
   GoogleMapController mapController;
-
-  StreamSubscription getPositionSubscription;
-
   Location location = Location();
   double lat;
   double long;
@@ -34,11 +30,11 @@ class _AutoLocateState extends State<AutoLocate> {
   LocationData locationData;
   Map<MarkerId, Marker> markers = <MarkerId, Marker>{};
 
-  final _scaffoldKey = GlobalKey<ScaffoldState>();
+  final GlobalKey _scaffoldKey = GlobalKey<ScaffoldState>();
 
   Future<void> _onMapCreated(GoogleMapController controller) async {
     mapController = controller;
-    
+
     serviceEnabled = await location.serviceEnabled();
     if (!serviceEnabled) {
     } else {
@@ -67,15 +63,17 @@ class _AutoLocateState extends State<AutoLocate> {
     getPositionSubscription?.cancel();
   }
 
-  Future getLocationName(double long, double lat) async {
+  Future<void> getLocationName(double long, double lat) async {
     try {
       coordinates = Coordinates(lat, long);
       addresses =
           await Geocoder.local.findAddressesFromCoordinates(coordinates);
-          
+
       setState(() => address = addresses.first);
       print('fetched ${address.addressLine}');
-    } catch (e) {address=null;}
+    } catch (e) {
+      address = null;
+    }
   }
 
   @override
@@ -87,14 +85,14 @@ class _AutoLocateState extends State<AutoLocate> {
         children: <Widget>[
           GoogleMap(
             onMapCreated: _onMapCreated,
-            padding: EdgeInsets.only(bottom: 60),
+            padding: const EdgeInsets.only(bottom: 60),
             mapType: MapType.normal,
             markers: Set<Marker>.of(markers.values),
             initialCameraPosition: CameraPosition(
               target: LatLng(lat, long),
               zoom: 5,
             ),
-            onCameraMove: (pos) {
+            onCameraMove: (CameraPosition pos) {
               setState(() {
                 lat = pos.target.latitude;
                 long = pos.target.longitude;
@@ -112,7 +110,7 @@ class _AutoLocateState extends State<AutoLocate> {
               height: 170,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [
+                  colors: const <Color>[
                     Color.fromARGB(1023, 249, 249, 249),
                     Color.fromARGB(0, 255, 255, 255)
                   ],
@@ -135,7 +133,7 @@ class _AutoLocateState extends State<AutoLocate> {
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: Card(
                       elevation: 8,
-                      margin: EdgeInsets.all(0),
+                      margin: const EdgeInsets.all(0),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8.0)),
                       child: ListTile(
@@ -152,10 +150,8 @@ class _AutoLocateState extends State<AutoLocate> {
                             Text(
                               address == null
                                   ? 'Loading'
-                                  : address.adminArea == null
-                                      ? 'Unknown'
-                                      : address.adminArea,
-                              style: TextStyle(fontSize: 9),
+                                  : address.adminArea ?? 'Unknown',
+                              style: const TextStyle(fontSize: 9),
                             ),
                           ],
                         ),
@@ -201,7 +197,7 @@ class _AutoLocateState extends State<AutoLocate> {
                       child: Center(
                         child: Icon(
                           Icons.my_location,
-                          color: Color.fromARGB(1023, 150, 150, 150),
+                          color: const Color.fromARGB(1023, 150, 150, 150),
                         ),
                       ),
                       onTap: () async {
@@ -255,16 +251,17 @@ class _AutoLocateState extends State<AutoLocate> {
     });
   }
 
-  Future _animateToUser() async {
+  Future<void> _animateToUser() async {
     final Uint8List markerIcon =
         await getBytesFromAsset('assets/images/logo.png', 100);
-    await location.getLocation().then((value) {
+    await location.getLocation().then((LocationData value) {
       mapController.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
         target: LatLng(value.latitude, value.longitude),
         zoom: 13,
       )));
-      getPositionSubscription = location.onLocationChanged.listen((value) {
-        var marker = Marker(
+      getPositionSubscription =
+          location.onLocationChanged.listen((LocationData value) {
+        final Marker marker = Marker(
           markerId: MarkerId('current_location'),
           position: LatLng(value.latitude, value.longitude),
           icon: BitmapDescriptor.fromBytes(markerIcon),
@@ -279,10 +276,10 @@ class _AutoLocateState extends State<AutoLocate> {
   }
 
   Future<Uint8List> getBytesFromAsset(String path, int width) async {
-    ByteData data = await rootBundle.load(path);
-    Codec codec = await instantiateImageCodec(data.buffer.asUint8List(),
+    final ByteData data = await rootBundle.load(path);
+    final Codec codec = await instantiateImageCodec(data.buffer.asUint8List(),
         targetWidth: width);
-    FrameInfo fi = await codec.getNextFrame();
+    final FrameInfo fi = await codec.getNextFrame();
     return (await fi.image.toByteData(format: ImageByteFormat.png))
         .buffer
         .asUint8List();
@@ -294,13 +291,13 @@ class _AutoLocateState extends State<AutoLocate> {
       child: Container(
         height: 100,
         padding: const EdgeInsets.fromLTRB(0, 10, 0, 50),
-        child: new Row(
+        child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            new RaisedButton(
-                shape: new RoundedRectangleBorder(
-                    borderRadius: new BorderRadius.circular(18.0),
-                    side: BorderSide(color: Colors.orange)),
+            RaisedButton(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(18.0),
+                    side: const BorderSide(color: Colors.orange)),
                 onPressed: () => Navigator.pop(context),
                 color: Colors.red,
                 textColor: Colors.white,
@@ -308,9 +305,9 @@ class _AutoLocateState extends State<AutoLocate> {
             const SizedBox(
               width: 30,
             ),
-            new RaisedButton(
-                shape: new RoundedRectangleBorder(
-                    borderRadius: new BorderRadius.circular(18.0),
+            RaisedButton(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(18.0),
                     side: BorderSide(color: env.blue)),
                 onPressed: () {
                   setState(() {
@@ -318,9 +315,7 @@ class _AutoLocateState extends State<AutoLocate> {
                     env.long = long;
                     env.locationController.text = address == null
                         ? "unkown"
-                        : address.addressLine == null
-                            ? "unkown"
-                            : address.addressLine;
+                        : address.addressLine ?? "unkown";
                   });
                   print("${env.lat},${env.long}");
                   Navigator.pop(context);

@@ -5,71 +5,33 @@ import 'package:fluttertoast/fluttertoast.dart';
 import '../functions.dart';
 import '../env.dart' as env;
 import '../models/search_model.dart';
-import 'package:searchable_dropdown/searchable_dropdown.dart';
 import 'package:rating_bar/rating_bar.dart';
 import 'package:solid_bottom_sheet/solid_bottom_sheet.dart';
 import '../widgets/TextFormInput.dart';
 
 class AdvancedSearch extends StatefulWidget {
+    const AdvancedSearch({Key key}) : super(key: key);
   @override
-  @override
-  AdvanceSearchscreen createState() => new AdvanceSearchscreen();
+  AdvanceSearchscreen createState() =>  AdvanceSearchscreen();
 }
 
 class AdvanceSearchscreen extends State<AdvancedSearch>
     with TickerProviderStateMixin {
-  Set<int> selectedOptions = new Set();
-  List<int> selectedValues = [];
+  Set<int> selectedOptions =  <int>{};
+ 
   static DateTime today = DateTime.now();
   String selectedValue;
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
   final List<SearchModel> options = SearchModel.searchData;
-  final List<String> cities = ["Gaza", "Cairo", "London", "Berlin"];
-  final List<String> countries = ["Palestine", "UK", "Germany", "Japan"];
   double _ratingStar = 0;
-  SolidController _controller = SolidController();
+ final SolidController _controller = SolidController();
   @override
   Widget build(BuildContext context) {
-    Widget dropdown(List<String> items, String hing) {
-      return Expanded(
-        child: Container(
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(7)),
-              color: Colors.white,
-              border: Border.all(
-                color: Colors.grey[300],
-                width: 1,
-              )),
-          child: SearchableDropdown.single(
-            displayClearIcon: false,
-            icon: Icon(Icons.keyboard_arrow_down),
-            underline: Container(
-              color: Colors.transparent,
-            ),
-            items: items.map((city) {
-              return DropdownMenuItem(
-                child: Text(city),
-                value: city,
-              );
-            }).toList(),
-            value: selectedValue,
-            hint: hing,
-            searchHint: "Select one",
-            onChanged: (value) {
-              setState(() {
-                selectedValue = value;
-              });
-            },
-            isExpanded: true,
-          ),
-        ),
-      );
-    }
 
     return Scaffold(
-      appBar: new AppBar(
+      appBar:  AppBar(
           centerTitle: true,
           title: Text(
             translate(context, "advanced_search"),
@@ -118,7 +80,7 @@ class AdvanceSearchscreen extends State<AdvancedSearch>
           ),
           GridView.count(
               scrollDirection: Axis.vertical,
-              physics: ScrollPhysics(),
+              physics: const ScrollPhysics(),
               shrinkWrap: true,
               primary: true,
               crossAxisSpacing: 8,
@@ -126,14 +88,16 @@ class AdvanceSearchscreen extends State<AdvancedSearch>
               crossAxisCount: 4,
               childAspectRatio: 2,
               addRepaintBoundaries: true,
-              children: options.map((item) {
+              children: options.map((SearchModel item) {
                 return FlatButton(
-                  shape: new RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(38.0),
+                  shape:  RoundedRectangleBorder(
+                      borderRadius:  BorderRadius.circular(38.0),
                       side: BorderSide(
                           color: selectedOptions.contains(item.id)
                               ? Colors.red
-                              : Colors.grey)),
+                              : Colors.grey,
+                          ),
+                    ),
                   color: Colors.white,
                   textColor: selectedOptions.contains(item.id)
                       ? Colors.red
@@ -166,9 +130,8 @@ class AdvanceSearchscreen extends State<AdvancedSearch>
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              //TODO(ISLEEM)
-              // map to put
+            children: const <Widget>[
+              // TODO(isleem): put map here
             ],
           ),
           const SizedBox(
@@ -196,8 +159,8 @@ class AdvanceSearchscreen extends State<AdvancedSearch>
           ),
           RaisedButton(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 11),
-            shape: new RoundedRectangleBorder(
-                borderRadius: new BorderRadius.circular(7.0),
+            shape:  RoundedRectangleBorder(
+                borderRadius:  BorderRadius.circular(7.0),
                 side: BorderSide(color: Colors.grey[300])),
             color: Colors.white,
             elevation: 0,
@@ -240,8 +203,11 @@ class AdvanceSearchscreen extends State<AdvancedSearch>
                 style: env.mystyle,
               ),
               RatingBar(
-                onRatingChanged: (rating) =>
-                    setState(() => _ratingStar = rating),
+                onRatingChanged: (double rating) {
+                    setState(() => _ratingStar = rating);
+                    // TODO(mislem): use this var to send raiting to API
+                    print(_ratingStar);
+                    },
                 filledIcon: Icons.star,
                 emptyIcon: Icons.star_border,
                 halfFilledIcon: Icons.star_half,
@@ -262,8 +228,8 @@ class AdvanceSearchscreen extends State<AdvancedSearch>
               RaisedButton(
                 padding:
                     const EdgeInsets.symmetric(vertical: 12, horizontal: 25),
-                shape: new RoundedRectangleBorder(
-                    borderRadius: new BorderRadius.circular(18.0),
+                shape:  RoundedRectangleBorder(
+                    borderRadius:  BorderRadius.circular(18.0),
                     side: BorderSide(color: Colors.grey)),
                 onPressed: () {},
                 color: Colors.grey,
@@ -278,8 +244,8 @@ class AdvanceSearchscreen extends State<AdvancedSearch>
               RaisedButton(
                 padding:
                     const EdgeInsets.symmetric(vertical: 12, horizontal: 25),
-                shape: new RoundedRectangleBorder(
-                    borderRadius: new BorderRadius.circular(18.0),
+                shape:  RoundedRectangleBorder(
+                    borderRadius:  BorderRadius.circular(18.0),
                     side: BorderSide(color: Colors.red)),
                 onPressed: () {},
                 color: Colors.red,

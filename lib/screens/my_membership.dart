@@ -2,30 +2,25 @@ import 'package:animated_card/animated_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../models/membership.dart';
-import 'package:provider/provider.dart';
 import '../env.dart' as env;
 import '../functions.dart';
-import '../counter.dart';
 
 class MyMemberShip extends StatefulWidget {
-  final List<MemberShip> membershipsData;
-
   const MyMemberShip(this.membershipsData);
+  final List<MemberShip> membershipsData;
   @override
   MyMemberShipState createState() => MyMemberShipState(membershipsData);
 }
 
 class MyMemberShipState extends State<MyMemberShip>
     with SingleTickerProviderStateMixin {
-  final List<MemberShip> membershipsData;
-
   MyMemberShipState(this.membershipsData);
+  final List<MemberShip> membershipsData;
 
   @override
   Widget build(BuildContext context) {
-    final bolc = Provider.of<MyCounter>(context);
     return Scaffold(
-      appBar: new AppBar(
+      appBar: AppBar(
         title: Text(
           translate(context, "my_membership"),
         ),
@@ -35,11 +30,11 @@ class MyMemberShipState extends State<MyMemberShip>
         padding: const EdgeInsets.all(20),
         itemCount: membershipsData.length,
         addRepaintBoundaries: true,
-        itemBuilder: (context, index) {
+        itemBuilder: (BuildContext context, int index) {
           return AnimatedCard(
             direction: AnimatedCardDirection.left,
-            initDelay: Duration(milliseconds: 0),
-            duration: Duration(seconds: 1),
+            initDelay:const Duration(milliseconds: 0),
+            duration:const Duration(seconds: 1),
             curve: Curves.ease,
             child: _itemBuilder(context, membershipsData.elementAt(index)),
           );
@@ -50,11 +45,11 @@ class MyMemberShipState extends State<MyMemberShip>
 
   Widget _itemBuilder(BuildContext context, MemberShip memberShip) {
     return Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: const BorderRadius.all(Radius.circular(12)),
+        shape:const RoundedRectangleBorder(
+          borderRadius:  BorderRadius.all(Radius.circular(12)),
         ),
         child: Container(
-          padding: const EdgeInsets.fromLTRB(12,8,4,8),
+          padding: const EdgeInsets.fromLTRB(12, 8, 4, 8),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
@@ -67,7 +62,7 @@ class MyMemberShipState extends State<MyMemberShip>
                         elevation: 0,
                         backgroundColor: env.trans,
                         onPressed: () {},
-                        child: new Image.asset("assets/images/membership.png")),
+                        child:  Image.asset("assets/images/membership.png")),
                     Text(
                       memberShip.type,
                       textAlign: TextAlign.center,
@@ -88,22 +83,28 @@ class MyMemberShipState extends State<MyMemberShip>
                     translate(context, 'shop_name'),
                     style: env.underHead,
                   ),
-                  const SizedBox(height: 10,),
+                  const SizedBox(
+                    height: 10,
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Text("${memberShip.startingDate}".split(' ')[0],style: env.mysmall,),
-                      Icon(
-                        Icons.arrow_forward,
-                        color: Colors.orange,
-                        size: 12
+                      Text(
+                        "${memberShip.startingDate}".split(' ')[0],
+                        style: env.mysmall,
                       ),
-                      Text("${memberShip.endDtae}".split(' ')[0],style: env.mysmall),
+                      Icon(Icons.arrow_forward, color: Colors.orange, size: 12),
+                      Text("${memberShip.endDtae}".split(' ')[0],
+                          style: env.mysmall),
                     ],
                   )
                 ],
               ),
-              Flexible(child: Image.asset(memberShip.image,scale: 2,))
+              Flexible(
+                  child: Image.asset(
+                memberShip.image,
+                scale: 2,
+              ))
             ],
           ),
         ));

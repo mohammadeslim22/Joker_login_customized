@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/rendering.dart';
+import 'package:login_page_customized/counter.dart';
 import '../models/discount.dart';
-import '../functions.dart';
-import '../env.dart' as env;
 import 'package:flutter/material.dart';
 import 'package:animated_card/animated_card.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -10,59 +9,56 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '_itemBuilder.dart';
 
 class DiscountsList extends StatefulWidget {
-  final List<Discount> movieData;
-
   const DiscountsList(this.movieData);
+  final List<Discount> movieData;
   @override
   _DiscountsListState createState() => _DiscountsListState(movieData);
 }
 
 class _DiscountsListState extends State<DiscountsList> {
-  final List<Discount> movieData;
-
   _DiscountsListState(this.movieData);
-  RefreshController _refreshController =
+  final List<Discount> movieData;
+ final RefreshController _refreshController =
       RefreshController(initialRefresh: false);
-  var bolc;
+  MyCounter bolc;
   @override
-  initState() {
+ void initState() {
     super.initState();
   }
 
-  void _onRefresh() async {
-    await Future.delayed(Duration(milliseconds: 1000));
+  Future<void> _onRefresh() async {
+    await Future<void>.delayed(const Duration(milliseconds: 1000));
     _refreshController.refreshCompleted();
   }
 
-  void _onLoading() async {
-    await Future.delayed(Duration(milliseconds: 1000));
-    if (mounted) setState(() {});
+    Future<void> _onLoading() async {
+    await Future<void>.delayed(const Duration(milliseconds: 1000));
+    if (mounted){
+    setState(() {});
     _refreshController.loadComplete();
-  }
+  }}
 
   @override
   Widget build(BuildContext context) {
     return SmartRefresher(
         enablePullDown: true,
         enablePullUp: true,
-        // header: WaterDropMaterialHeader(
-        //   color: Colors.white,
-        //   offset: 00,
-        // ),
-        header: WaterDropHeader(waterDropColor: Colors.orange,),
+        header: const WaterDropHeader(
+          waterDropColor: Colors.orange,
+        ),
         footer: CustomFooter(
           builder: (BuildContext context, LoadStatus mode) {
             Widget body;
             if (mode == LoadStatus.idle) {
-              body = Text("pull up load");
+              body =const Text("pull up load");
             } else if (mode == LoadStatus.loading) {
-              body = CupertinoActivityIndicator();
+              body =const CupertinoActivityIndicator();
             } else if (mode == LoadStatus.failed) {
-              body = Text("Load Failed!Click retry!");
+              body =const Text("Load Failed!Click retry!");
             } else if (mode == LoadStatus.canLoading) {
-              body = Text("release to load more");
+              body =const Text("release to load more");
             } else {
-              body = Text("No more Data");
+              body =const Text("No more Data");
             }
             return Container(
               height: 55.0,
@@ -75,15 +71,15 @@ class _DiscountsListState extends State<DiscountsList> {
         onLoading: _onLoading,
         child: ListView.builder(
           shrinkWrap: true,
-          physics: ScrollPhysics(),
+          physics:const ScrollPhysics(),
           padding: const EdgeInsets.all(20),
           itemCount: movieData.length,
           addRepaintBoundaries: true,
-          itemBuilder: (context, index) {
+          itemBuilder: (BuildContext context,int index) {
             return AnimatedCard(
               direction: AnimatedCardDirection.left,
-              initDelay: Duration(milliseconds: 0),
-              duration: Duration(seconds: 1),
+              initDelay:const Duration(milliseconds: 0),
+              duration: const  Duration(seconds: 1),
               curve: Curves.ease,
               child: ItemBuilder(
                   context: context, discount: movieData.elementAt(index)),

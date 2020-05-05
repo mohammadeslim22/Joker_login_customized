@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import '../functions.dart';
+import '../pass_args.dart';
 import '../widgets/buttonTouse.dart';
 import 'package:provider/provider.dart';
 import '../counter.dart';
-import '../screens/octions.dart';
-
 import 'package:pin_code_fields/pin_code_fields.dart';
 import '../env.dart' as env;
 import 'package:timer_count_down/timer_count_down.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
 class PinCode extends StatelessWidget {
-  final String monileNo;
+
 
   const PinCode({Key key, this.monileNo}) : super(key: key);
+    final String monileNo;
   @override
   Widget build(BuildContext context) {
     return LoginScreenPage(monileNo: monileNo);
@@ -22,27 +22,27 @@ class PinCode extends StatelessWidget {
 }
 
 class LoginScreenPage extends StatefulWidget {
-  final String monileNo;
-  LoginScreenPage({Key key, this.monileNo}) : super(key: key);
 
+ const LoginScreenPage({this.monileNo});
+  final String monileNo;
   @override
-  _MyHomePageState createState() => new _MyHomePageState(monileNo);
+  _MyHomePageState createState() =>  _MyHomePageState(monileNo);
 }
 
 class _MyHomePageState extends State<LoginScreenPage>
     with TickerProviderStateMixin {
+
+  _MyHomePageState(this.monileNo);
   AnimationController controller;
   final String monileNo;
   String currentText = "0000";
   bool showTimer = true;
-  _MyHomePageState(this.monileNo);
-
   @override
   void initState() {
     super.initState();
     controller = AnimationController(
       vsync: this,
-      duration: Duration(seconds: 30),
+      duration:const Duration(seconds: 30),
     );
    
   }
@@ -74,16 +74,16 @@ class _MyHomePageState extends State<LoginScreenPage>
                 obsecureText: false,
                 animationType: AnimationType.fade,
                 shape: PinCodeFieldShape.box,
-                animationDuration: Duration(milliseconds: 300),
+                animationDuration: const Duration(milliseconds: 300),
                 borderRadius: BorderRadius.circular(5),
                 inactiveColor: Colors.grey,
                 textInputType: TextInputType.phone,
                 fieldHeight: 40,
                 fieldWidth: 30,
-                onCompleted: (v) {
+                onCompleted: ( String v) {
                   // on complete
                 },
-                onChanged: (value) {
+                onChanged: (String value) {
                   setState(() {
                     currentText = value;
                   });
@@ -98,23 +98,23 @@ class _MyHomePageState extends State<LoginScreenPage>
 
   @override
   Widget build(BuildContext context) {
-    final bolc = Provider.of<MyCounter>(context);
-
+    final MyCounter bolc = Provider.of<MyCounter>(context);
+final ScreenArguments args = ModalRoute.of(context).settings.arguments as ScreenArguments;
     return Scaffold(
-        appBar: new AppBar(),
+        appBar:  AppBar(),
         body: GestureDetector(
             onTap: () {
               FocusScope.of(context).requestFocus(FocusNode());
             },
-            child: new ListView(children: <Widget>[
-              SizedBox(height: 20),
+            child:  ListView(children: <Widget>[
+            const  SizedBox(height: 20),
               Text(translate(context, 'pin_code'),
                   textAlign: TextAlign.center, style: env.mystyle2),
               const SizedBox(height: 15),
               Text(translate(context, 'pin_has_been_sent'),
                   textAlign: TextAlign.center, style: env.underHead),
               const SizedBox(height: 15),
-              Text(monileNo,
+              Text(args.mobileNO,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
@@ -123,7 +123,7 @@ class _MyHomePageState extends State<LoginScreenPage>
                   )),
               const SizedBox(height: 15),
               pinCode(),
-              new CircularPercentIndicator(
+               CircularPercentIndicator(
                 radius: 130.0,
                 progressColor: Colors.orange[300],
                 circularStrokeCap: CircularStrokeCap.round,
@@ -131,7 +131,7 @@ class _MyHomePageState extends State<LoginScreenPage>
                 animationDuration: 30900,
                 lineWidth: 5.0,
                 percent: 1,
-                center: new CountDown(
+                center:  CountDown(
                   style: env.mystyle2,
                   seconds: 30,
                   onTimer: () {
@@ -145,14 +145,14 @@ class _MyHomePageState extends State<LoginScreenPage>
               Text(translate(context, 'code_not_recieved'),
                   textAlign: TextAlign.center, style: env.underHead),
               Padding(
-                padding: EdgeInsets.fromLTRB(100, 20, 100, 20),
+                padding: const EdgeInsets.fromLTRB(100, 20, 100, 20),
                 child: FlatButton(
-                  shape: new RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(20.0),
+                  shape:  RoundedRectangleBorder(
+                      borderRadius:  BorderRadius.circular(20.0),
                       side: BorderSide(color: Colors.black)),
                   color: Colors.white,
                   textColor: Colors.orange,
-                  padding: EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(8.0),
                   onPressed: () {},
                   child: Text(
                     translate(context, 'resend_code'),
@@ -163,20 +163,19 @@ class _MyHomePageState extends State<LoginScreenPage>
               Padding(
                   padding: const EdgeInsets.fromLTRB(60, 30, 60, 10),
                   child: RaisedButton(
-                      shape: new RoundedRectangleBorder(
-                          borderRadius: new BorderRadius.circular(18.0),
+                      shape:  RoundedRectangleBorder(
+                          borderRadius:  BorderRadius.circular(18.0),
                           side: BorderSide(color: Colors.orange)),
                       onPressed: () {
                         bolc.changechild(
                           translate(context, 'aprove'),
                         );
                         bolc.togelf();
-                        Navigator.pushReplacement(
-                          context,
-                          new MaterialPageRoute(
-                            builder: (BuildContext context) => new Octions(),
-                          ),
-                        );
+                            Navigator.pushNamed(
+                      context,
+                      '/Home',
+                      
+                    );
                       },
                       color: Colors.deepOrangeAccent,
                       textColor: Colors.white,

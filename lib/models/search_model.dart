@@ -1,12 +1,13 @@
 class SearchModel {
-  int id;
-  String search;
+
 
   SearchModel({
     this.id,
     this.search,
   });
-  static List<SearchModel> get searchData => [
+    int id;
+  String search;
+  static List<SearchModel> get searchData => <SearchModel>[
         
         SearchModel(id: 1, search: "أزياء"),
         SearchModel(id: 2, search: "تجميل"),

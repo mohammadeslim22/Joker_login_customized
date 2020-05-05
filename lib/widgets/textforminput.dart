@@ -5,7 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class TextFormInput extends StatelessWidget {
-  final String text;
+
+
+  const TextFormInput({Key key, this.text, this.cController, this.prefixIcon, this.kt, this.y, this.obscureText, this.suffixwidget, this.readOnly, this.onTab}) : super(key: key);
+    final String text;
   final TextEditingController cController;
  final  IconData prefixIcon;
   final TextInputType kt;
@@ -14,8 +17,6 @@ class TextFormInput extends StatelessWidget {
   final Widget suffixwidget;
   final bool readOnly;
  final  Function onTab;
-
-  const TextFormInput({Key key, this.text, this.cController, this.prefixIcon, this.kt, this.y, this.obscureText, this.suffixwidget, this.readOnly, this.onTab}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -23,26 +24,26 @@ class TextFormInput extends StatelessWidget {
       child: TextFormField(
         readOnly: readOnly,
         keyboardType: kt,
-        onTap: onTab,
+        onTap:()=> onTab,
         controller: cController,
-        style: new TextStyle(
+        style:  TextStyle(
           color: Colors.black,
           fontSize: 15,
         ),
         obscureText: obscureText,
         decoration: InputDecoration(
-            enabledBorder: new OutlineInputBorder(
-                borderSide: new BorderSide(
+            enabledBorder: const OutlineInputBorder(
+                borderSide:  BorderSide(
               color: Colors.grey,
             )),
             filled: true,
             fillColor: Colors.white70,
             hintText: text,
-            hintStyle: TextStyle(
+            hintStyle:const TextStyle(
               fontSize: 15,
             ),
-            disabledBorder: OutlineInputBorder(
-                borderSide: new BorderSide(
+            disabledBorder:const OutlineInputBorder(
+                borderSide:  BorderSide(
               color: Colors.grey,
             )),
             border: OutlineInputBorder(
@@ -51,7 +52,7 @@ class TextFormInput extends StatelessWidget {
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(7),
             ),
-            contentPadding: EdgeInsets.symmetric(vertical: 0),
+            contentPadding:const EdgeInsets.symmetric(vertical: 0),
             prefixIcon: Icon(prefixIcon),
             suffixIcon: suffixwidget),
       ),

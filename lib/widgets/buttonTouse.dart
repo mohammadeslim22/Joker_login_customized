@@ -4,7 +4,7 @@ import '../env.dart' as env;
 
 
 class ButtonToUse extends StatelessWidget {
-  ButtonToUse(this.buttonstring, {this.fw, this.fc, this.myfunc});
+ const ButtonToUse(this.buttonstring, {this.fw, this.fc, this.myfunc});
   final String buttonstring;
   final FontWeight fw;
   final Color fc;

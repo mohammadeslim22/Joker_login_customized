@@ -5,7 +5,6 @@ import 'package:hidden_drawer_menu/hidden_drawer/hidden_drawer_menu.dart';
 import 'package:hidden_drawer_menu/simple_hidden_drawer/simple_hidden_drawer.dart';
 import '../functions.dart';
 import '../models/shop.dart';
-import '../screens/advanced_search.dart';
 import 'package:provider/provider.dart';
 import '../widgets/appbarIcon.dart';
 import '../widgets/bottom_bar.dart';
@@ -17,6 +16,7 @@ import '../env.dart' as env;
 import '../widgets/myMenu.dart';
 
 class Octions extends StatelessWidget {
+    const Octions({Key key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return OctionsScreen();
@@ -24,10 +24,9 @@ class Octions extends StatelessWidget {
 }
 
 class OctionsScreen extends StatefulWidget {
-  OctionsScreen({Key key}) : super(key: key);
 
   @override
-  MyOctionState createState() => new MyOctionState();
+  MyOctionState createState() =>  MyOctionState();
 }
 
 class MyOctionState extends State<OctionsScreen>
@@ -44,10 +43,9 @@ class MyOctionState extends State<OctionsScreen>
 
   @override
   Widget build(BuildContext context) {
-    final bool isRTL = (Directionality.of(context) == TextDirection.rtl);
+    final bool isRTL = Directionality.of(context) == TextDirection.rtl;
 
     return SimpleHiddenDrawer(
-        // initPosition: 0,
         verticalScalePercent: 60,
         contentCornerRadius: 30,
         enableCornerAnimin: true,
@@ -56,8 +54,8 @@ class MyOctionState extends State<OctionsScreen>
         typeOpen: !isRTL ? TypeOpen.FROM_LEFT : TypeOpen.FROM_RIGHT,
         menu: MenuScreen(),
         screenSelectedBuilder: (
-          position,
-          controller,
+          int position,
+          SimpleHiddenDrawerBloc controller,
         ) {
           return Oc(
             controller: controller,
@@ -67,18 +65,16 @@ class MyOctionState extends State<OctionsScreen>
 }
 
 class Oc extends StatefulWidget {
-  final controller;
-
   const Oc({Key key, this.controller}) : super(key: key);
+  final SimpleHiddenDrawerBloc controller;
   @override
   OcState createState() => OcState(controller);
 }
 
 class OcState extends State<Oc> with TickerProviderStateMixin {
-  final controller;
-  AnimationController _hide;
-
   OcState(this.controller);
+  final SimpleHiddenDrawerBloc controller;
+  AnimationController _hide;
   bool _handleScrollNotification(ScrollNotification notification) {
     if (notification.depth == 0) {
       if (notification is UserScrollNotification) {
@@ -103,14 +99,14 @@ class OcState extends State<Oc> with TickerProviderStateMixin {
     super.initState();
     _hide = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 350),
+      duration: const Duration(milliseconds: 350),
     );
     _hide.forward();
   }
 
   @override
   Widget build(BuildContext context) {
-    final bolc = Provider.of<MyCounter>(context);
+    final MyCounter bolc = Provider.of<MyCounter>(context);
     Widget texCity() {
       return Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -121,31 +117,30 @@ class OcState extends State<Oc> with TickerProviderStateMixin {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Container(
-                    margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                    margin:const EdgeInsets.fromLTRB(10, 0, 10, 0),
                     child: Text(
                       translate(context, 'discount_offers'),
-                      style: new TextStyle(
+                      style:  TextStyle(
                         fontSize: 22.0,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.fromLTRB(10, 10, 0, 0),
-                    child:
-                        Text("In the Kingdom of Saudi Arabia", style: env.mystyle),
+                    padding:const EdgeInsets.fromLTRB(10, 10, 0, 0),
+                    child: Text("In the Kingdom of Saudi Arabia",
+                        style: env.mystyle),
                   )
                 ]),
           ),
           const SizedBox(
             width: 40,
           ),
-          // here its wac a Card
           RaisedButton(
             padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
             color: Colors.white,
-            shape: new RoundedRectangleBorder(
-              borderRadius: new BorderRadius.circular(100),
+            shape:  RoundedRectangleBorder(
+              borderRadius:  BorderRadius.circular(100),
             ),
             child: Row(
               children: <Widget>[
@@ -156,7 +151,7 @@ class OcState extends State<Oc> with TickerProviderStateMixin {
                 const SizedBox(
                   width: 10,
                 ),
-                new Image.asset(
+                 Image.asset(
                   "assets/images/filter.png",
                   height: 25,
                   width: 25,
@@ -165,7 +160,9 @@ class OcState extends State<Oc> with TickerProviderStateMixin {
             ),
             onPressed: () {},
           ),
-          const SizedBox(width: 7,)
+          const SizedBox(
+            width: 7,
+          )
         ],
       );
     }
@@ -178,14 +175,7 @@ class OcState extends State<Oc> with TickerProviderStateMixin {
           actions: <Widget>[
             AppBarIcon(
               icon: Icons.search,
-              func: () {
-                Navigator.push(
-                  context,
-                  new MaterialPageRoute(
-                    builder: (BuildContext context) => new AdvancedSearch(),
-                  ),
-                );
-              },
+              func: () {},
             ),
             AppBarIcon(icon: Icons.notifications_none),
           ],
