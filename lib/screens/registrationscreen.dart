@@ -10,6 +10,9 @@ import '../functions.dart';
 import '../env.dart' as env;
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:geocoder/geocoder.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:vibration/vibration.dart';
+import 'package:flutter/services.dart';
 
 class Registration extends StatelessWidget {
   const Registration({Key key, this.lat, this.long}) : super(key: key);
@@ -31,23 +34,35 @@ class _MyHomePageState extends State<RegistrationPage>
     with TickerProviderStateMixin {
   List<String> location2;
   Location location = Location();
+  static const SpinKitRing spinkit = SpinKitRing(
+    color: Colors.orange,
+    size: 30.0,
+    lineWidth: 3,
+  );
+  SnackBar snackBar = SnackBar(
+    content: const Text("Location Service was not aloowed  !"),
+    action: SnackBarAction(
+      label: 'Ok !',
+      onPressed: () {},
+    ),
+  );
   Future<bool> get updateLocation async {
     bool res;
+    setState(() {
+      env.locationController.text = "getting your location...";
+    });
     final List<String> loglat = await getLocation();
     if (loglat.isEmpty) {
       res = false;
     } else {
-      if (loglat[0] == null || loglat[1] == null) {
-        res = false;
-      } else {
-        setState(() {
-          location2 = loglat;
-          env.lat = double.parse(location2.elementAt(0));
-          env.long = double.parse(location2.elementAt(1));
-          res = true;
-        });
-      }
+      setState(() {
+        location2 = loglat;
+        env.lat = double.parse(location2.elementAt(0));
+        env.long = double.parse(location2.elementAt(1));
+        res = true;
+      });
     }
+
     return res;
   }
 
@@ -61,9 +76,12 @@ class _MyHomePageState extends State<RegistrationPage>
         env.first = env.addresses.first;
         env.locationController.text = (env.first == null)
             ? "loading"
-            : env.first.addressLine?? "loading";
+            : env.first.addressLine ?? "loading";
       });
-    } catch (e){return;}
+    } catch (e) {
+      env.locationController.text =
+          "Unkown latitude: ${env.lat.round().toString()} , longitud: ${env.long.round().toString()}";
+    }
   }
 
   @override
@@ -77,8 +95,8 @@ class _MyHomePageState extends State<RegistrationPage>
 
   static DateTime today = DateTime.now();
 
-  DateTime firstDate =  DateTime(today.year - 90, today.month, today.day);
-  DateTime lastDate =  DateTime(today.year - 18, today.month, today.day);
+  DateTime firstDate = DateTime(today.year - 90, today.month, today.day);
+  DateTime lastDate = DateTime(today.year - 18, today.month, today.day);
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   Future<void> _selectDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
@@ -97,7 +115,12 @@ class _MyHomePageState extends State<RegistrationPage>
       FocusScope.of(context).requestFocus(FocusNode());
   }
 
-  Widget customcard(BuildContext context) {
+  Widget customcard(BuildContext context, MyCounter bolc) {
+    final FocusNode focus = FocusNode();
+    final FocusNode focus1 = FocusNode();
+    final FocusNode focus2 = FocusNode();
+    final FocusNode focus3 = FocusNode();
+    final FocusNode focus4 = FocusNode();
     return Padding(
         padding: const EdgeInsets.fromLTRB(15, 30, 15, 0),
         child: Form(
@@ -107,42 +130,50 @@ class _MyHomePageState extends State<RegistrationPage>
             },
             child: Column(children: <Widget>[
               TextFormInput(
-                text: translate(context, 'name'),
-                cController: env.usernameController,
-                prefixIcon: Icons.person_outline,
-                kt: TextInputType.visiblePassword,
-                obscureText: false,
-                readOnly: false,
-              ),
+                  text: translate(context, 'name'),
+                  cController: env.usernameController,
+                  prefixIcon: Icons.person_outline,
+                  kt: TextInputType.visiblePassword,
+                  obscureText: false,
+                  readOnly: false,
+                  onFieldSubmitted: () {
+                    focus.requestFocus();
+                  }),
               TextFormInput(
-                text: translate(context, 'email'),
-                cController: env.emailController,
-                prefixIcon: Icons.mail_outline,
-                kt: TextInputType.emailAddress,
-                obscureText: false,
-                readOnly: false,
-              ),
+                  text: translate(context, 'email'),
+                  cController: env.emailController,
+                  prefixIcon: Icons.mail_outline,
+                  kt: TextInputType.emailAddress,
+                  obscureText: false,
+                  readOnly: false,
+                  focusNode: focus,
+                  onFieldSubmitted: () {
+                    focus1.requestFocus();
+                  }),
               TextFormInput(
-                text: translate(context, 'mobile_no'),
-                cController: env.mobileNoController,
-                prefixIcon: Icons.phone,
-                kt: TextInputType.phone,
-                obscureText: _obscureText,
-                readOnly: false,
-                suffixwidget: CountryCodePicker(
-                  onChanged: _onCountryChange,
-                  initialSelection: 'SA',
-                  favorite: const <String>['+966', 'SA'],
-                  showFlagDialog: true,
-                  showFlag: false,
-                  showCountryOnly: false,
-                  showOnlyCountryWhenClosed: false,
-                  alignLeft: false,
-                  padding: isRTL == true
-                      ? const EdgeInsets.fromLTRB(0, 0, 30, 0)
-                      : const EdgeInsets.fromLTRB(30, 0, 0, 0),
-                ),
-              ),
+                  text: translate(context, 'mobile_no'),
+                  cController: env.mobileNoController,
+                  prefixIcon: Icons.phone,
+                  kt: TextInputType.phone,
+                  obscureText: _obscureText,
+                  readOnly: false,
+                  suffixwidget: CountryCodePicker(
+                    onChanged: _onCountryChange,
+                    initialSelection: 'SA',
+                    favorite: const <String>['+966', 'SA'],
+                    showFlagDialog: true,
+                    showFlag: false,
+                    showCountryOnly: false,
+                    showOnlyCountryWhenClosed: false,
+                    alignLeft: false,
+                    padding: isRTL == true
+                        ? const EdgeInsets.fromLTRB(0, 0, 32, 0)
+                        : const EdgeInsets.fromLTRB(32, 0, 0, 0),
+                  ),
+                  focusNode: focus1,
+                  onFieldSubmitted: () {
+                    focus2.requestFocus();
+                  }),
               TextFormInput(
                 text: translate(context, 'password'),
                 cController: env.passwordController,
@@ -162,6 +193,7 @@ class _MyHomePageState extends State<RegistrationPage>
                   },
                 ),
                 obscureText: _obscureText,
+                focusNode: focus2,
               ),
               TextFormInput(
                 text: translate(context, 'birth_date'),
@@ -169,12 +201,15 @@ class _MyHomePageState extends State<RegistrationPage>
                 prefixIcon: Icons.date_range,
                 kt: TextInputType.visiblePassword,
                 obscureText: _obscureText,
-                readOnly: false,
+                readOnly: true,
+                onTab: () {
+                  _selectDate(context);
+                },
                 suffixwidget: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     Text("${today.toLocal()}".split(' ')[0]),
-                   const SizedBox(
+                    const SizedBox(
                       height: 20.0,
                     ),
                     IconButton(
@@ -188,6 +223,7 @@ class _MyHomePageState extends State<RegistrationPage>
                     ),
                   ],
                 ),
+                focusNode: focus3,
               ),
               TextFormInput(
                 text: translate(context, 'get_location'),
@@ -197,20 +233,50 @@ class _MyHomePageState extends State<RegistrationPage>
                 readOnly: true,
                 onTab: () async {
                   try {
+                    bolc.togelocationloading(true);
+
                     if (await updateLocation) {
-                      location.onLocationChanged
-                          .listen((LocationData currentLocation) {
-                        getLocationName();
-                      });
-                    } else {}
-                  } catch (e) {return;}
+                      await getLocationName();
+                      bolc.togelocationloading(false);
+                    } else {
+                      Vibration.vibrate(duration: 400);
+                      bolc.togelocationloading(false);
+
+                      Scaffold.of(context).showSnackBar(snackBar);
+                    }
+                  } catch (e) {
+                    Vibration.vibrate(duration: 400);
+                    bolc.togelocationloading(false);
+                    Scaffold.of(context).showSnackBar(snackBar);
+                  }
                 },
                 suffixwidget: IconButton(
                   icon: Icon(Icons.add_location),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(
+                      context,
+                      '/AutoLocate',
+                    );
+                    Provider.of<MyCounter>(context).togelocationloading(false);
+                  },
                 ),
                 obscureText: _obscureText,
+                focusNode: focus4,
               ),
+              Container(
+                margin: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                ),
+                child: bolc.visibilityObs
+                    ? Row(
+                        children: const <Widget>[
+                          Expanded(
+                            child: spinkit,
+                          ),
+                        ],
+                      )
+                    : Container(),
+              )
             ])));
   }
 
@@ -219,71 +285,73 @@ class _MyHomePageState extends State<RegistrationPage>
     final MyCounter bolc = Provider.of<MyCounter>(context);
     return Scaffold(
       appBar: AppBar(),
-      body: GestureDetector(
-        onTap: () {
-          FocusScope.of(context).requestFocus(FocusNode());
-        },
-        child:  ListView(
-          children: <Widget>[
-            const SizedBox(height: 20),
-            Text(translate(context, 'account_creation'),
-                textAlign: TextAlign.center, style: env.mystyle2),
-           const SizedBox(height: 15),
-            Text(
-              translate(context, 'please_check'),
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontWeight: FontWeight.values.first,
-                color:const Color(0xFF303030),
-                fontSize: 20,
+      body: Builder(
+        builder: (BuildContext context) => GestureDetector(
+          onTap: () {
+            SystemChannels.textInput.invokeMethod<String>('TextInput.hide');
+          },
+          child: ListView(
+            children: <Widget>[
+              const SizedBox(height: 16),
+              Text(translate(context, 'account_creation'),
+                  textAlign: TextAlign.center, style: env.mystyle2),
+              const SizedBox(height: 8),
+              Text(
+                translate(context, 'please_check'),
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontWeight: FontWeight.values.first,
+                  color: const Color(0xFF303030),
+                  fontSize: 20,
+                ),
               ),
-            ),
-            customcard(context),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(30, 30, 30, 30),
-              child: RaisedButton(
-                  shape:  RoundedRectangleBorder(
-                      borderRadius:  BorderRadius.circular(18.0),
-                      side: const BorderSide(color: Colors.orange)),
-                  onPressed: () {
-                    bolc.changechild(
-                      translate(context, 'Regisration'),
-                    );
-                    bolc.togelf();
-                    Navigator.pushNamed(
-                      context,
-                      '/Log',
-                      arguments: null,
-                    );
-                    _formKey.currentState.validate();
-                    bolc.togelf();
-                  },
-                  color: Colors.deepOrangeAccent,
-                  textColor: Colors.white,
-                  child: bolc.returnchild(translate(context, 'Regisration'))),
-            ),
-            Padding(
-                padding: const EdgeInsets.fromLTRB(30, 0, 30, 10),
-                child: Divider(color: Colors.black)),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Flexible(
-                  child: Text(
-                    translate(context, 'problem_in_regisration'),
-                    style: env.mystyle,
+              customcard(context, bolc),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(32, 16, 32, 16),
+                child: RaisedButton(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(18.0),
+                        side: const BorderSide(color: Colors.orange)),
+                    onPressed: () {
+                      bolc.changechild(
+                        translate(context, 'Regisration'),
+                      );
+                      bolc.togelf();
+                      Navigator.pushNamed(
+                        context,
+                        '/Log',
+                        arguments: null,
+                      );
+                      _formKey.currentState.validate();
+                      bolc.togelf();
+                    },
+                    color: Colors.deepOrangeAccent,
+                    textColor: Colors.white,
+                    child: bolc.returnchild(translate(context, 'Regisration'))),
+              ),
+              const Padding(
+                  padding: EdgeInsets.fromLTRB(30, 0, 30, 10),
+                  child: Divider(color: Colors.black)),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Flexible(
+                    child: Text(
+                      translate(context, 'problem_in_regisration'),
+                      style: env.mystyle,
+                    ),
                   ),
-                ),
-                Flexible(
-                  child: ButtonToUse(
-                    translate(context, 'tech_support'),
-                    fw: FontWeight.bold,
-                    fc: Colors.green,
+                  Flexible(
+                    child: ButtonToUse(
+                      translate(context, 'tech_support'),
+                      fw: FontWeight.bold,
+                      fc: Colors.green,
+                    ),
                   ),
-                ),
-              ],
-            ),
-          ],
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -291,6 +359,5 @@ class _MyHomePageState extends State<RegistrationPage>
 
   void _onCountryChange(CountryCode countryCode) {
     FocusScope.of(context).requestFocus(FocusNode());
-    print("New Country selected: " + countryCode.toString());
   }
 }

@@ -149,7 +149,7 @@ final ScreenArguments args = ModalRoute.of(context).settings.arguments as Screen
                 child: FlatButton(
                   shape:  RoundedRectangleBorder(
                       borderRadius:  BorderRadius.circular(20.0),
-                      side: BorderSide(color: Colors.black)),
+                      side:const BorderSide(color: Colors.black)),
                   color: Colors.white,
                   textColor: Colors.orange,
                   padding: const EdgeInsets.all(8.0),
@@ -165,7 +165,7 @@ final ScreenArguments args = ModalRoute.of(context).settings.arguments as Screen
                   child: RaisedButton(
                       shape:  RoundedRectangleBorder(
                           borderRadius:  BorderRadius.circular(18.0),
-                          side: BorderSide(color: Colors.orange)),
+                          side:const BorderSide(color: Colors.orange)),
                       onPressed: () {
                         bolc.changechild(
                           translate(context, 'aprove'),
@@ -180,8 +180,8 @@ final ScreenArguments args = ModalRoute.of(context).settings.arguments as Screen
                       color: Colors.deepOrangeAccent,
                       textColor: Colors.white,
                       child: bolc.returnchild(translate(context, 'aprove')))),
-              Padding(
-                  padding: const EdgeInsets.fromLTRB(30, 0, 30, 10),
+             const Padding(
+                  padding:  EdgeInsets.fromLTRB(30, 0, 30, 10),
                   child: Divider(color: Colors.black)),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,

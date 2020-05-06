@@ -10,6 +10,7 @@ import 'env.dart' as env;
 import 'screens/login_screen.dart';
 import 'screens/octions.dart';
 import 'screens/pincode.dart';
+import 'screens/setLocation.dart';
 import 'screens/settings.dart';
 import 'screens/shop_details.dart';
 
@@ -42,6 +43,7 @@ class MyApp extends StatelessWidget {
           '/AdSe': (BuildContext context) => const AdvancedSearch(),
           '/ShDe': (BuildContext context) => const ShopDetails(),
           '/Sett': (BuildContext context) => const Settings(),
+          '/AutoLocate': (BuildContext context) => const AutoLocate(lat:59 , long: 9.6),
         },
         theme: ThemeData(
           primaryColor: Colors.orange,

@@ -7,7 +7,7 @@ import 'package:flutter/widgets.dart';
 class TextFormInput extends StatelessWidget {
 
 
-  const TextFormInput({Key key, this.text, this.cController, this.prefixIcon, this.kt, this.y, this.obscureText, this.suffixwidget, this.readOnly, this.onTab}) : super(key: key);
+  const TextFormInput({Key key, this.text, this.cController, this.prefixIcon, this.kt, this.y, this.obscureText, this.suffixwidget, this.readOnly, this.onTab, this.focusNode, this.nextfocusNode, this.onFieldSubmitted}) : super(key: key);
     final String text;
   final TextEditingController cController;
  final  IconData prefixIcon;
@@ -17,6 +17,9 @@ class TextFormInput extends StatelessWidget {
   final Widget suffixwidget;
   final bool readOnly;
  final  Function onTab;
+ final FocusNode focusNode;
+ final FocusNode nextfocusNode;
+  final  Function onFieldSubmitted;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -24,9 +27,9 @@ class TextFormInput extends StatelessWidget {
       child: TextFormField(
         readOnly: readOnly,
         keyboardType: kt,
-        onTap:()=> onTab,
+        onTap:(){onTab();},
         controller: cController,
-        style:  TextStyle(
+        style:const  TextStyle(
           color: Colors.black,
           fontSize: 15,
         ),
@@ -55,6 +58,8 @@ class TextFormInput extends StatelessWidget {
             contentPadding:const EdgeInsets.symmetric(vertical: 0),
             prefixIcon: Icon(prefixIcon),
             suffixIcon: suffixwidget),
+            focusNode: focusNode,
+               onFieldSubmitted:(String v){ onFieldSubmitted();}
       ),
     );
   }

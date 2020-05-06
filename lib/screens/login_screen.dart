@@ -39,7 +39,7 @@ class _MyHomePageState extends State<LoginScreenPage>
         // onFieldSubmitted: handleSubmission,
         keyboardType: kt,
         controller: cController,
-        style: TextStyle(
+        style:const TextStyle(
           color: Colors.black,
           fontSize: 15,
         ),
@@ -171,7 +171,7 @@ final bool isRTL = Directionality.of(context) == TextDirection.rtl;
               child: RaisedButton(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(18.0),
-                      side: BorderSide(color: Colors.orange)),
+                      side:const BorderSide(color: Colors.orange)),
                   onPressed: () {
                     bolc.togelf();
                     Navigator.pushNamed(

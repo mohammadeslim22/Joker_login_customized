@@ -10,6 +10,8 @@ import 'package:location/location.dart';
 import 'package:geocoder/geocoder.dart';
 import '../env.dart' as env;
 import '../functions.dart';
+import 'package:provider/provider.dart';
+import '../counter.dart';
 
 class AutoLocate extends StatefulWidget {
   const AutoLocate({Key key, this.long, this.lat}) : super(key: key);
@@ -49,7 +51,6 @@ class _AutoLocateState extends State<AutoLocate> {
   Coordinates coordinates;
   List<Address> addresses;
   Address address;
-
   @override
   void initState() {
     super.initState();
@@ -59,8 +60,11 @@ class _AutoLocateState extends State<AutoLocate> {
 
   @override
   void dispose() {
+    Provider.of<MyCounter>(context).togelocationloading(false);
+
     super.dispose();
     getPositionSubscription?.cancel();
+    print("what the fuck merry !!");
   }
 
   Future<void> getLocationName(double long, double lat) async {
@@ -121,10 +125,10 @@ class _AutoLocateState extends State<AutoLocate> {
               child: Column(
                 children: <Widget>[
                   AppBar(
-                    iconTheme: IconThemeData(color: Colors.black),
+                    iconTheme: const IconThemeData(color: Colors.black),
                     title: Text(
                       translate(context, 'set_ur_location'),
-                      style: TextStyle(color: Colors.black),
+                      style: const TextStyle(color: Colors.black),
                     ),
                     elevation: 0,
                     backgroundColor: env.trans,
@@ -144,7 +148,7 @@ class _AutoLocateState extends State<AutoLocate> {
                               address == null
                                   ? 'Loading'
                                   : address.addressLine ?? '',
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 11),
                             ),
                             Text(
@@ -252,27 +256,32 @@ class _AutoLocateState extends State<AutoLocate> {
   }
 
   Future<void> _animateToUser() async {
-    final Uint8List markerIcon =
-        await getBytesFromAsset('assets/images/logo.png', 100);
-    await location.getLocation().then((LocationData value) {
-      mapController.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
-        target: LatLng(value.latitude, value.longitude),
-        zoom: 13,
-      )));
-      getPositionSubscription =
-          location.onLocationChanged.listen((LocationData value) {
-        final Marker marker = Marker(
-          markerId: MarkerId('current_location'),
-          position: LatLng(value.latitude, value.longitude),
-          icon: BitmapDescriptor.fromBytes(markerIcon),
-        );
-        _addMarker(marker);
+    try {
+      final Uint8List markerIcon =
+          await getBytesFromAsset('assets/images/logo.png', 100);
+      await location.getLocation().then((LocationData value) {
+        mapController
+            .animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
+          target: LatLng(value.latitude, value.longitude),
+          zoom: 13,
+        )));
+        getPositionSubscription =
+            location.onLocationChanged.listen((LocationData value) {
+          final Marker marker = Marker(
+            markerId: MarkerId('current_location'),
+            position: LatLng(value.latitude, value.longitude),
+            icon: BitmapDescriptor.fromBytes(markerIcon),
+          );
+          _addMarker(marker);
+        });
+        setState(() {
+          lat = value.latitude;
+          long = value.longitude;
+        });
       });
-      setState(() {
-        lat = value.latitude;
-        long = value.longitude;
-      });
-    });
+    } catch (e) {
+      return;
+    }
   }
 
   Future<Uint8List> getBytesFromAsset(String path, int width) async {
@@ -298,7 +307,9 @@ class _AutoLocateState extends State<AutoLocate> {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(18.0),
                     side: const BorderSide(color: Colors.orange)),
-                onPressed: () => Navigator.pop(context),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
                 color: Colors.red,
                 textColor: Colors.white,
                 child: Text(translate(context, 'cancel'))),

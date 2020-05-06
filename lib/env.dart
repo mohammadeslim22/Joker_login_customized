@@ -61,8 +61,8 @@ Address first;
 Coordinates coordinates;
 List<Address> addresses;
 
-double lat;
-double long;
+double lat=0.0;
+double long=0.0;
 
 final TextEditingController usernameController = TextEditingController();
 final TextEditingController emailController = TextEditingController();

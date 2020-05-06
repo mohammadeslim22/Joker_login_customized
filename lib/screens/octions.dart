@@ -120,7 +120,7 @@ class OcState extends State<Oc> with TickerProviderStateMixin {
                     margin:const EdgeInsets.fromLTRB(10, 0, 10, 0),
                     child: Text(
                       translate(context, 'discount_offers'),
-                      style:  TextStyle(
+                      style:const  TextStyle(
                         fontSize: 22.0,
                         fontWeight: FontWeight.bold,
                       ),
@@ -140,7 +140,7 @@ class OcState extends State<Oc> with TickerProviderStateMixin {
             padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
             color: Colors.white,
             shape:  RoundedRectangleBorder(
-              borderRadius:  BorderRadius.circular(100),
+              borderRadius:   BorderRadius.circular(100),
             ),
             child: Row(
               children: <Widget>[

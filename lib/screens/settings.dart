@@ -78,7 +78,7 @@ class MySettingState extends State<SettingsScreen>
                 DropdownButton<String>(
                   value: dropdownValue,
                   icon: Icon(Icons.keyboard_arrow_down),
-                  style: TextStyle(color: Colors.black),
+                  style:const TextStyle(color: Colors.black),
                   items: <String>['كتم', 'صوت']
                       .map<DropdownMenuItem<String>>((String value) {
                     return DropdownMenuItem<String>(

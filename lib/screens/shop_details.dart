@@ -126,7 +126,7 @@ class ShopDetailsPage extends State<ShopDetails> with TickerProviderStateMixin {
                             countBuilder: (int c, bool b, String i) {
                               return Text(
                                 i,
-                                style: TextStyle(color: Colors.black),
+                                style: const TextStyle(color: Colors.black),
                               );
                             },
                             likeCount: lovecount,
@@ -149,7 +149,7 @@ class ShopDetailsPage extends State<ShopDetails> with TickerProviderStateMixin {
                                 countBuilder: (int c, bool b, String i) {
                                   return Text(
                                     i,
-                                    style: TextStyle(color: Colors.black),
+                                    style:const TextStyle(color: Colors.black),
                                   );
                                 },
                                 likeCount: lovecount,

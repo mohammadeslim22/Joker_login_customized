@@ -13,7 +13,7 @@ class MyCounter extends ChangeNotifier {
   List<bool> language =  <bool>[true, false, false];
   bool _visible = true;
   bool __visible = false;
-
+  bool visibilityObs = false;
   int get bottomNavIndex => _currentIndex;
   bool get visible1 => _visible;
   List<bool> get font => fontlist;
@@ -54,9 +54,6 @@ class MyCounter extends ChangeNotifier {
     favocurrentIndex = id;
     _visible = !_visible;
     __visible = !__visible;
-
-    print(visible2);
-    print(visible1);
     notifyListeners();
   }
 
@@ -99,5 +96,10 @@ class MyCounter extends ChangeNotifier {
 
   void togelf() {
     loading = !loading;
+  //  notifyListeners();
+  }
+    void togelocationloading(bool state) {
+    visibilityObs = state;
+    notifyListeners();
   }
 }

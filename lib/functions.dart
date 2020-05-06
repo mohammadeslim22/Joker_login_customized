@@ -48,17 +48,17 @@ Widget myBottomAppBar(BuildContext context) {
               children: <Widget>[
                 Icon(Icons.local_offer),
                 Text(translate(context, 'discounts')),
-                Divider(color: Colors.black)
+               const Divider(color: Colors.black)
               ],
             )),
-        VerticalDivider(color: Colors.red),
+       const VerticalDivider(color: Colors.red),
         Container(
             width: 60,
             child: Column(
               children: <Widget>[
                 Icon(Icons.local_offer),
                 Text(translate(context, 'discounts')),
-                Divider(color: Colors.black)
+              const  Divider(color: Colors.black)
               ],
             ))
       ],

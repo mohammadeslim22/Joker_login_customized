@@ -230,7 +230,7 @@ class AdvanceSearchscreen extends State<AdvancedSearch>
                     const EdgeInsets.symmetric(vertical: 12, horizontal: 25),
                 shape:  RoundedRectangleBorder(
                     borderRadius:  BorderRadius.circular(18.0),
-                    side: BorderSide(color: Colors.grey)),
+                    side:const BorderSide(color: Colors.grey)),
                 onPressed: () {},
                 color: Colors.grey,
                 textColor: Colors.white,
@@ -246,7 +246,7 @@ class AdvanceSearchscreen extends State<AdvancedSearch>
                     const EdgeInsets.symmetric(vertical: 12, horizontal: 25),
                 shape:  RoundedRectangleBorder(
                     borderRadius:  BorderRadius.circular(18.0),
-                    side: BorderSide(color: Colors.red)),
+                    side:const BorderSide(color: Colors.red)),
                 onPressed: () {},
                 color: Colors.red,
                 textColor: Colors.white,
