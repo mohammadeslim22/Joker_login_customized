@@ -3,22 +3,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class MyCounter extends ChangeNotifier {
+  MyCounter(this.isRTL);
   bool loading = false;
   static TickerProvider c;
   static String loginbase = "login";
   static AnimationController _controller;
   int _currentIndex = 0;
   int favocurrentIndex = 0;
-  List<bool> fontlist = <bool> [true, false, false];
-  List<bool> language =  <bool>[true, false, false];
+  List<bool> fontlist = <bool>[true, false, false];
+  List<bool> language = <bool>[true, false, false];
   bool _visible = true;
   bool __visible = false;
   bool visibilityObs = false;
+
   int get bottomNavIndex => _currentIndex;
   bool get visible1 => _visible;
   List<bool> get font => fontlist;
   List<bool> get lang => language;
-
+  final bool isRTL;
   bool get visible2 => __visible;
   void changebottomNavIndex(int id) {
     _currentIndex = id;
@@ -60,13 +62,13 @@ class MyCounter extends ChangeNotifier {
   final SpinKitDoubleBounce spinkit = SpinKitDoubleBounce(
       color: Colors.white, size: 50.0, controller: _controller);
   Widget f;
-   void changechild(String login) {
+  void changechild(String login) {
     loginbase = login;
     if (loading) {
       f = Padding(
-          padding:const EdgeInsets.fromLTRB(30, 20, 30, 20),
+          padding: const EdgeInsets.fromLTRB(30, 20, 30, 20),
           child: Text(loginbase,
-              style: TextStyle(
+              style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
                 fontSize: 25,
@@ -78,13 +80,13 @@ class MyCounter extends ChangeNotifier {
     notifyListeners();
   }
 
- Widget  returnchild(String login) {
+  Widget returnchild(String login) {
     loginbase = login;
     if (!loading) {
       return Padding(
-          padding:const EdgeInsets.fromLTRB(30, 20, 30, 20),
+          padding: const EdgeInsets.fromLTRB(30, 20, 30, 20),
           child: Text(loginbase,
-              style: TextStyle(
+              style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
                 fontSize: 25,
@@ -96,9 +98,10 @@ class MyCounter extends ChangeNotifier {
 
   void togelf() {
     loading = !loading;
-  //  notifyListeners();
+    //  notifyListeners();
   }
-    void togelocationloading(bool state) {
+
+  void togelocationloading(bool state) {
     visibilityObs = state;
     notifyListeners();
   }

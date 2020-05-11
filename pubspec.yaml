@@ -14,7 +14,7 @@ description: A new Flutter project.
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.2.0 <3.0.0"
+  sdk: ">=2.2.2 <3.0.0"
 
 dependencies:
   flutter:
@@ -54,6 +54,9 @@ dependencies:
   dio: ^3.0.9
   fluttertoast: ^4.0.1
   vibration: ^1.2.4
+  loading: ^1.0.2
+  flare_loading: ^2.1.1
+  flutter_zoom_drawer: ^1.0.2
   
   
 
@@ -101,11 +104,14 @@ flutter:
     - assets/images/termsandconditions.png
     - assets/images/tech_support.png
     - assets/images/logout.png
+    - assets/images/points.png
     - assets/images/elepistwo.png
     - assets/images/elepisone.png
     - assets/images/addpick.png
     - assets/images/profile.png
     - assets/images/qrcode.png
+    - assets/images/redaddreess_icon.png
+    - assets/images/discountbackground.png
     - assets/language/en.json
     - assets/language/ar.json
     - assets/language/tr.json

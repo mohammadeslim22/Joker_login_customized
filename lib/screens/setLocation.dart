@@ -309,6 +309,8 @@ class _AutoLocateState extends State<AutoLocate> {
                     side: const BorderSide(color: Colors.orange)),
                 onPressed: () {
                   Navigator.pop(context);
+                  Provider.of<MyCounter>(context).togelocationloading(false);
+                  Scaffold.of(context).hideCurrentSnackBar();
                 },
                 color: Colors.red,
                 textColor: Colors.white,
@@ -330,6 +332,8 @@ class _AutoLocateState extends State<AutoLocate> {
                   });
                   print("${env.lat},${env.long}");
                   Navigator.pop(context);
+                  Provider.of<MyCounter>(context).togelocationloading(false);
+                  Scaffold.of(context).hideCurrentSnackBar();
                 },
                 color: Colors.blue,
                 textColor: Colors.white,

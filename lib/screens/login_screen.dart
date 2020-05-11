@@ -112,7 +112,7 @@ class _MyHomePageState extends State<LoginScreenPage>
   @override
   Widget build(BuildContext context) {
     final MyCounter bolc = Provider.of<MyCounter>(context);
-final bool isRTL = Directionality.of(context) == TextDirection.rtl;
+ final bool isRTL = Directionality.of(context) == TextDirection.rtl;
     return Scaffold(
         body: GestureDetector(
       onTap: () {

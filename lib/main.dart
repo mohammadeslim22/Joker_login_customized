@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:login_page_customized/screens/advanced_search.dart';
+import 'package:login_page_customized/screens/octions_copy.dart';
 import 'package:login_page_customized/screens/registrationscreen.dart';
 import 'package:login_page_customized/screens/settings.dart';
 import 'package:provider/provider.dart';
@@ -19,8 +20,10 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final bool isRTL = Directionality.of(context) == TextDirection.rtl;
+
     return ChangeNotifierProvider<MyCounter>(
-      create: (BuildContext context) => MyCounter(),
+      create: (BuildContext context) => MyCounter(isRTL),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         supportedLocales: const <Locale>[
@@ -62,7 +65,7 @@ class MyApp extends StatelessWidget {
         //   likecount: 50,
         //   lovecount: 100,
         // ),
-         home: const Registration()
+         home:const  Registration()
       ),
     );
   }

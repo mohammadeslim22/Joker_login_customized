@@ -32,9 +32,9 @@ class _MyHomePageState extends State<Favorite>
             preferredSize:const  Size.fromHeight(50.0), 
             child: FavoritBar(),
           )),
-      body: (bolc.favocurrentIndex == 0)
-          ? DiscountsList(Discount.movieData)
-          : ShopList(Shop.movieData),
+      // body: (bolc.favocurrentIndex == 0)
+      //     ? DiscountsList(Discount.movieData)
+      //     : ShopList(Shop.movieData),
     );
   }
 }

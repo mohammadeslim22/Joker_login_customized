@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:hidden_drawer_menu/simple_hidden_drawer/bloc/simple_hidden_drawer_bloc.dart';
 
 class AppBarIcon extends StatelessWidget {
@@ -11,7 +12,8 @@ class AppBarIcon extends StatelessWidget {
     this.func,
   }) : super(key: key);
   final IconData icon;
-  final SimpleHiddenDrawerBloc contrller;
+ // final SimpleHiddenDrawerBloc contrller;
+ final ZoomDrawerController contrller;
   final Function func;
   final GlobalKey<ScaffoldState> scaffoldKey;
 

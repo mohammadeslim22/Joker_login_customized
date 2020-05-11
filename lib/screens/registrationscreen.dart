@@ -15,10 +15,7 @@ import 'package:vibration/vibration.dart';
 import 'package:flutter/services.dart';
 
 class Registration extends StatelessWidget {
-  const Registration({Key key, this.lat, this.long}) : super(key: key);
-  final double lat;
-  final double long;
-
+  const Registration({Key key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return RegistrationPage();
@@ -89,8 +86,6 @@ class _MyHomePageState extends State<RegistrationPage>
     super.initState();
   }
 
-  bool get isRTL => TextDirection.rtl == Directionality.of(context);
-
   bool _obscureText = false;
 
   static DateTime today = DateTime.now();
@@ -116,13 +111,14 @@ class _MyHomePageState extends State<RegistrationPage>
   }
 
   Widget customcard(BuildContext context, MyCounter bolc) {
+    final bool isRTL = Directionality.of(context) == TextDirection.rtl;
     final FocusNode focus = FocusNode();
     final FocusNode focus1 = FocusNode();
     final FocusNode focus2 = FocusNode();
     final FocusNode focus3 = FocusNode();
     final FocusNode focus4 = FocusNode();
     return Padding(
-        padding: const EdgeInsets.fromLTRB(15, 30, 15, 0),
+        padding: const EdgeInsets.fromLTRB(16, 32, 16, 0),
         child: Form(
             key: _formKey,
             onWillPop: () {
@@ -155,7 +151,7 @@ class _MyHomePageState extends State<RegistrationPage>
                   cController: env.mobileNoController,
                   prefixIcon: Icons.phone,
                   kt: TextInputType.phone,
-                  obscureText: _obscureText,
+                  obscureText: false,
                   readOnly: false,
                   suffixwidget: CountryCodePicker(
                     onChanged: _onCountryChange,
@@ -200,7 +196,7 @@ class _MyHomePageState extends State<RegistrationPage>
                 cController: env.birthDateController,
                 prefixIcon: Icons.date_range,
                 kt: TextInputType.visiblePassword,
-                obscureText: _obscureText,
+                obscureText: false,
                 readOnly: true,
                 onTab: () {
                   _selectDate(context);
@@ -243,11 +239,18 @@ class _MyHomePageState extends State<RegistrationPage>
                       bolc.togelocationloading(false);
 
                       Scaffold.of(context).showSnackBar(snackBar);
+                    //  Scaffold.of(context).hideCurrentSnackBar();
+                      setState(() {
+                        env.locationController.text = "Tap to set my location";
+                      });
                     }
                   } catch (e) {
                     Vibration.vibrate(duration: 400);
                     bolc.togelocationloading(false);
                     Scaffold.of(context).showSnackBar(snackBar);
+                    setState(() {
+                      env.locationController.text = "Tap to set my location";
+                    });
                   }
                 },
                 suffixwidget: IconButton(
@@ -260,7 +263,7 @@ class _MyHomePageState extends State<RegistrationPage>
                     Provider.of<MyCounter>(context).togelocationloading(false);
                   },
                 ),
-                obscureText: _obscureText,
+                obscureText: false,
                 focusNode: focus4,
               ),
               Container(

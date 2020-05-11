@@ -56,7 +56,18 @@ TextStyle redstyle = const TextStyle(
   color: Colors.red,
   fontSize: 12,
 );
-
+TextStyle mywhitestyle = const TextStyle(
+  fontWeight: FontWeight.w100,
+  color: Colors.white,
+  fontSize: 15,
+  decoration: TextDecoration.none,
+);
+TextStyle underHeadwhite = const TextStyle(
+  fontWeight: FontWeight.w100,
+  color: Colors.white,
+  fontSize: 20,
+  decoration: TextDecoration.none,
+);
 Address first;
 Coordinates coordinates;
 List<Address> addresses;

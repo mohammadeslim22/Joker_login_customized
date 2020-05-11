@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:hidden_drawer_menu/hidden_drawer/hidden_drawer_menu.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import '../env.dart' as env;
@@ -10,12 +11,14 @@ class MenuScreen extends StatefulWidget {
 }
 
 class _MenuScreenState extends State<MenuScreen> {
+  
   String notificationNo = "10";
   final String imageUrl =
       "https://celebritypets.net/wp-content/uploads/2016/12/Adriana-Lima.jpg";
   @override
   Widget build(BuildContext context) {
-    final bool isRTL = Directionality.of(context) == TextDirection.rtl;
+     final bool isRTL = Directionality.of(context) == TextDirection.rtl;
+    
     final List<MenuItem> options =  <MenuItem>[
       MenuItem(
         Icons.notifications_none,
@@ -113,11 +116,12 @@ class _MenuScreenState extends State<MenuScreen> {
     return GestureDetector(
         onTap: () {
           SimpleHiddenDrawerProvider.of(context).toggle();
+        ZoomDrawer.of(context).toggle();
         },
         child: Scaffold(
           body: Container(
             padding:
-                const EdgeInsets.only(top: 55, left: 8, bottom: 16, right: 8),
+                const EdgeInsets.only(top: 16, left: 8, bottom: 16, right: 8),
             child: ListView(
               shrinkWrap: true,
               children: <Widget>[

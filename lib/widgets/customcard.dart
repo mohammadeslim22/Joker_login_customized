@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/rendering.dart';
+import 'package:login_page_customized/models/merchant.dart';
 import '../counter.dart';
 import '../models/shop.dart';
 import '../functions.dart';
@@ -10,14 +11,14 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class ShopList extends StatefulWidget {
   const ShopList(this.movieData);
-  final List<Shop> movieData;
+  final List<Data> movieData;
   @override
   _ShopListState createState() => _ShopListState(movieData);
 }
 
 class _ShopListState extends State<ShopList> {
   _ShopListState(this.movieData);
-  final List<Shop> movieData;
+  final List<Data> movieData;
   final RefreshController _refreshController =
       RefreshController(initialRefresh: false);
   MyCounter bolc;
@@ -88,7 +89,7 @@ class _ShopListState extends State<ShopList> {
         ));
   }
 
-  Widget _itemBuilder(BuildContext context, Shop shop) {
+  Widget _itemBuilder(BuildContext context, Data shop) {
     const String text = "4";
    const String text2 = "5";
     return InkWell(
@@ -110,7 +111,7 @@ class _ShopListState extends State<ShopList> {
                     topRight: Radius.circular(12)),
                 image: DecorationImage(
                   image:  AssetImage(
-                    shop.image,
+                    shop.logo??"assets/images/shoptwo.jpg",
                   ),
                   fit: BoxFit.cover,
                 ),
